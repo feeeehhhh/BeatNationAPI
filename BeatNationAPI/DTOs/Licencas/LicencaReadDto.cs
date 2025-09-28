@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BeatNationAPI.Models
+namespace BeatNationAPI.DTOs.Licencas
 {
-    public class Licenca
+
+    // Esta é as licenças padrões do sistema, então vai ser so disponiblizado pra leitura no front end ,pois não é editavel
+    public class LicencaDto
     {
         public int Id { get; set; }
 
-        [Required]
-        public decimal Preco { get; set; }
-        public decimal Porcentagem { get; set; }
+        public decimal Porcentagem { get; set; } 
         public string NomeLicencas { get; set; } = string.Empty;
         public string Distribuicao { get; set; } = string.Empty;
         public string StreamingAudio { get; set; } = string.Empty;

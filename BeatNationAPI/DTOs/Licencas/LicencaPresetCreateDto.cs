@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
 
-namespace BeatNationAPI.Models
+namespace BeatNationAPI.DTOs.Licencas
 {
-    public class Licenca
+    public class LicencaPresetCreateDto 
     {
-        public int Id { get; set; }
-
-        [Required]
-        public decimal Preco { get; set; }
+        public int PresetId { get; set; }   // Id único do preset
+        public string NomePreset { get; set; } = string.Empty;
         public decimal Porcentagem { get; set; }
         public string NomeLicencas { get; set; } = string.Empty;
         public string Distribuicao { get; set; } = string.Empty;

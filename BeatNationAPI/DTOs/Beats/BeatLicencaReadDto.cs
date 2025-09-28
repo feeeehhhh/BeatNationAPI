@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BeatNationAPI.Models
+namespace BeatNationAPI.DTOs.Beats
 {
-    public class Licenca
+    public class BeatLicencaReadDto
     {
         public int Id { get; set; }
-
-        [Required]
-        public decimal Preco { get; set; }
-        public decimal Porcentagem { get; set; }
+        public decimal Preco { get; set; } = 
         public string NomeLicencas { get; set; } = string.Empty;
         public string Distribuicao { get; set; } = string.Empty;
         public string StreamingAudio { get; set; } = string.Empty;
@@ -19,6 +16,5 @@ namespace BeatNationAPI.Models
         public string ApresenSemFinsLucrativos { get; set; } = string.Empty;
         public bool ExibirEmissoraRadio { get; set; }
         public bool ExibirEmissoraTV { get; set; }
-
     }
 }
