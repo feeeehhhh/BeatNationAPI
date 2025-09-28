@@ -3,6 +3,6 @@
     public class BeatColabReadDto
     {
         public Guid IdUsuario { get; set; }      // ID do colaborador
-        public decimal Participacao { get; set; } // Percentual de participação
+        public decimal Participacaoo { get; set; } // Percentual de participaçãoadadadad
     }
 }
