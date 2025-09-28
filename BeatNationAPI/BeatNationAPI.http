@@ -1,0 +1,6 @@
+@BeatNationAPI_HostAddress = http://localhost:5235
+
+GET {{BeatNationAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
