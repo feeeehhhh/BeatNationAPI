@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BeatNationAPI.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace BeatNationAPI.DTOs.Licencas
 {
 
     // Esta é as licenças padrões do sistema, então vai ser so disponiblizado pra leitura no front end ,pois não é editavel
-    public class LicencaDto
+    public class LicencaReadDto
     {
         public int Id { get; set; }
 
@@ -20,5 +21,24 @@ namespace BeatNationAPI.DTOs.Licencas
         public bool ExibirEmissoraRadio { get; set; }
         public bool ExibirEmissoraTV { get; set; }
 
+        public static implicit operator LicencaReadDto(Licenca entity)
+        {
+            return new LicencaReadDto
+            {
+
+                Id = entity.Id,
+                Porcentagem = entity.Porcentagem,
+                NomeLicencas = entity.NomeLicencas,
+                Distribuicao = entity.Distribuicao,
+                StreamingAudio = entity.StreamingAudio,
+                StreamingVideo = entity.StreamingVideo,
+                Video = entity.Video,
+                ApresenFimLucrativos = entity.ApresenFimLucrativos,
+                ApresenSemFinsLucrativos = entity.ApresenSemFinsLucrativos,
+                ExibirEmissoraRadio = entity.ExibirEmissoraRadio,
+                ExibirEmissoraTV = entity.ExibirEmissoraTV,
+
+            };
+        }
     }
 }

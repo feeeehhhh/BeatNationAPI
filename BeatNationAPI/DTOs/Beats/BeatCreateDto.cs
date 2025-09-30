@@ -1,4 +1,5 @@
-﻿using BeatNationAPI.Models;
+﻿using BeatNationAPI.DTOs.Licencas;
+using BeatNationAPI.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -24,7 +25,36 @@ namespace BeatNationAPI.DTOs.Beats
 
         // Colaboradores associados ao beat
         public ICollection<BeatColabCreateDto> Colaboradores { get; set; } = new List<BeatColabCreateDto>();
-        public ICollection<LicencaPresets> Licenses { get; set; } = new List<LicencaPresets>();
+        public ICollection<LicencaPresetReadDto> Licencas { get; set; } = new List<LicencaPresetReadDto>();
+
+        public static implicit operator Beat(BeatCreateDto dto){
+            {
+                return new Beat
+                {
+                    IdUsuario = dto.IdUsuario,
+                    Nome = dto.Nome,
+                    Tags = dto.Tags,
+                    Genero = dto.Genero,
+                    Bpm = dto.Bpm,
+                    ISRC = dto.ISRC,
+                    Escala = dto.Escala,
+                    Tom = dto.Tom,
+                    UrlMP3 = dto.UrlMP3,
+                    UrlWAV = dto.UrlWAV,
+                    UrlTRACKOUT = dto.UrlTRACKOUT,
+                    UrlCAPA = dto.UrlCAPA,
+
+                    // Conversão automática pq o BeatColabCreateDto tem implicit → BeatColab
+                    Colaboradores = dto.Colaboradores?
+                    .Select(c => (BeatColab)c)
+                    .ToList() ?? new List<BeatColab>(),
+
+                    //Mesma Lógica pra licença
+                    Licencas = (ICollection<LicencaPresets>)(dto.Licencas?
+                    .Select(c => (LicencaPresetReadDto)c)
+                    .ToList() ?? new List<LicencaPresetReadDto>()),
+                };
+            }
 
     }
 }

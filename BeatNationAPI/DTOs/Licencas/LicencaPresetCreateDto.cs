@@ -1,5 +1,7 @@
 ﻿
 
+using BeatNationAPI.Models;
+
 namespace BeatNationAPI.DTOs.Licencas
 {
     public class LicencaPresetCreateDto 
@@ -17,6 +19,26 @@ namespace BeatNationAPI.DTOs.Licencas
         public string ApresenSemFinsLucrativos { get; set; } = string.Empty;
         public bool ExibirEmissoraRadio { get; set; }
         public bool ExibirEmissoraTV { get; set; }
+
+        public static implicit operator LicencaPresets(LicencaPresetCreateDto dto)
+        {
+            return new LicencaPresets
+            {
+                PresetId = dto.PresetId,
+                NomePreset = dto.NomePreset,
+                Porcentagem = dto.Porcentagem,
+                NomeLicencas = dto.NomeLicencas,
+                Distribuicao = dto.Distribuicao,
+                StreamingAudio = dto.StreamingAudio,
+                StreamingVideo = dto.StreamingVideo,
+                Video = dto.Video,
+                RoyaltShare = dto.RoyaltShare,
+                ApresenFimLucrativos = dto.ApresenFimLucrativos,
+                ApresenSemFinsLucrativos = dto.ApresenSemFinsLucrativos,
+                ExibirEmissoraRadio = dto.ExibirEmissoraRadio,
+                ExibirEmissoraTV = dto.ExibirEmissoraTV,
+            };
+        }
 
     }
 }
