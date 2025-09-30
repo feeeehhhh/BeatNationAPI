@@ -8,9 +8,8 @@ namespace BeatNationAPI.DTOs.Beats
     public class BeatCreateDto
     {
 
-
-        public Guid IdUsuario { get; set; }  // ID pegado via token
-
+        public int Id { get; set; }  
+        public int IdUsuario { get; set; }  // ID pegado via token
         public string Nome { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
         public string Genero { get; set; } = string.Empty;
@@ -25,9 +24,10 @@ namespace BeatNationAPI.DTOs.Beats
 
         // Colaboradores associados ao beat
         public ICollection<BeatColabCreateDto> Colaboradores { get; set; } = new List<BeatColabCreateDto>();
-        public ICollection<LicencaPresetReadDto> Licencas { get; set; } = new List<LicencaPresetReadDto>();
+        public ICollection<BeatLicencaReadDto> Licencas { get; set; } = new List<BeatLicencaReadDto>();
 
-        public static implicit operator Beat(BeatCreateDto dto){
+        public static implicit operator Beat(BeatCreateDto dto)
+        {
             {
                 return new Beat
                 {
@@ -49,12 +49,27 @@ namespace BeatNationAPI.DTOs.Beats
                     .Select(c => (BeatColab)c)
                     .ToList() ?? new List<BeatColab>(),
 
-                    //Mesma Lógica pra licença
-                    Licencas = (ICollection<LicencaPresets>)(dto.Licencas?
-                    .Select(c => (LicencaPresetReadDto)c)
-                    .ToList() ?? new List<LicencaPresetReadDto>()),
+                       Licencas = dto.Licencas?
+                        .Select(c => new BeatLicencas
+                        {
+                            Id = dto.Id,
+                            NomeLicencas = c.NomeLicencas,
+                            Preco = c.Preco,
+                            Distribuicao = c.Distribuicao,
+                            StreamingAudio = c.StreamingAudio,
+                            StreamingVideo = c.StreamingVideo,
+                            Video = c.Video,
+                            ApresenFimLucrativos = c.ApresenFimLucrativos,
+                            ApresenSemFinsLucrativos = c.ApresenSemFinsLucrativos,
+                            ExibirEmissoraRadio = c.ExibirEmissoraRadio,
+                            ExibirEmissoraTV = c.ExibirEmissoraTV,
+                            CriadoEm = DateTime.Now,
+                            AtualizadoEm = DateTime.Now,
+                        })
+                        .ToList() ?? new List<BeatLicencas>(),
                 };
             }
 
+        }
     }
 }

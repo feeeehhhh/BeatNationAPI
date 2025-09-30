@@ -6,7 +6,7 @@ namespace BeatNationAPI.Models
     public class Beat
     {
         public int Id { get; set; }
-        public Guid IdUsuario { get; set; }  // ID do colaborador/produtor
+        public int IdUsuario { get; set; }  // ID do colaborador/produtor
 
         [Required]
         [StringLength(200)]
@@ -29,7 +29,7 @@ namespace BeatNationAPI.Models
         public DateTime CriadoEM { get; set; }
         public DateTime AtualizadoEM { get; set ; }
 
-        public ICollection<LicencaPresets> Licencas { get; set; } = new List<LicencaPresets>();
+        public ICollection<BeatLicencas> Licencas { get; set; } = new List<BeatLicencas>();
         public ICollection<BeatColab> Colaboradores { get; set; } = new List<BeatColab>();
 
     }

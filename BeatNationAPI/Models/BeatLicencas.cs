@@ -2,11 +2,11 @@
 
 namespace BeatNationAPI.Models
 {
-    public class BeatLicencas : Licenca
+    public class BeatLicencas : LicencaPresets
     {
         public int Id { get; set; }
         // Chave estrangeira para Beat
-        public Guid BeatId { get; set; }
+        public int BeatId { get; set; }
         public Beat Beat { get; set; }
 
         

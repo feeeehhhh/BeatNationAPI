@@ -6,7 +6,7 @@ namespace BeatNationAPI.DTOs.Beats
         public class BeatReadDto
         {
             public int Id { get; set; }
-            public Guid IdUsuario { get; set; }
+            public int IdUsuario { get; set; }
             public string Nome { get; set; } = string.Empty;
             public string Tags { get; set; } = string.Empty;
             public string Genero { get; set; } = string.Empty;

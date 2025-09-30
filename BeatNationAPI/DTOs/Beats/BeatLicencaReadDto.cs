@@ -5,7 +5,7 @@ namespace BeatNationAPI.DTOs.Beats
 {
     public class BeatLicencaReadDto
     {
-        public int Id { get; set; }
+        public int Id { get; set; }     
         public decimal Preco { get; set; } 
         public string NomeLicencas { get; set; } = string.Empty;
         public string Distribuicao { get; set; } = string.Empty;
