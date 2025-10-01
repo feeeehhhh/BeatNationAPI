@@ -4,7 +4,7 @@
     {
         // Novo: vincular ao usuário que criou o preset
         public Guid IdUsuario { get; set; }  // ID do colaborador/produtor
-        public int PresetId { get; set; }   // Id único do preset
+        public Guid PresetId { get; set; }   // Id único do preset
         public string NomePreset { get; set; } = string.Empty;
 
         public DateTime CriadoEm {  get; set; }
