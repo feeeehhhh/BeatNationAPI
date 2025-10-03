@@ -1,9 +1,11 @@
+using BeatNationAPI.Models;
+
 namespace BeatNationAPI.Application.Beats.Command.Request
 {
     public class BeatCreateRequest
     {
         public Guid Id { get; set; }
-        public Guid IdUsuario { get; set; }  // ID pegado via token
+        public Guid OwnerId { get; set; }  // ID pegado via token
         public string Nome { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
         public string Genero { get; set; } = string.Empty;
@@ -11,12 +13,31 @@ namespace BeatNationAPI.Application.Beats.Command.Request
         public string ISRC { get; set; } = string.Empty;
         public string Escala { get; set; } = string.Empty;
         public string Tom { get; set; } = string.Empty;
-        public string UrlMP3 { get; set; } = string.Empty;
-        public string UrlWAV { get; set; } = string.Empty;
-        public string UrlTRACKOUT { get; set; } = string.Empty;
-        public string UrlCAPA { get; set; } = string.Empty;
-        
-        
-    
+        public string UrlMp3 { get; set; } = string.Empty;
+        public string UrlWav { get; set; } = string.Empty;
+        public string UrlTrackout { get; set; } = string.Empty;
+        public string UrlCapa { get; set; } = string.Empty;
+
+        public static implicit operator Beat(BeatCreateRequest b)
+        {
+            return new Beat
+            {
+                Id = b.Id,
+                OwnerId = b.OwnerId,
+                Nome = b.Nome,
+                Tags = b.Tags,
+                Genero = b.Genero,
+                Bpm = b.Bpm,
+                ISRC = b.ISRC,
+                Escala = b.Escala,
+                Tom = b.Tom,
+                UrlMp3 = b.UrlMp3,
+                UrlWav = b.UrlWav,
+                UrlTrackout = b.UrlTrackout,
+                UrlCapa = b.UrlCapa
+
+            };
+        }
+
     }
 }
