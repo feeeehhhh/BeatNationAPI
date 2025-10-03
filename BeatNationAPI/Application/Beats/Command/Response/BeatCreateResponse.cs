@@ -1,9 +1,8 @@
-namespace BeatNationAPI.Application.Beats.Command.Request
+namespace BeatNationAPI.Application.Beats.Command.Response
 {
-    public class BeatCreateRequest
+    public class BeatCreateResponse
     {
         public Guid Id { get; set; }
-        public Guid IdUsuario { get; set; }  // ID pegado via token
         public string Nome { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
         public string Genero { get; set; } = string.Empty;
@@ -15,8 +14,7 @@ namespace BeatNationAPI.Application.Beats.Command.Request
         public string UrlWAV { get; set; } = string.Empty;
         public string UrlTRACKOUT { get; set; } = string.Empty;
         public string UrlCAPA { get; set; } = string.Empty;
-        
-        
-    
+        public DateTime CriadoEm { get; set; }
+        public DateTime AtualizadoEm { get; set; }
     }
 }
