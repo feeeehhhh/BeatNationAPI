@@ -26,5 +26,4 @@
     <Folder Include="Controllers\" />
     <Folder Include="Data\" />
   </ItemGroup>
-
 </Project>

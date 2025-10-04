@@ -3,11 +3,12 @@ using BeatNationAPI.Application.Beats.Command.Request;
 using BeatNationAPI.Application.Beats.Command.Response;
 using BeatNationAPI.Data;
 using BeatNationAPI.Models;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Application.Handlers
 {
-   /*  public class BeatCreateHandler
+     public class BeatCreateHandler : IRequest<BeatColabCreateRequest, BeatCreatePrivateResponse>
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -17,10 +18,13 @@ namespace BeatNationAPI.Application.Handlers
             _httpContextAccessor = httpContextAccessor;
         }
 
-       public async Task<BeatCreatePublicResponse, BeatCreatePrivateResponse> Handle(BeatCreateRequest request)
+       public async Task<BeatCreatePrivateResponse> Handle(BeatCreateRequest request)
         {
 
-            var isAlready = await _context.Beats
+
+
+            // Verifica se o beat já existe
+            var isAlready = await _context.Beat
             .FirstOrDefaultAsync(b => b.Nome == request.Nome
                                     || b.ISRC == request.ISRC);
             if (isAlready != null)
@@ -34,6 +38,7 @@ namespace BeatNationAPI.Application.Handlers
                     throw new InvalidOperationException("Já existe um Beat cadastrado com esse ISRC !");
                 }
             }
+
             // Pega o id do IdUsuario via Token
             var currentUserIdString = _httpContextAccessor.HttpContext.User
             .FindFirst("id")?.Value; ;
@@ -57,10 +62,13 @@ namespace BeatNationAPI.Application.Handlers
             {
                 return (BeatCreatePrivateResponse)beat;
             }
-            else
-            {
-                return (BeatCreatePublicResponse)beat;
-            }
+         
         }
-    } */
+
+
+    }
+
+    public interface IRequest<T1, T2>
+    {
+    }
 }

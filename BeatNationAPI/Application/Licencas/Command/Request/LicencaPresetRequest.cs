@@ -74,5 +74,23 @@ public class LicencaPresetRequest
     public int ApresenSemFinsLucrativosInt => _apresenSemFinsLucrativos;
     public int ApresenFimLucrativosInt => _apresenFimLucrativos;
 
-
+    public static implicit operator PresetLicencaConfig(LicencaPresetRequest l)
+    {
+        return new PresetLicencaConfig
+        {
+            LicencaBaseId = l.LicencaBaseId,
+            PeriodoUso = l.PeriodoUsoInt,
+            Distribuicao = l.DistribuicaoInt,
+            StreamingAudio = l.StreamingAudioInt,
+            StreamingVideo = l.StreamingVideoInt,
+            Video = l.VideoInt,
+            ApresenSemFinsLucrativos = l.ApresenSemFinsLucrativosInt,
+            ApresenFimLucrativos = l.ApresenFimLucrativosInt,
+            Preco = l.Preco,
+            Porcentagem = l.Porcentagem,
+            RoyaltShare = l.RoyaltShare,
+            ExibirEmissoraRadio = l.ExibirEmissoraRadio,
+            ExibirEmissoraTV = l.ExibirEmissoraTV
+        };
+    }
 }

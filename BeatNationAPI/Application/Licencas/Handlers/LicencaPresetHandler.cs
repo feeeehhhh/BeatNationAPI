@@ -1,5 +1,7 @@
 
+using System.Runtime.InteropServices;
 using BeatNationAPI.Application.Command.Licencas.Request;
+using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Data;
 using BeatNationAPI.Models;
 using MediatR;
@@ -7,7 +9,8 @@ using MediatR;
 namespace BeatNationAPI.Application.Licencas.Command
 {
 
-    public class PresetCreateHandler : IRequestHandler<PresetCreateRequest, Guid>
+    public class PresetCreateHandler :
+        IRequestHandler<PresetCreateRequest, PresetCreateResponse>
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -15,10 +18,106 @@ namespace BeatNationAPI.Application.Licencas.Command
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+
+
+
         }
 
-        public async Task<Guid> Handle(PresetCreateRequest request, CancellationToken cancellationToken)
+        public async Task<PresetCreateResponse> Handle(PresetCreateRequest request, CancellationToken cancellationToken)
         {
+
+            //Cria as Licencas Padrões
+
+            var licencaBasica = new LicencaBase
+            {
+                Id = Guid.Parse("1"),
+                Nome = "Básica",
+
+            };
+
+            var licencaVIP = new LicencaBase
+            {
+                Id = Guid.Parse("2"),
+                Nome = "VIP",
+
+            };
+
+            var licencaExclusiva = new LicencaBase
+            {
+                Id = Guid.Parse("3"),
+                Nome = "Exclusiva",
+            };
+
+            // Adiciona no banco
+            _context.LicencaBase.AddRange(licencaBasica, licencaVIP, licencaExclusiva);
+            await _context.SaveChangesAsync(cancellationToken);
+
+
+            // Cria o preset Default
+            var presetDefault = new PresetLicenca
+            {
+                Id = Guid.NewGuid(),
+                Nome = "Default",
+                Descricao = "Preset inicial com as 3 licenças padrão",
+                Licencas = new List<PresetLicencaConfig>
+        {
+        new PresetLicencaConfig // Básica
+        {
+            Id = Guid.NewGuid(),
+            LicencaBaseId = Guid.Parse("1"), // ID da Básica
+            PeriodoUso = 1,
+            Distribuicao = 15000,
+            StreamingAudio = 20000,
+            StreamingVideo = 20000,
+            Video = 1,
+            ApresenSemFinsLucrativos = 2500,
+            ApresenFimLucrativos = 300,
+            Preco = 0,
+            Porcentagem = 20,
+            RoyaltShare = 20,
+            ExibirEmissoraRadio = true,
+            ExibirEmissoraTV = false
+        },
+        new PresetLicencaConfig // VIP
+        {
+            Id = Guid.NewGuid(),
+            LicencaBaseId = Guid.Parse("2"), // Id da licenca VIP
+            PeriodoUso = 3,
+            Distribuicao = 20000,
+            StreamingAudio = 50000,
+            StreamingVideo = 50000,
+            Video = 1,
+            ApresenSemFinsLucrativos = 5000,
+            ApresenFimLucrativos = 500,
+            Preco = 0,
+            Porcentagem = 30,
+            RoyaltShare = 20,
+            ExibirEmissoraRadio = true,
+            ExibirEmissoraTV = true
+        },
+        new PresetLicencaConfig // Exclusiva
+        {
+            Id = Guid.NewGuid(),
+            LicencaBaseId = Guid.Parse("3"), //Id da exclusiva
+            PeriodoUso = 99999, // Ilimitado
+            Distribuicao = 999999,
+            StreamingAudio = 999999,
+            StreamingVideo = 999999,
+            Video = 999999,
+            ApresenSemFinsLucrativos = 999999,
+            ApresenFimLucrativos = 999999,
+            Preco = 0,
+            Porcentagem = 100,
+            RoyaltShare = 20,
+            ExibirEmissoraRadio = true,
+            ExibirEmissoraTV = true
+        }
+    }
+            };
+            // salva o preset no banco
+            _context.PresetLicenca.Add(presetDefault);
+            await _context.SaveChangesAsync(cancellationToken);
+
 
             // Pega o id do IdUsuario via Token
             var currentUserIdString = _httpContextAccessor.HttpContext.User
@@ -51,17 +150,18 @@ namespace BeatNationAPI.Application.Licencas.Command
                     RoyaltShare = l.RoyaltShare,
                     ExibirEmissoraRadio = l.ExibirEmissoraRadio,
                     ExibirEmissoraTV = l.ExibirEmissoraTV
+                    
                 }).ToList()
             };
 
-
-
-            //_context.PresetLicenca.Add(preset);
+            // Salva no banco
+            _context.PresetLicenca.Add(preset);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return preset.Id;
+            return preset;
         }
 
     }
+
 
 }

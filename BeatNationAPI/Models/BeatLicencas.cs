@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
 
 
     
@@ -15,7 +15,7 @@ namespace BeatNationAPI.Models
 
         // Relacionamento com Licença
         public int LicencaId { get; set; }
-        public LicencaBase LicencaBase { get; set; }
+        public LicencaBase Licenca { get; set; }
     }
 }
 

@@ -13,10 +13,10 @@ namespace BeatNationAPI.Data
         // DbSets representam suas tabelas
         public DbSet<Beat> Beat { get; set; }
         public DbSet<BeatColab> BeatColab { get; set; }
+        public DbSet<BeatLicencas> BeatLicencas { get; set; }
         public DbSet<LicencaBase> LicencaBase { get; set; }
         public DbSet<PresetLicenca> PresetLicenca { get; set; }
         public DbSet<PresetLicencaConfig> PresetLicencasConfig { get; set; }
-        public DbSet<BeatLicencas> BeatLicencas { get; set; }
 
         // Configurações extras (opcional)
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -8,7 +8,7 @@ namespace BeatNationAPI.Models
         public PresetLicenca PresetLicenca { get; set; }
 
         public Guid LicencaBaseId { get; set; }
-        public LicencaBase LicencaBase { get; set; }
+        public LicencaBase Licencas { get; set; }
 
         // Configurações do preset
         public int PeriodoUso { get; set; }

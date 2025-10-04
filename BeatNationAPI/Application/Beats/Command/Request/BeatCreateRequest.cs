@@ -1,8 +1,10 @@
+using BeatNationAPI.Application.Beats.Command.Response;
 using BeatNationAPI.Models;
+using MediatR;
 
 namespace BeatNationAPI.Application.Beats.Command.Request
 {
-    public class BeatCreateRequest
+    public class BeatCreateRequest : IRequest<BeatCreatePrivateResponse>
     {
         public Guid Id { get; set; }
         public Guid OwnerId { get; set; }  // ID pegado via token
