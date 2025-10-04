@@ -11,10 +11,11 @@ namespace BeatNationAPI.Data
         }
 
         // DbSets representam suas tabelas
-        public DbSet<Beat> Beats { get; set; }
-        public DbSet<BeatColab> BeatColabs { get; set; }
-        public DbSet<Licenca> Licencas { get; set; }
-        public DbSet<LicencaPresets> LicencaPresets { get; set; }
+        public DbSet<Beat> Beat { get; set; }
+        public DbSet<BeatColab> BeatColab { get; set; }
+        public DbSet<LicencaBase> LicencaBase { get; set; }
+        public DbSet<PresetLicenca> PresetLicenca { get; set; }
+        public DbSet<PresetLicencaConfig> PresetLicencasConfig { get; set; }
         public DbSet<BeatLicencas> BeatLicencas { get; set; }
 
         // Configurações extras (opcional)
@@ -35,6 +36,14 @@ namespace BeatNationAPI.Data
                 .HasForeignKey(l => l.BeatId);
 
             // outras configurações de chave primária, índices, etc
+
+            // PresetLicenca -> PresetLicencaConfig
+            modelBuilder.Entity<PresetLicencaConfig>()
+                .HasOne(c => c.PresetLicenca)              // cada config tem 1 preset
+                .WithMany(p => p.Licencas)          // um preset tem várias configs
+                .HasForeignKey(c => c.PresetLicencaId)     // FK em PresetLicencaConfig
+                .OnDelete(DeleteBehavior.Cascade);  // se deletar o preset, apaga as configs
+
         }
     }
 }

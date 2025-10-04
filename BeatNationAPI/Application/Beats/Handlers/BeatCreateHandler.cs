@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Application.Handlers
 {
-    public class BeatCreateHandler
+   /*  public class BeatCreateHandler
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -17,7 +17,7 @@ namespace BeatNationAPI.Application.Handlers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<BeatCreateResponse> Handle(BeatCreateRequest request)
+       public async Task<BeatCreatePublicResponse, BeatCreatePrivateResponse> Handle(BeatCreateRequest request)
         {
 
             var isAlready = await _context.Beats
@@ -62,5 +62,5 @@ namespace BeatNationAPI.Application.Handlers
                 return (BeatCreatePublicResponse)beat;
             }
         }
-    }
+    } */
 }
