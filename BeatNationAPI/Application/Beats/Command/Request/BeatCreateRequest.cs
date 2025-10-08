@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BeatNationAPI.Application.Beats.Command.Request
 {
-    public class BeatCreateRequest : IRequest<BeatCreatePrivateResponse>
+    public class BeatCreateRequest : IRequest<BeatCreateResponse>
     {
         public Guid Id { get; set; }
         public Guid OwnerId { get; set; }  // ID pegado via token
@@ -19,6 +19,9 @@ namespace BeatNationAPI.Application.Beats.Command.Request
         public string UrlWav { get; set; } = string.Empty;
         public string UrlTrackout { get; set; } = string.Empty;
         public string UrlCapa { get; set; } = string.Empty;
+
+        public List<BeatColabCreateRequest>Colaboradores { get; set; } = new();
+        public List<BeatLicencaCreateRequest>BeatLicencas { get; set; } = new();
 
         public static implicit operator Beat(BeatCreateRequest b)
         {
@@ -36,7 +39,21 @@ namespace BeatNationAPI.Application.Beats.Command.Request
                 UrlMp3 = b.UrlMp3,
                 UrlWav = b.UrlWav,
                 UrlTrackout = b.UrlTrackout,
-                UrlCapa = b.UrlCapa
+                UrlCapa = b.UrlCapa,
+                Colaboradores = b.Colaboradores?
+                .Select(l =>new BeatColab
+                {
+                    IdUsuario = l.IdUsuario,
+                    Participacao = l.Participacao
+                })
+                .ToList(),
+                BeatLicencas = b.BeatLicencas?
+                .Select(l => new BeatLicencas
+                {   
+                    Id = l.Id,
+                    PresetLicencaId = l.PresetLicencaId
+                })
+                .ToList()
 
             };
         }

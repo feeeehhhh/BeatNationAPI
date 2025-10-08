@@ -11,10 +11,12 @@ namespace BeatNationAPI.Models
 
         // Relacionamento com Beat
         public Guid BeatId { get; set; }
-        public Beat Beat { get; set; }
+        public Beat? Beat { get; set; } // agora pode ser nulo
 
+
+        public decimal Preco { get; set; }
         // Relacionamento com Licença
-        public int LicencaId { get; set; }
+        public Guid PresetLicencaId { get; set; }
         public LicencaBase Licenca { get; set; }
     }
 }

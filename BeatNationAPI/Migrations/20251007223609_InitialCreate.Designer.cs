@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeatNationAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251004020352_version1")]
-    partial class version1
+    [Migration("20251007223609_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,7 +85,7 @@ namespace BeatNationAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Beat");
+                    b.ToTable("Beats");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.BeatColab", b =>
@@ -107,7 +107,7 @@ namespace BeatNationAPI.Migrations
 
                     b.HasIndex("BeatId");
 
-                    b.ToTable("BeatColab");
+                    b.ToTable("BeatColabs");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.BeatLicencas", b =>
@@ -124,6 +124,9 @@ namespace BeatNationAPI.Migrations
 
                     b.Property<Guid>("LicencaId1")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -146,7 +149,7 @@ namespace BeatNationAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LicencaBase");
+                    b.ToTable("LicencasBase");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.PresetLicenca", b =>
@@ -168,7 +171,7 @@ namespace BeatNationAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PresetLicenca");
+                    b.ToTable("PresetLicencas");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.PresetLicencaConfig", b =>
@@ -242,7 +245,7 @@ namespace BeatNationAPI.Migrations
             modelBuilder.Entity("BeatNationAPI.Models.BeatLicencas", b =>
                 {
                     b.HasOne("BeatNationAPI.Models.Beat", "Beat")
-                        .WithMany("Licencas")
+                        .WithMany("BeatLicencas")
                         .HasForeignKey("BeatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -279,9 +282,9 @@ namespace BeatNationAPI.Migrations
 
             modelBuilder.Entity("BeatNationAPI.Models.Beat", b =>
                 {
-                    b.Navigation("Colaboradores");
+                    b.Navigation("BeatLicencas");
 
-                    b.Navigation("Licencas");
+                    b.Navigation("Colaboradores");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.LicencaBase", b =>

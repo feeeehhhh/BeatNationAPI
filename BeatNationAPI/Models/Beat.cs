@@ -21,7 +21,7 @@ namespace BeatNationAPI.Models
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set ; }
 
-        public ICollection<BeatLicencas> Licencas { get; set; } = new List<BeatLicencas>();
+        public ICollection<BeatLicencas> BeatLicencas { get; set; } = new List<BeatLicencas>();
         public ICollection<BeatColab> Colaboradores { get; set; } = new List<BeatColab>();
 
     }

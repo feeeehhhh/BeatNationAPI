@@ -49,14 +49,14 @@ namespace BeatNationAPI.Application.Licencas.Command
             };
 
             // Adiciona no banco
-            _context.LicencaBase.AddRange(licencaBasica, licencaVIP, licencaExclusiva);
+            _context.LicencasBase.AddRange(licencaBasica, licencaVIP, licencaExclusiva);
             await _context.SaveChangesAsync(cancellationToken);
 
 
             // Cria o preset Default
             var presetDefault = new PresetLicenca
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("97806a3e-ea4d-4c0f-a82f-664f9016990f"),
                 Nome = "Default",
                 Descricao = "Preset inicial com as 3 licenças padrão",
                 Licencas = new List<PresetLicencaConfig>
@@ -64,7 +64,7 @@ namespace BeatNationAPI.Application.Licencas.Command
         new PresetLicencaConfig // Básica
         {
             Id = Guid.NewGuid(),
-            LicencaBaseId = Guid.Parse("1"), // ID da Básica
+            LicencaBaseId = Guid.Parse("724c5c55-ecb3-4fc1-a2ad-d77a02833d24"), // ID da Básica
             PeriodoUso = 1,
             Distribuicao = 15000,
             StreamingAudio = 20000,
@@ -81,7 +81,7 @@ namespace BeatNationAPI.Application.Licencas.Command
         new PresetLicencaConfig // VIP
         {
             Id = Guid.NewGuid(),
-            LicencaBaseId = Guid.Parse("2"), // Id da licenca VIP
+            LicencaBaseId = Guid.Parse("75974e74-12de-41e4-9fca-f9b87e04e5a6"), // Id da licenca VIP
             PeriodoUso = 3,
             Distribuicao = 20000,
             StreamingAudio = 50000,
@@ -98,7 +98,7 @@ namespace BeatNationAPI.Application.Licencas.Command
         new PresetLicencaConfig // Exclusiva
         {
             Id = Guid.NewGuid(),
-            LicencaBaseId = Guid.Parse("3"), //Id da exclusiva
+            LicencaBaseId = Guid.Parse("ead25d1b-6568-4913-98cd-2f363f235d8b"), //Id da exclusiva
             PeriodoUso = 99999, // Ilimitado
             Distribuicao = 999999,
             StreamingAudio = 999999,
@@ -115,7 +115,7 @@ namespace BeatNationAPI.Application.Licencas.Command
     }
             };
             // salva o preset no banco
-            _context.PresetLicenca.Add(presetDefault);
+            _context.PresetLicencas.Add(presetDefault);
             await _context.SaveChangesAsync(cancellationToken);
 
 
@@ -155,7 +155,7 @@ namespace BeatNationAPI.Application.Licencas.Command
             };
 
             // Salva no banco
-            _context.PresetLicenca.Add(preset);
+            _context.PresetLicencas.Add(preset);
             await _context.SaveChangesAsync(cancellationToken);
 
             return preset;

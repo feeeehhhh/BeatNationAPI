@@ -11,11 +11,11 @@ namespace BeatNationAPI.Data
         }
 
         // DbSets representam suas tabelas
-        public DbSet<Beat> Beat { get; set; }
-        public DbSet<BeatColab> BeatColab { get; set; }
+        public DbSet<Beat> Beats { get; set; }
+        public DbSet<BeatColab> BeatColabs { get; set; }
         public DbSet<BeatLicencas> BeatLicencas { get; set; }
-        public DbSet<LicencaBase> LicencaBase { get; set; }
-        public DbSet<PresetLicenca> PresetLicenca { get; set; }
+        public DbSet<LicencaBase> LicencasBase { get; set; }
+        public DbSet<PresetLicenca> PresetLicencas { get; set; }
         public DbSet<PresetLicencaConfig> PresetLicencasConfig { get; set; }
 
         // Configurações extras (opcional)
@@ -32,7 +32,7 @@ namespace BeatNationAPI.Data
             // Exemplo: relação 1:N Beat -> BeatLicencas
             modelBuilder.Entity<BeatLicencas>()
                 .HasOne(l => l.Beat)
-                .WithMany(b => b.Licencas)
+                .WithMany(b => b.BeatLicencas)
                 .HasForeignKey(l => l.BeatId);
 
             // outras configurações de chave primária, índices, etc
