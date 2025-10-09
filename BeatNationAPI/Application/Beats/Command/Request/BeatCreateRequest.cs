@@ -6,7 +6,7 @@ namespace BeatNationAPI.Application.Beats.Command.Request
 {
     public class BeatCreateRequest : IRequest<BeatCreateResponse>
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public Guid OwnerId { get; set; }  // ID pegado via token
         public string Nome { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
