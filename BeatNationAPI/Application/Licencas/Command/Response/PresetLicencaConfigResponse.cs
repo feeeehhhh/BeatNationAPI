@@ -10,6 +10,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
 
         public Guid Id { get; set; }
         public Guid LicencaBaseId { get; set; }
+        public string LicencaBaseNome { get; set; }
         public int PeriodoUso { get; set; }
         public int Distribuicao { get; set; }
         public int StreamingAudio { get; set; }
@@ -29,6 +30,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
             {
                 Id = l.Id,
                 LicencaBaseId = l.LicencaBaseId,
+                LicencaBaseNome = l.LicencaBaseNome,
                 PeriodoUso = l.PeriodoUso,
                 Distribuicao = l.Distribuicao,
                 StreamingAudio = l.StreamingAudio,

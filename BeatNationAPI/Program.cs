@@ -42,7 +42,7 @@ if (retryCount == 0)
 }
 
 builder.Services.AddControllers();
-// Por esta linha:
+
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -56,6 +56,19 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 
+// Configura CORS para permitir requisições do frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:3000") // origem do frontend
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials(); // só se estiver usando cookies/autenticação
+        });
+});
 
 var app = builder.Build();
 
@@ -64,6 +77,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minha API v1"));
 }
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

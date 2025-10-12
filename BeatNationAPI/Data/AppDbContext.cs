@@ -76,6 +76,7 @@ namespace BeatNationAPI.Data
 
                                 Id = presetConfigBasicaId,
                                 LicencaBaseId = licencaBasicaId,
+                                LicencaBaseNome = "Básica",
                                 PresetLicencaId = defaultPresetId, // ID da Básica
                                 PeriodoUso = 1,
                                 Distribuicao = 15000,
@@ -95,6 +96,7 @@ namespace BeatNationAPI.Data
 
             Id = presetConfigVIPId,
             PresetLicencaId = defaultPresetId,
+            LicencaBaseNome = "VIP",
             LicencaBaseId = licencaVIPId, // Id da licenca VIP
             PeriodoUso = 3,
             Distribuicao = 20000,
@@ -114,6 +116,7 @@ namespace BeatNationAPI.Data
 
             Id = presetConfigExclusivaId,
             LicencaBaseId = licencaExclusivaId,
+            LicencaBaseNome = "Exclusiva",
             PresetLicencaId = defaultPresetId, //Id da exclusiva
             PeriodoUso = 99999, // Ilimitado
             Distribuicao = 999999,

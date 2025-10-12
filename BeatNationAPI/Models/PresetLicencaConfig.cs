@@ -3,8 +3,9 @@ namespace BeatNationAPI.Models
     public class PresetLicencaConfig
     {
         public Guid Id { get; set; }
-
+        
         public Guid PresetLicencaId { get; set; }
+        public string LicencaBaseNome { get; set; }
         public PresetLicenca PresetLicenca { get; set; }
 
         public Guid LicencaBaseId { get; set; }
