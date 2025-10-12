@@ -10,7 +10,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
                 public string Nome { get; set; }
                 public string Descricao { get; set; }
                 public Guid? OwnerId { get; set; }
-                public List<LicencaPresetRequest> Licencas { get; set; } = new();
+                public List<PresetLicencaConfigRequest> Licencas { get; set; } = new();
 
 
                 public static implicit operator PresetLicenca(PresetCreateRequest p)

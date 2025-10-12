@@ -12,12 +12,22 @@ namespace BeatNationAPI.Controllers
         [HttpPost]
         [Route("presetcreate")]
         public async Task<PresetCreateResponse> Create(
-           [FromServices]IMediator mediator,
-           [FromBody]PresetCreateRequest command
+           [FromServices] IMediator mediator,
+           [FromBody] PresetCreateRequest command
          )
         {
-            return  await mediator.Send(command);
+            return await mediator.Send(command);
         }
-       
+
+
+        [HttpGet]
+        [Route("presets")]
+        public async Task<ActionResult<List<PresetCreateResponse>>> GetAllPresets(
+        [FromServices] IMediator mediator)
+        {
+            var response = await mediator.Send(new PresetGetAllRequest());
+            return Ok(response);
+        }
+
     }
 }

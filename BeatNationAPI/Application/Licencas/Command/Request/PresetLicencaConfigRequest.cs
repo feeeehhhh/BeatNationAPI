@@ -1,9 +1,11 @@
+using BeatNationAPI.Application.Command.Licencas.Request;
 using BeatNationAPI.Models;
+using MediatR;
 
-public class LicencaPresetRequest
+public class PresetLicencaConfigRequest : IRequest<PresetLicencaConfigResponse>
 {
 
-
+    public Guid  Id { get; set; }
     public Guid LicencaBaseId { get; set; }
 
     // Backing fields
@@ -74,10 +76,11 @@ public class LicencaPresetRequest
     public int ApresenSemFinsLucrativosInt => _apresenSemFinsLucrativos;
     public int ApresenFimLucrativosInt => _apresenFimLucrativos;
 
-    public static implicit operator PresetLicencaConfig(LicencaPresetRequest l)
+    public static implicit operator PresetLicencaConfig(PresetLicencaConfigRequest l)
     {
         return new PresetLicencaConfig
         {
+            Id = l.Id,
             LicencaBaseId = l.LicencaBaseId,
             PeriodoUso = l.PeriodoUsoInt,
             Distribuicao = l.DistribuicaoInt,
