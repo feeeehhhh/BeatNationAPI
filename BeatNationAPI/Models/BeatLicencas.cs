@@ -1,14 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
 
+
+    
 namespace BeatNationAPI.Models
 {
-    public class BeatLicencas : Licenca
+    public class BeatLicencas
     {
-        public int Id { get; set; }
-        // Chave estrangeira para Beat
-        public Guid BeatId { get; set; }
-        public Beat Beat { get; set; }
-
         
+        public Guid Id { get; set; }
+
+        // Relacionamento com Beat
+        public Guid BeatId { get; set; }
+        public Beat? Beat { get; set; } // agora pode ser nulo
+
+
+        public decimal Preco { get; set; }
+        // Relacionamento com Licença
+        public Guid PresetLicencaId { get; set; }
+        public LicencaBase Licenca { get; set; }
     }
 }
+
+        
+    
