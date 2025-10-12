@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: beatapi
     environment:
-      ConnectionStrings__SQL: "Server=DBBeatnation,1433;Database=master;User Id=sa;Password=Felhada131$;Encrypt=True;TrustServerCertificate=True;"
+      ConnectionStrings__SQL: "Server=DBBeatnation,1433;Database=master;User Id=sa;Password=Felhada131$; Encrypt=True; TrustServerCertificate=True;"
       DOTNET_ENVIRONMENT: "Development"
     ports:
       - "5000:8080"

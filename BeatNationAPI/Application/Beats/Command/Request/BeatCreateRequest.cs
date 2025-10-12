@@ -6,12 +6,12 @@ namespace BeatNationAPI.Application.Beats.Command.Request
 {
     public class BeatCreateRequest : IRequest<BeatCreateResponse>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Guid OwnerId { get; set; }  // ID pegado via token
         public string Nome { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
         public string Genero { get; set; } = string.Empty;
-        public int Bpm { get; set; }
+        public int Bpm { get; set; } 
         public string ISRC { get; set; } = string.Empty;
         public string Escala { get; set; } = string.Empty;
         public string Tom { get; set; } = string.Empty;

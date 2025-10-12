@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeatNationAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251007223609_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251011225211_migrationv1")]
+    partial class migrationv1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,10 @@ namespace BeatNationAPI.Migrations
                     b.Property<decimal>("Participacao")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BeatId");
@@ -119,20 +123,20 @@ namespace BeatNationAPI.Migrations
                     b.Property<Guid>("BeatId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("LicencaId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("LicencaId1")
+                    b.Property<Guid>("LicencaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("PresetLicencaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BeatId");
 
-                    b.HasIndex("LicencaId1");
+                    b.HasIndex("LicencaId");
 
                     b.ToTable("BeatLicencas");
                 });
@@ -252,7 +256,7 @@ namespace BeatNationAPI.Migrations
 
                     b.HasOne("BeatNationAPI.Models.LicencaBase", "Licenca")
                         .WithMany()
-                        .HasForeignKey("LicencaId1")
+                        .HasForeignKey("LicencaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
