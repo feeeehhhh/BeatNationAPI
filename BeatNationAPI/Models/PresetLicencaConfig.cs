@@ -1,24 +1,62 @@
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
 namespace BeatNationAPI.Models
 {
+    public class ValorOuIlimitado
+    {
+        public string Valor { get; set; }
+
+        public bool IsIlimitado => Valor?.Equals("Ilimitada", StringComparison.OrdinalIgnoreCase) == true;
+
+        public int? Numero
+        {
+            get
+            {
+                if (int.TryParse(Valor, out var numero))
+                    return numero;
+                return null;
+            }
+        }
+
+        public static ValorOuIlimitado CriarIlimitado()
+        {
+            return new ValorOuIlimitado { Valor = "Ilimitada" };
+        }
+
+        public static ValorOuIlimitado CriarComNumero(int numero)
+        {
+            return new ValorOuIlimitado { Valor = numero.ToString() };
+        }
+
+        public override string ToString() => Valor ?? "0";
+    }
     public class PresetLicencaConfig
     {
+
+
         public Guid Id { get; set; }
-        
+
         public Guid PresetLicencaId { get; set; }
-        public string LicencaBaseNome { get; set; }
+        public string LicencaNome { get; set; }
+
+        [JsonIgnore] // Evita referência circular na serialização JSON
         public PresetLicenca PresetLicenca { get; set; }
 
-        public Guid LicencaBaseId { get; set; }
-        public LicencaBase Licencas { get; set; }
+        public Guid LicencaId { get; set; }
+
+        [JsonIgnore]
+        public Licencas Licencas { get; set; }
 
         // Configurações do preset
-        public int PeriodoUso { get; set; }
-        public int Distribuicao { get; set; }
-        public int StreamingAudio { get; set; }
-        public int StreamingVideo { get; set; }
-        public int Video { get; set; }
-        public int ApresenSemFinsLucrativos { get; set; }
-        public int ApresenFimLucrativos { get; set; }
+        
+        public required ValorOuIlimitado PeriodoUso { get; set; }
+        public required ValorOuIlimitado Distribuicao { get; set; }
+        public required ValorOuIlimitado StreamingAudio { get; set; }
+        public required ValorOuIlimitado StreamingVideo { get; set; }
+        public required ValorOuIlimitado Video { get; set; }
+        public required ValorOuIlimitado ApresenSemFinsLucrativos { get; set; }
+        public required ValorOuIlimitado ApresenFimLucrativos { get; set; }
         public int Preco { get; set; }
         public int Porcentagem { get; set; }
         public int RoyaltShare { get; set; }

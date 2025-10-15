@@ -9,16 +9,18 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
     {
 
         public Guid Id { get; set; }
-        public Guid LicencaBaseId { get; set; }
-        public string LicencaBaseNome { get; set; }
-        public int PeriodoUso { get; set; }
-        public int Distribuicao { get; set; }
-        public int StreamingAudio { get; set; }
-        public int StreamingVideo { get; set; }
-        public int Video { get; set; }
-        public int ApresenSemFinsLucrativos { get; set; }
-        public int ApresenFimLucrativos { get; set; }
-        public decimal Preco { get; set; }
+        public Guid LicencaId { get; set; }
+        public string LicencaNome { get; set; }
+        // Configurações do preset
+        
+        public required ValorOuIlimitado PeriodoUso { get; set; }
+        public required ValorOuIlimitado Distribuicao { get; set; }
+        public required ValorOuIlimitado StreamingAudio { get; set; }
+        public required ValorOuIlimitado StreamingVideo { get; set; }
+        public required ValorOuIlimitado Video { get; set; }
+        public required ValorOuIlimitado ApresenSemFinsLucrativos { get; set; }
+        public required ValorOuIlimitado ApresenFimLucrativos { get; set; }
+        public int Preco { get; set; }
         public int Porcentagem { get; set; }
         public int RoyaltShare { get; set; }
         public bool ExibirEmissoraRadio { get; set; }
@@ -29,8 +31,8 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
             return new PresetLicencaConfigResponse
             {
                 Id = l.Id,
-                LicencaBaseId = l.LicencaBaseId,
-                LicencaBaseNome = l.LicencaBaseNome,
+                LicencaId = l.LicencaId,
+                LicencaNome = l.LicencaNome,
                 PeriodoUso = l.PeriodoUso,
                 Distribuicao = l.Distribuicao,
                 StreamingAudio = l.StreamingAudio,

@@ -14,7 +14,7 @@ namespace BeatNationAPI.Data
         public DbSet<Beat> Beats { get; set; }
         public DbSet<BeatColab> BeatColabs { get; set; }
         public DbSet<BeatLicencas> BeatLicencas { get; set; }
-        public DbSet<LicencaBase> LicencasBase { get; set; }
+        public DbSet<Licencas> LicencasBase { get; set; }
         public DbSet<PresetLicenca> PresetLicencas { get; set; }
         public DbSet<PresetLicencaConfig> PresetLicencasConfig { get; set; }
 
@@ -48,11 +48,11 @@ namespace BeatNationAPI.Data
             var licencaBasicaId = Guid.Parse("724c5c55-ecb3-4fc1-a2ad-d77a02833d24");
             var licencaVIPId = Guid.Parse("75974e74-12de-41e4-9fca-f9b87e04e5a6");
             var licencaExclusivaId = Guid.Parse("ead25d1b-6568-4913-98cd-2f363f235d8b");
-            
-            modelBuilder.Entity<LicencaBase>().HasData(
-                new LicencaBase { Id = licencaBasicaId, Nome = "Básica" },
-                new LicencaBase { Id = licencaVIPId, Nome = "VIP" },
-                new LicencaBase { Id = licencaExclusivaId, Nome = "Exclusiva" }
+
+            modelBuilder.Entity<Licencas>().HasData(
+                new Licencas { Id = licencaBasicaId, Nome = "Básica", OwnerId = null, Categoria = "NaoExclusiva", Descricao = "Licença padrão para uso básico" },
+                new Licencas { Id = licencaVIPId, Nome = "VIP", OwnerId = null, Categoria = "NaoExclusiva", Descricao = "Licença avançada com mais benefícios dispóniveis" },
+                new Licencas { Id = licencaExclusivaId, Nome = "Exclusiva", OwnerId = null, Categoria = "Exclusiva", Descricao = "Licença exclusiva para uso total e irrestrito" }
             );
             // Preset inicial "Default" com as 3 licenças padrão
             var defaultPresetId = Guid.Parse("97806a3e-ea4d-4c0f-a82f-664f9016990f");
@@ -75,8 +75,8 @@ namespace BeatNationAPI.Data
                             {
 
                                 Id = presetConfigBasicaId,
-                                LicencaBaseId = licencaBasicaId,
-                                LicencaBaseNome = "Básica",
+                                LicencaId = licencaBasicaId,
+                                LicencaNome = "Básica",
                                 PresetLicencaId = defaultPresetId, // ID da Básica
                                 PeriodoUso = 1,
                                 Distribuicao = 15000,
@@ -96,8 +96,8 @@ namespace BeatNationAPI.Data
 
             Id = presetConfigVIPId,
             PresetLicencaId = defaultPresetId,
-            LicencaBaseNome = "VIP",
-            LicencaBaseId = licencaVIPId, // Id da licenca VIP
+            LicencaNome = "VIP",
+            LicencaId = licencaVIPId, // Id da licenca VIP
             PeriodoUso = 3,
             Distribuicao = 20000,
             StreamingAudio = 50000,
@@ -115,8 +115,8 @@ namespace BeatNationAPI.Data
         {
 
             Id = presetConfigExclusivaId,
-            LicencaBaseId = licencaExclusivaId,
-            LicencaBaseNome = "Exclusiva",
+            LicencaId = licencaExclusivaId,
+            LicencaNome = "Exclusiva",
             PresetLicencaId = defaultPresetId, //Id da exclusiva
             PeriodoUso = 99999, // Ilimitado
             Distribuicao = 999999,

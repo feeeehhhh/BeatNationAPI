@@ -41,7 +41,12 @@ if (retryCount == 0)
     throw new Exception("N�o foi poss�vel conectar ao SQL Server ap�s v�rias tentativas.");
 }
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.WriteIndented = true; // deixa o JSON legível
+        options.JsonSerializerOptions.MaxDepth = 32;        // aumenta profundidade para testar
+    });
 
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -85,7 +90,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
+app.UseCors("AllowLocalhost");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

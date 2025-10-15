@@ -22,7 +22,7 @@ namespace BeatNationAPI.Controllers
 
         [HttpGet]
         [Route("presets")]
-        public async Task<ActionResult<List<PresetCreateResponse>>> GetAllPresets(
+        public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(
         [FromServices] IMediator mediator)
         {
             var response = await mediator.Send(new PresetGetAllRequest());
