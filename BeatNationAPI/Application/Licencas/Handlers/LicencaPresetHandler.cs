@@ -34,37 +34,18 @@ namespace BeatNationAPI.Application.Licencas.Command
                 throw new UnauthorizedAccessException("Token inválido ou ausente");
             }
 
-            var preset = new PresetLicenca
-            {
-                Id = Guid.NewGuid(),
-                Nome = request.Nome,
-                Descricao = request.Descricao,
-                OwnerId = currentUserId,
-                Licencas = request.Licencas.Select(l => new PresetLicencaConfig
-                {
-                    Id = Guid.NewGuid(),
-                    LicencaId = l.LicencaId,
-                    PeriodoUso = l.PeriodoUso,
-                    Distribuicao = l.Distribuicao,
-                    StreamingAudio = l.StreamingAudio,
-                    StreamingVideo = l.StreamingVideo,
-                    Video = l.Video,
-                    ApresenSemFinsLucrativos = l.ApresenSemFinsLucrativos,
-                    ApresenFimLucrativos = l.ApresenFimLucrativos,
-                    Preco = l.Preco,
-                    Porcentagem = l.Porcentagem,
-                    RoyaltShare = l.RoyaltShare,
-                    ExibirEmissoraRadio = l.ExibirEmissoraRadio,
-                    ExibirEmissoraTV = l.ExibirEmissoraTV
-
-                }).ToList()
-            };
+            PresetLicenca presetLicenca = request;
+            presetLicenca.Id = Guid.NewGuid();
+            presetLicenca.OwnerId = currentUserId;
+            presetLicenca.Licencas = new List<PresetLicencaConfig>();
+            
+            
 
             // Salva no banco
-            _context.PresetLicencas.Add(preset);
+            _context.PresetLicencas.Add(presetLicenca);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return preset;
+            return presetLicenca;
         }
 
     }

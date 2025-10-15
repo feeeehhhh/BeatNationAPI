@@ -6,7 +6,7 @@ public class PresetLicencaConfigRequest : IRequest<PresetLicencaConfigResponse>
 {
 
     public Guid Id { get; set; }
-    public Guid LicencaId { get; set; }
+    public Guid LicencasId { get; set; }
 
     // Configurações do preset
 
@@ -28,7 +28,7 @@ public class PresetLicencaConfigRequest : IRequest<PresetLicencaConfigResponse>
         return new PresetLicencaConfig
         {
             Id = l.Id,
-            LicencaId = l.LicencaId,
+            LicencasId = l.LicencasId,
             PeriodoUso = l.PeriodoUso,
             Distribuicao = l.Distribuicao,
             StreamingAudio = l.StreamingAudio,

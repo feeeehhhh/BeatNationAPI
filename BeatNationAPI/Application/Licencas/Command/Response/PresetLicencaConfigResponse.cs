@@ -9,7 +9,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
     {
 
         public Guid Id { get; set; }
-        public Guid LicencaId { get; set; }
+        public Guid LicencasId { get; set; }
         public string LicencaNome { get; set; }
         // Configurações do preset
         
@@ -31,7 +31,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
             return new PresetLicencaConfigResponse
             {
                 Id = l.Id,
-                LicencaId = l.LicencaId,
+                LicencasId = l.LicencasId,
                 LicencaNome = l.LicencaNome,
                 PeriodoUso = l.PeriodoUso,
                 Distribuicao = l.Distribuicao,
