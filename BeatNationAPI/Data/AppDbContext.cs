@@ -113,27 +113,23 @@ namespace BeatNationAPI.Data
         },
         new PresetLicencaConfig // Exclusiva
         {
-
             Id = presetConfigExclusivaId,
             LicencaId = licencaExclusivaId,
             LicencaNome = "Exclusiva",
             PresetLicencaId = defaultPresetId, //Id da exclusiva
-            PeriodoUso = 99999, // Ilimitado
-            Distribuicao = 999999,
-            StreamingAudio = 999999,
-            StreamingVideo = 999999,
-            Video = 999999,
-            ApresenSemFinsLucrativos = 999999,
-            ApresenFimLucrativos = 999999,
+            PeriodoUso = "Ilimitado", // Ilimitado
+            Distribuicao = "Ilimitado",
+            StreamingAudio = "Ilimitado",
+            StreamingVideo ="Ilimitado",
+            Video = "Ilimitado",
+            ApresenSemFinsLucrativos = "Ilimitado",
+            ApresenFimLucrativos = "Ilimitado",
             Preco = 0,
             Porcentagem = 100,
             RoyaltShare = 20,
             ExibirEmissoraRadio = true,
             ExibirEmissoraTV = true
         });
-
-
-
         }
     }
 }

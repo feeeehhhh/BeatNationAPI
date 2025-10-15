@@ -7,7 +7,7 @@ namespace BeatNationAPI.Models
     {
         public string Valor { get; set; }
 
-        public bool IsIlimitado => Valor?.Equals("Ilimitada", StringComparison.OrdinalIgnoreCase) == true;
+        public bool IsIlimitado => Valor?.Equals("Ilimitado", StringComparison.OrdinalIgnoreCase) == true;
 
         public int? Numero
         {
@@ -21,7 +21,7 @@ namespace BeatNationAPI.Models
 
         public static ValorOuIlimitado CriarIlimitado()
         {
-            return new ValorOuIlimitado { Valor = "Ilimitada" };
+            return new ValorOuIlimitado { Valor = "Ilimitado" };
         }
 
         public static ValorOuIlimitado CriarComNumero(int numero)
@@ -30,6 +30,18 @@ namespace BeatNationAPI.Models
         }
 
         public override string ToString() => Valor ?? "0";
+
+        public static implicit operator ValorOuIlimitado(int numero)
+        {
+            return new ValorOuIlimitado { Valor = numero.ToString() };
+        }
+
+        public static implicit operator ValorOuIlimitado(string valor)
+        {
+            return new ValorOuIlimitado { Valor = valor };
+        }
+
+
     }
     public class PresetLicencaConfig
     {
@@ -49,7 +61,7 @@ namespace BeatNationAPI.Models
         public Licencas Licencas { get; set; }
 
         // Configurações do preset
-        
+
         public required ValorOuIlimitado PeriodoUso { get; set; }
         public required ValorOuIlimitado Distribuicao { get; set; }
         public required ValorOuIlimitado StreamingAudio { get; set; }
