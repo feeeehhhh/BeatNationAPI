@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BeatNationAPI.Application.Beats.Command.Response;
 using BeatNationAPI.Models;
 using MediatR;
@@ -9,6 +10,8 @@ namespace BeatNationAPI.Application.Beats.Command.Request
         public Guid Id { get; set; }
 
         public Guid BeatId { get; set; } //Chave estrangeira do Beat
+        
+        [JsonIgnore]
         public Beat? Beat { get; set; } // agora pode ser nulo
 
         public string Username { get; set; } = string.Empty; // Nome do colaborador/produtor

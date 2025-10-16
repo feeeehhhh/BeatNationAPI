@@ -5,7 +5,7 @@ using BeatNationAPI.Models;
 
 namespace BeatNationAPI.Application.Command.Licencas.Request
 {
-    public class LicencaResponse
+    public class LicencaCreateResponse
     {
 
         public Guid Id { get; set; }
@@ -16,9 +16,9 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
         public Guid PresetLicencaId { get; set; }
         public List<LicencaConfig> LicencaConfig { get; set; } = new();
 
-        public static implicit operator LicencaResponse(Licenca l)
+        public static implicit operator LicencaCreateResponse(Licenca l)
         {
-            return new LicencaResponse
+            return new LicencaCreateResponse
             {
                 Id = l.Id,
                 Nome = l.Nome,

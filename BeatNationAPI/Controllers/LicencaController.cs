@@ -19,7 +19,18 @@ namespace BeatNationAPI.Controllers
             return await mediator.Send(command);
         }
 
+        [HttpPost]
+        [Route("licencadelete")]
+        public async Task<IActionResult> DeleteLicenca(
+           [FromServices] IMediator mediator,
+           [FromBody] Application.Licencas.Command.Request.LicencaDeleteRequest command
+         )
+        {
+            await mediator.Send(command);
+            return NoContent();
+        }
 
+        //Getters 
         [HttpGet]
         [Route("presets")]
         public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(
@@ -28,6 +39,17 @@ namespace BeatNationAPI.Controllers
             var response = await mediator.Send(new PresetGetAllRequest());
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("licencas")]
+        public async Task<ActionResult<List<LicencaCreateResponse>>> GetLicencas(
+        [FromServices] IMediator mediator)
+        {
+            var response = await mediator.Send(new LicencaGetRequest());
+            return Ok(response);
+        }
+        
+
 
     }
 }

@@ -2,7 +2,7 @@ using BeatNationAPI.Application.Command.Licencas.Request;
 using BeatNationAPI.Models;
 using MediatR;
 
-public class LicencaRequest : IRequest<LicencaResponse>
+public class LicencaCreateRequest : IRequest<LicencaCreateResponse>
 {
 
     public Guid Id { get; set; }
@@ -15,7 +15,7 @@ public class LicencaRequest : IRequest<LicencaResponse>
 
     public List<LicencaConfig> LicencaConfig { get; set; } = new();
 
-    public static implicit operator Licenca(LicencaRequest l)
+    public static implicit operator Licenca(LicencaCreateRequest l)
     {
         return new Licenca
         {
