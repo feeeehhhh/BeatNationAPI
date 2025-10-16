@@ -61,20 +61,20 @@ namespace BeatNationAPI.Application.Handlers
             var beatLicencasGeradas = new List<BeatLicencas>();
             foreach (var licenca in beat.BeatLicencas)
             {
-                if (licenca.PresetLicencaId != Guid.Empty)
+                if (licenca.LicencaId != Guid.Empty)
                 {
-                    var preset = await _context.PresetLicencas
-                        .Include(p => p.Licencas)
-                        .FirstOrDefaultAsync(p => p.Id == licenca.PresetLicencaId);
+                    var _licenca = await _context.Licencas
+                        .Include(p => p.LicencaConfig)
+                        .FirstOrDefaultAsync(p => p.Id == licenca.LicencaId);
 
-                    if (preset != null)
+                    if (licenca != null)
                     {
-                        var beatLicencas = preset.Licencas
+                        var beatLicencas = _licenca.LicencaConfig
                         .Select(config => new BeatLicencaCreateRequest
                         {
                             Id = Guid.NewGuid(),
                             BeatId = beat.Id,
-                            PresetLicencaId = preset.Id,
+                            LicencaId = _licenca.Id,
                             Preco = config.Preco,
                             PeriodoUso = config.PeriodoUso,
                             Distribuicao = config.Distribuicao,
@@ -93,8 +93,8 @@ namespace BeatNationAPI.Application.Handlers
                     }
                     else
                     {
-                        preset = await _context.PresetLicencas
-                        .Include(p => p.Licencas)
+                        _licenca = await _context.Licencas
+                        .Include(p => p.LicencaConfig)
                         .FirstOrDefaultAsync(p => p.Id == Guid.Parse("97806a3e-ea4d-4c0f-a82f-664f9016990f"));
                     }
                 }

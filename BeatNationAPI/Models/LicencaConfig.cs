@@ -38,25 +38,10 @@ namespace BeatNationAPI.Models
         }
 
     }
-    public class PresetLicencaConfig
+    public class LicencaConfig
     {
-
-
         public Guid Id { get; set; }
-
-        public Guid PresetLicencaId { get; set; }
-        public string LicencaNome { get; set; }
-
-        [JsonIgnore] // Evita referência circular na serialização JSON
-        public PresetLicenca PresetLicenca { get; set; }
-
         public Guid LicencasId { get; set; }
-
-        [JsonIgnore]
-        public Licencas Licencas { get; set; }
-
-        // Configurações do preset
-
         public required ValorOuIlimitado PeriodoUso { get; set; }
         public required ValorOuIlimitado Distribuicao { get; set; }
         public required ValorOuIlimitado StreamingAudio { get; set; }

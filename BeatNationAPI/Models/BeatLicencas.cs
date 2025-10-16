@@ -20,10 +20,10 @@ namespace BeatNationAPI.Models
 
         public decimal Preco { get; set; }
         // Relacionamento com Licença
-        public Guid PresetLicencaId { get; set; }
+        public Guid LicencaId { get; set; }
         
         [JsonIgnore] // Evita referência circular na serialização JSON
-        public Licencas Licenca { get; set; }
+        public Licenca Licencas { get; set; }
     }
 }
 

@@ -2,7 +2,7 @@ using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Models;
 using MediatR;
 
-namespace BeatNationAPI.Application.Command.Licencas.Request
+namespace BeatNationAPI.Application.Command
 {
         public class PresetCreateRequest : IRequest<PresetCreateResponse>
         {
@@ -10,7 +10,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
                 public string Nome { get; set; }
                 public string Descricao { get; set; }
                 public Guid? OwnerId { get; set; }
-                public List<PresetLicencaConfigRequest> Licencas { get; set; } = new();
+                public List<Licenca> Licencas { get; set; } = new();
 
 
                 public static implicit operator PresetLicenca(PresetCreateRequest p)
@@ -22,7 +22,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
                                 Descricao = p.Descricao,
                                 OwnerId = p.OwnerId,
                                 Licencas = p.Licencas?
-                                .Select(l => (PresetLicencaConfig)l) // converte cada item individualmente
+                                .Select(l => (Licenca)l) // converte cada item individualmente
                                .ToList()
                         };
                 }

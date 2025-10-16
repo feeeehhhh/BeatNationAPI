@@ -13,7 +13,7 @@ namespace BeatNationAPI.Controllers
         [Route("presetcreate")]
         public async Task<PresetCreateResponse> Create(
            [FromServices] IMediator mediator,
-           [FromBody] PresetCreateRequest command
+           [FromBody] Application.Command.PresetCreateRequest command
          )
         {
             return await mediator.Send(command);

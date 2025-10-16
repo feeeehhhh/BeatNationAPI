@@ -6,7 +6,7 @@ namespace BeatNationAPI.Application.Beats.Command.Request
     {
         public Guid Id { get; set; }
         public Guid BeatId { get; set; }
-        public Guid PresetLicencaId { get; set; }
+        public Guid LicencaId { get; set; }
         public int Preco { get; set; }
         public required ValorOuIlimitado PeriodoUso { get; set; }
         public required ValorOuIlimitado Distribuicao { get; set; }

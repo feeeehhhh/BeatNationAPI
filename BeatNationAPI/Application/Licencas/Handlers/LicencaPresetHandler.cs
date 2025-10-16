@@ -1,5 +1,6 @@
 
 using System.Runtime.InteropServices;
+using BeatNationAPI.Application.Command;
 using BeatNationAPI.Application.Command.Licencas.Request;
 using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Data;
@@ -37,7 +38,7 @@ namespace BeatNationAPI.Application.Licencas.Command
             PresetLicenca presetLicenca = request;
             presetLicenca.Id = Guid.NewGuid();
             presetLicenca.OwnerId = currentUserId;
-            presetLicenca.Licencas = new List<PresetLicencaConfig>();
+            presetLicenca.Licencas = new List<Licenca>();
             
             
 
