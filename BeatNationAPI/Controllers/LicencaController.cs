@@ -30,6 +30,17 @@ namespace BeatNationAPI.Controllers
             return NoContent();
         }
 
+        [HttpPut]
+        [Route("licencaupdate")]
+        public async Task<IActionResult> UpdateLicenca(
+           [FromServices] IMediator mediator,
+           [FromBody] Application.Licencas.Command.Request.LicencaUpdateRequest command
+         )
+        {
+            await mediator.Send(command);
+            return NoContent();
+        }
+
         //Getters 
         [HttpGet]
         [Route("presets")]
