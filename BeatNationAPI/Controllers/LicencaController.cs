@@ -9,6 +9,7 @@ namespace BeatNationAPI.Controllers
     [ApiController]
     public class LicencaController : ControllerBase
     {
+        //Presets da Licencas
         [HttpPost]
         [Route("presetcreate")]
         public async Task<PresetCreateResponse> Create(
@@ -18,8 +19,11 @@ namespace BeatNationAPI.Controllers
         {
             return await mediator.Send(command);
         }
+        [HttpDelete]
 
-        [HttpPost]
+        //Licencas
+
+        [HttpDelete]
         [Route("licencadelete")]
         public async Task<IActionResult> DeleteLicenca(
            [FromServices] IMediator mediator,
@@ -41,7 +45,6 @@ namespace BeatNationAPI.Controllers
             return NoContent();
         }
 
-        //Getters 
         [HttpGet]
         [Route("presets")]
         public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(

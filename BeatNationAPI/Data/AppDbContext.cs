@@ -18,6 +18,7 @@ namespace BeatNationAPI.Data
         public DbSet<Licenca> Licencas { get; set; }
         public DbSet<PresetLicenca> PresetLicencas { get; set; }
         public DbSet<LicencaConfig> LicencaConfig { get; set; }
+        
 
         // Configurações extras (opcional)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
