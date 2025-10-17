@@ -20,6 +20,15 @@ namespace BeatNationAPI.Controllers
             return await mediator.Send(command);
         }
         [HttpDelete]
+        [Route("presetdelete")]
+        public async Task<IActionResult> DeletePreset(
+           [FromServices] IMediator mediator,
+           [FromBody] Application.Licencas.Command.Request.PresetDeleteRequest command
+         )
+        {
+            await mediator.Send(command);
+            return NoContent();
+        }
 
         //Licencas
 
