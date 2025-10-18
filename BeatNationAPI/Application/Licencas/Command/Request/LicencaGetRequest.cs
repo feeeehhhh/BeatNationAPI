@@ -1,6 +1,5 @@
 using MediatR;
-using BeatNationAPI.Application.Licencas.Command.Response;
-using System.Collections.Generic;
+
 
 namespace BeatNationAPI.Application.Command.Licencas.Request
 {

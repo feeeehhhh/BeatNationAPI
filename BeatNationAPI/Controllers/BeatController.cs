@@ -24,12 +24,13 @@ namespace BeatNationAPI.Controllers
 
         [HttpGet]
         [Route("beatget")]
-        public async Task<List<BeatCreateResponse>> BeatGet(
+        public async Task<ActionResult<List<BeatCreateResponse>>> BeatGet(
            [FromServices] IMediator mediator,
-           [FromBody] BeatGetRequest command
+           [FromBody] BeatCreateResponse command
          )
         {
-            return await mediator.Send(command);
+            var response = await mediator.Send(new BeatGetRequest());
+            return Ok(response);
         }
 
         [HttpDelete]
@@ -39,8 +40,8 @@ namespace BeatNationAPI.Controllers
            [FromBody] BeatDeleteRequest command
          )
         {
-            var response = await mediator.Send(new BeatGetRequest());
-            return Ok(response);
+            await mediator.Send(command);
+            return NoContent();
         }
     }
 }
