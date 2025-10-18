@@ -25,7 +25,7 @@ namespace BeatNationAPI.Application.Beats.Handlers
                 .Select(p => (BeatCreateResponse)p)
                 .ToList();
         }
-
+        
 
     }
 }
