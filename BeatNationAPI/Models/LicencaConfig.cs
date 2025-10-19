@@ -41,7 +41,10 @@ namespace BeatNationAPI.Models
     public class LicencaConfig
     {
         public Guid Id { get; set; }
-        public Guid LicencasId { get; set; }
+        public Guid LicencaId { get; set; }
+
+        [JsonIgnore]
+        public Licenca? Licenca { get; set; }
         public required ValorOuIlimitado PeriodoUso { get; set; }
         public required ValorOuIlimitado Distribuicao { get; set; }
         public required ValorOuIlimitado StreamingAudio { get; set; }

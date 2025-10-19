@@ -1,4 +1,6 @@
-using BeatNationAPI.Application.Command.Licencas.Request;
+
+using BeatNationAPI.Application.Command.Licencas.Response;
+using BeatNationAPI.Application.Licencas.Command.Request;
 using BeatNationAPI.Models;
 using MediatR;
 
@@ -13,7 +15,7 @@ public class LicencaCreateRequest : IRequest<LicencaCreateResponse>
 
     public Guid PresetLicencaId { get; set; }
 
-    public List<LicencaConfig> LicencaConfig { get; set; } = new();
+    public List<LicencaConfigCreateRequest> LicencaConfig { get; set; } = new();
 
     public static implicit operator Licenca(LicencaCreateRequest l)
     {
@@ -22,7 +24,7 @@ public class LicencaCreateRequest : IRequest<LicencaCreateResponse>
             Id = l.Id,
             Nome = l.Nome,
             Descricao = l.Descricao,
-            LicencaConfig = l.LicencaConfig?
+            LicencaConfig = l.LicencaConfig
             .Select(lc => (LicencaConfig)lc)
             .ToList()
 

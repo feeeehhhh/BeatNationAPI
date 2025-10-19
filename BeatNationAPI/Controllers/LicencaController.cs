@@ -1,8 +1,11 @@
 
 using BeatNationAPI.Application.Command.Licencas.Request;
+using BeatNationAPI.Application.Command.Licencas.Response;
 using BeatNationAPI.Application.Licencas.Command.Response;
+using BeatNationAPI.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace BeatNationAPI.Controllers
 {
     [Route("api/licencas")]
@@ -66,12 +69,22 @@ namespace BeatNationAPI.Controllers
         [HttpGet]
         [Route("licencas")]
         public async Task<ActionResult<List<LicencaCreateResponse>>> GetLicencas(
-        [FromServices] IMediator mediator)
+        [FromServices] IMediator mediator
+        )
         {
             var response = await mediator.Send(new LicencaGetRequest());
             return Ok(response);
         }
-        
+
+        [HttpGet("licencas/teste")]
+public async Task<IActionResult> Teste([FromServices] AppDbContext _context)
+{
+    var data = await _context.Licencas
+        .Include(x => x.LicencaConfig)
+        .ToListAsync();
+
+    return Ok(data);
+}
 
 
     }

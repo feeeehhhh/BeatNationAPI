@@ -228,10 +228,7 @@ namespace BeatNationAPI.Migrations
                     b.Property<bool>("ExibirEmissoraTV")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("LicencaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LicencasId")
+                    b.Property<Guid>("LicencaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PeriodoUso")
@@ -274,7 +271,7 @@ namespace BeatNationAPI.Migrations
                             Distribuicao = "15000",
                             ExibirEmissoraRadio = true,
                             ExibirEmissoraTV = false,
-                            LicencasId = new Guid("724c5c55-ecb3-4fc1-a2ad-d77a02833d24"),
+                            LicencaId = new Guid("724c5c55-ecb3-4fc1-a2ad-d77a02833d24"),
                             PeriodoUso = "1",
                             Porcentagem = 20,
                             Preco = 0,
@@ -291,7 +288,7 @@ namespace BeatNationAPI.Migrations
                             Distribuicao = "20000",
                             ExibirEmissoraRadio = true,
                             ExibirEmissoraTV = true,
-                            LicencasId = new Guid("75974e74-12de-41e4-9fca-f9b87e04e5a6"),
+                            LicencaId = new Guid("75974e74-12de-41e4-9fca-f9b87e04e5a6"),
                             PeriodoUso = "3",
                             Porcentagem = 30,
                             Preco = 0,
@@ -308,7 +305,7 @@ namespace BeatNationAPI.Migrations
                             Distribuicao = "Ilimitado",
                             ExibirEmissoraRadio = true,
                             ExibirEmissoraTV = true,
-                            LicencasId = new Guid("ead25d1b-6568-4913-98cd-2f363f235d8b"),
+                            LicencaId = new Guid("ead25d1b-6568-4913-98cd-2f363f235d8b"),
                             PeriodoUso = "Ilimitado",
                             Porcentagem = 100,
                             Preco = 0,
@@ -392,9 +389,13 @@ namespace BeatNationAPI.Migrations
 
             modelBuilder.Entity("BeatNationAPI.Models.LicencaConfig", b =>
                 {
-                    b.HasOne("BeatNationAPI.Models.Licenca", null)
+                    b.HasOne("BeatNationAPI.Models.Licenca", "Licenca")
                         .WithMany("LicencaConfig")
-                        .HasForeignKey("LicencaId");
+                        .HasForeignKey("LicencaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Licenca");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.Beat", b =>

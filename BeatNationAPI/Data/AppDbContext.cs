@@ -36,7 +36,12 @@ namespace BeatNationAPI.Data
                     .WithMany(b => b.BeatLicencas)
                     .HasForeignKey(l => l.BeatId);
 
-            // outras configurações de chave primária, índices, etc
+            // Exemplo 1:N Licenca -> LicencaConfig
+            modelBuilder.Entity<Licenca>()
+                    .HasMany(l => l.LicencaConfig)
+                    .WithOne(lc => lc.Licenca)
+                    .HasForeignKey(lc => lc.LicencaId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
 
             //Faz converão para que não de erro ao salvar "Ilimitado" no banco
@@ -89,7 +94,7 @@ namespace BeatNationAPI.Data
                             {
 
                                 Id = presetConfigBasicaId,
-                                LicencasId = licencaBasicaId,
+                                LicencaId = licencaBasicaId,
 
                                 PeriodoUso = 1,
                                 Distribuicao = 15000,
@@ -108,7 +113,7 @@ namespace BeatNationAPI.Data
             {
 
                 Id = presetConfigVIPId,
-                LicencasId = licencaVIPId, // Id da licenca VIP
+                LicencaId = licencaVIPId, // Id da licenca VIP
                 PeriodoUso = 3,
                 Distribuicao = 20000,
                 StreamingAudio = 50000,
@@ -125,7 +130,7 @@ namespace BeatNationAPI.Data
             new LicencaConfig // Exclusiva
             {
                 Id = presetConfigExclusivaId,
-                LicencasId = licencaExclusivaId,
+                LicencaId = licencaExclusivaId,
                 PeriodoUso = "Ilimitado", // Ilimitado
                 Distribuicao = "Ilimitado",
                 StreamingAudio = "Ilimitado",

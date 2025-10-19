@@ -19,7 +19,7 @@ namespace BeatNationAPI.Models
 
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
-        public List<LicencaConfig> LicencaConfig { get; set; } = new();
+         public ICollection<LicencaConfig> LicencaConfig { get; set; } = new List<LicencaConfig>();
         
     }
 

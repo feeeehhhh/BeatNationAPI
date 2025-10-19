@@ -1,9 +1,7 @@
-using MediatR;
-using BeatNationAPI.Application.Licencas.Command.Response;
-using System.Collections.Generic;
+
 using BeatNationAPI.Models;
 
-namespace BeatNationAPI.Application.Command.Licencas.Request
+namespace BeatNationAPI.Application.Command.Licencas.Response 
 {
     public class LicencaCreateResponse
     {
@@ -14,7 +12,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
         public string Categoria { get; set; } = string.Empty;
         public Guid? OwnerId { get; set; }
         public Guid PresetLicencaId { get; set; }
-        public List<LicencaConfig> LicencaConfig { get; set; } = new();
+        public ICollection<LicencaConfig> LicencaConfig { get; set; } = new List<LicencaConfig>();
 
         public static implicit operator LicencaCreateResponse(Licenca l)
         {
@@ -26,7 +24,7 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
                 Categoria = l.Categoria,
                 OwnerId = l.OwnerId,
                 PresetLicencaId = l.PresetLicencaId,
-                LicencaConfig = l.LicencaConfig?
+                LicencaConfig = l.LicencaConfig
                 .Select(lc => (LicencaConfig)lc)
                 .ToList()
             };

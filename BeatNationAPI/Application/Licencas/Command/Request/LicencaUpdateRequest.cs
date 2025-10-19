@@ -6,7 +6,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
 {
     public record LicencaConfigUpdateRequest(
         Guid Id,
-        Guid LicencasId,
+        Guid LicencaId,
         ValorOuIlimitado? PeriodoUso,
         ValorOuIlimitado? Distribuicao,
         ValorOuIlimitado? StreamingAudio,
@@ -27,6 +27,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
     string? Nome,
     string? Descricao,
     string? Categoria,
-    List<LicencaConfig>? LicencaConfig
+    List<LicencaConfigCreateRequest>? LicencaConfig
 ) : IRequest;
 }

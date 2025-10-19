@@ -1,3 +1,4 @@
+using BeatNationAPI.Application.Command.Licencas.Response;
 using MediatR;
 
 

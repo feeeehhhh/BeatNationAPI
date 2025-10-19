@@ -17,6 +17,7 @@ public class PresetGetAllHandler : IRequestHandler<PresetGetAllRequest, List<Pre
     {
         var presets = await _context.PresetLicencas
             .Include(p => p.Licencas)
+                .ThenInclude(l => l.LicencaConfig)
             .ToListAsync(cancellationToken);
 
         return presets
