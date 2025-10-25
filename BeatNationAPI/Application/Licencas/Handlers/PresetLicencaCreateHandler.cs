@@ -1,7 +1,5 @@
 
-using System.Runtime.InteropServices;
 using BeatNationAPI.Application.Command;
-using BeatNationAPI.Application.Command.Licencas.Request;
 using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Data;
 using BeatNationAPI.Models;

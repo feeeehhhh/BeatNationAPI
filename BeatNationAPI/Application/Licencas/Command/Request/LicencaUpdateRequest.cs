@@ -20,13 +20,13 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
         bool? ExibirEmissoraRadio,
         bool? ExibirEmissoraTV
 
-    ): IRequest;
+    ): IRequest<Guid>;
 
-    public record LicencaUpdateRequest(
-    Guid Id,
+    public record LicencaUpdateRequest (
+    Guid Id, 
     string? Nome,
     string? Descricao,
     string? Categoria,
     List<LicencaConfigCreateRequest>? LicencaConfig
-) : IRequest;
+) : IRequest<Guid>;
 }

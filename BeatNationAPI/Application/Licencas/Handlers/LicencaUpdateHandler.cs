@@ -1,4 +1,4 @@
-using BeatNationAPI.Application.Command.Licencas.Request;
+
 using BeatNationAPI.Application.Licencas.Command.Request;
 using BeatNationAPI.Data;
 using MediatR;
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Application.Licencas.Handlers
 {
-    public class LicencaUpdateHandler : IRequestHandler<LicencaUpdateRequest>
+    public class LicencaUpdateHandler : IRequestHandler<LicencaUpdateRequest, Guid>
     {
         private readonly AppDbContext _context;
         private readonly HttpContextAccessor _httpContextAccessor;
@@ -70,9 +70,5 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             return licenca.Id;
         }
 
-        Task IRequestHandler<LicencaUpdateRequest>.Handle(LicencaUpdateRequest request, CancellationToken cancellationToken)
-        {
-            return Handle(request, cancellationToken);
-        }
     }
 }
