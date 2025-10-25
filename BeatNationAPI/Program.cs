@@ -1,9 +1,12 @@
 ﻿using BeatNationAPI.Data;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +78,31 @@ builder.Services.AddCors(options =>
         });
 });
 
+// JWT
+var keyString = Environment.GetEnvironmentVariable("PRIVATE_KEY");
+if (string.IsNullOrEmpty(keyString))
+    throw new Exception("PRIVATE_KEY n�o definida!");
+
+var key = Encoding.ASCII.GetBytes(keyString);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "AuthAPI",
+        ValidAudience = "BeatNationAPI",
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

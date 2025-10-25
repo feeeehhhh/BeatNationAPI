@@ -7,7 +7,9 @@ services:
     container_name: beatapi
     environment:
       ConnectionStrings__SQL: "Server=DBBeatnation,1433;Database=master;User Id=sa;Password=Felhada131$; Encrypt=True; TrustServerCertificate=True;"
+      PRIVATE_KEY: Nunca%02interrompa$05seu%01inimigo%32enquanto((ele$#1estiver(*&cometendo$um!erro.
       DOTNET_ENVIRONMENT: "Development"
+
     ports:
       - "5000:8080"
     networks:
