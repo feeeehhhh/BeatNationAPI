@@ -35,6 +35,18 @@ namespace BeatNationAPI.Controllers
 
         //Licencas
 
+        [HttpPost]
+        [Route("licencacreate")]
+        public async Task<LicencaCreateResponse> CreateLicenca(
+            [FromServices] IMediator mediator,
+            [FromBody] LicencaCreateRequest command
+        )
+        {
+            return await mediator.Send(command);
+
+
+        }
+
         [HttpDelete]
         [Route("licencadelete")]
         public async Task<IActionResult> DeleteLicenca(
@@ -66,25 +78,9 @@ namespace BeatNationAPI.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("licencas")]
-        public async Task<ActionResult<List<LicencaCreateResponse>>> GetLicencas(
-        [FromServices] IMediator mediator
-        )
-        {
-            var response = await mediator.Send(new LicencaGetRequest());
-            return Ok(response);
-        }
 
-        [HttpGet("licencas/teste")]
-public async Task<IActionResult> Teste([FromServices] AppDbContext _context)
-{
-    var data = await _context.Licencas
-        .Include(x => x.LicencaConfig)
-        .ToListAsync();
 
-    return Ok(data);
-}
+
 
 
     }
