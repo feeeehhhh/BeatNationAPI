@@ -9,8 +9,8 @@ namespace BeatNationAPI.Application.Licencas.Handlers
     public class LicencaUpdateHandler : IRequestHandler<LicencaUpdateRequest, Guid>
     {
         private readonly AppDbContext _context;
-        private readonly HttpContextAccessor _httpContextAccessor;
-        public LicencaUpdateHandler(AppDbContext context, HttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public LicencaUpdateHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;

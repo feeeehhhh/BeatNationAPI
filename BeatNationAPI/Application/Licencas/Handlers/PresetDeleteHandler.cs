@@ -7,8 +7,8 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
     public class PreseteDeleteHanler : IRequestHandler<PresetDeleteRequest, Guid>
     {
         private readonly AppDbContext _context;
-        private readonly HttpContextAccessor _httpContextAccessor;
-        public PreseteDeleteHanler(AppDbContext context, HttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public PreseteDeleteHanler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;

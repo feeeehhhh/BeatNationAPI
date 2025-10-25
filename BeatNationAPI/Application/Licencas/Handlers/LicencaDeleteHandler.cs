@@ -8,8 +8,8 @@ namespace BeatNationAPI.Application.Licencas.Handlers
     public class LicencaDeleteHandler : IRequestHandler<LicencaDeleteRequest>
     {
         private readonly AppDbContext _context;
-        private readonly HttpContextAccessor _httpContextAccessor;
-        public LicencaDeleteHandler(AppDbContext context, HttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public LicencaDeleteHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;

@@ -11,9 +11,9 @@ namespace BeatNationAPI.Application.Handlers
      IRequestHandler<LicencaCreateRequest, LicencaCreateResponse>
     {
         private readonly AppDbContext _context;
-        private readonly HttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LicencaCreateHandler(AppDbContext context, HttpContextAccessor httpContextAccessor)
+        public LicencaCreateHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;

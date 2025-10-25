@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 public class PresetGetAllHandler : IRequestHandler<PresetGetAllRequest, List<PresetCreateResponse>>
 {
     private readonly AppDbContext _context;
-    private readonly HttpContextAccessor _httpContextAccessor;
-    public PresetGetAllHandler(AppDbContext context, HttpContextAccessor httpContextAccessor)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public PresetGetAllHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;

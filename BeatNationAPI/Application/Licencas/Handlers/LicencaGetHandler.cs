@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 public class LicencaGetHandler : IRequestHandler<LicencaGetRequest, List<LicencaCreateResponse>>
 {
     private readonly AppDbContext _context;
-    private readonly HttpContextAccessor _httpContextAccessor;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public LicencaGetHandler(AppDbContext context, HttpContextAccessor httpContextAccessor)
+    public LicencaGetHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
