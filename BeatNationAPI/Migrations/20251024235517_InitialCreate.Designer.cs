@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeatNationAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251019154352_ResolveErroDeRelacionamneto")]
-    partial class ResolveErroDeRelacionamneto
+    [Migration("20251024235517_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

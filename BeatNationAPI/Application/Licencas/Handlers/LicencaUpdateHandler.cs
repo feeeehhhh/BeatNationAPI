@@ -9,23 +9,36 @@ namespace BeatNationAPI.Application.Licencas.Handlers
     public class LicencaUpdateHandler : IRequestHandler<LicencaUpdateRequest>
     {
         private readonly AppDbContext _context;
-        public LicencaUpdateHandler(AppDbContext context)
+        private readonly HttpContextAccessor _httpContextAccessor;
+        public LicencaUpdateHandler(AppDbContext context, HttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Guid> Handle(LicencaUpdateRequest request, CancellationToken cancellationToken)
         {
+
+            // Pega o id do IdUsuario via Token
+            var currentUserIdString = _httpContextAccessor.HttpContext.User
+            .FindFirst("id")?.Value; ;
+            // faz a conversão do string para Guid
+            if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
+            {
+                throw new UnauthorizedAccessException("Token inválido ou ausente");
+            }
+
+
             var licenca = await _context.Licencas
             .Include(l => l.LicencaConfig)
-            .FirstOrDefaultAsync(l => l.Id == request.Id, cancellationToken);
+            .FirstOrDefaultAsync(l => l.Id == request.Id &&  l.OwnerId == currentUserId, cancellationToken);
 
             if (licenca == null)
             {
                 throw new KeyNotFoundException("Não foi possível atulizar a liceça.");
             }
 
-            licenca.Nome =  request.Nome ?? licenca.Nome;
+            licenca.Nome = request.Nome ?? licenca.Nome;
             licenca.Descricao = request.Descricao ?? licenca.Descricao;
             licenca.Categoria = request.Categoria ?? licenca.Categoria;
 
