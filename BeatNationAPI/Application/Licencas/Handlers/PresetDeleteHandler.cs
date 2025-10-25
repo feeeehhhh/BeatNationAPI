@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Application.Licencas.Command.Request
 {
-    public class PreseteDeleteHanler : IRequestHandler<PresetDeleteRequest>
+    public class PreseteDeleteHanler : IRequestHandler<PresetDeleteRequest, Guid>
     {
         private readonly AppDbContext _context;
         private readonly HttpContextAccessor _httpContextAccessor;
@@ -36,11 +36,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
             await _context.SaveChangesAsync(cancellationToken);
 
             return preset.Id;
-        }
-
-        Task IRequestHandler<PresetDeleteRequest>.Handle(PresetDeleteRequest request, CancellationToken cancellationToken)
-        {
-            return Handle(request, cancellationToken);
         }
     }
 }

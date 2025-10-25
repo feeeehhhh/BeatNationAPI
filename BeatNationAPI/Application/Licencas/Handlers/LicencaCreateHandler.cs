@@ -1,8 +1,9 @@
 using BeatNationAPI.Application.Command.Licencas.Response;
+using BeatNationAPI.Application.Licencas.Command.Request;
 using BeatNationAPI.Data;
 using BeatNationAPI.Models;
 using MediatR;
-using NPOI.SS.Formula.Functions;
+
 
 namespace BeatNationAPI.Application.Handlers
 {

@@ -2,7 +2,7 @@ using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Models;
 using MediatR;
 
-namespace BeatNationAPI.Application.Command
+namespace BeatNationAPI.Application.Command.Licencas.Request
 {
         public class PresetCreateRequest : IRequest<PresetCreateResponse>
         {

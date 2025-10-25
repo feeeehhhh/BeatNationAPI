@@ -1,6 +1,7 @@
 
 using BeatNationAPI.Application.Command.Licencas.Request;
 using BeatNationAPI.Application.Command.Licencas.Response;
+using BeatNationAPI.Application.Licencas.Command.Request;
 using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Data;
 using MediatR;
@@ -17,7 +18,7 @@ namespace BeatNationAPI.Controllers
         [Route("presetcreate")]
         public async Task<PresetCreateResponse> Create(
            [FromServices] IMediator mediator,
-           [FromBody] Application.Command.PresetCreateRequest command
+           [FromBody] PresetCreateRequest command
          )
         {
             return await mediator.Send(command);

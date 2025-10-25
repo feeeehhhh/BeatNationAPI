@@ -9,7 +9,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Response
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public Guid? OwnerId { get; set; }
-        public List<Licenca> Licencas { get; set; } = new();
+        public ICollection<Licenca> Licencas { get; set; } = new List<Licenca> ();
 
 
         public static implicit operator PresetCreateResponse(PresetLicenca p)
