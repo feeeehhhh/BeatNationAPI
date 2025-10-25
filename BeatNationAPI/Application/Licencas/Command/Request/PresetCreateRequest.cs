@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Models;
 using MediatR;
@@ -10,6 +11,8 @@ namespace BeatNationAPI.Application.Command.Licencas.Request
                 public string Nome { get; set; }
                 public string Descricao { get; set; }
                 public Guid? OwnerId { get; set; }
+
+                [JsonIgnore]
                 public List<Licenca> Licencas { get; set; } = new();
 
 
