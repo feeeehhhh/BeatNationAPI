@@ -5,6 +5,7 @@ using BeatNationAPI.Application.Licencas.Command.Request;
 using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Data;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace BeatNationAPI.Controllers
@@ -14,6 +15,7 @@ namespace BeatNationAPI.Controllers
     public class LicencaController : ControllerBase
     {
         //Presets da Licencas
+        [Authorize]
         [HttpPost]
         [Route("presetcreate")]
         public async Task<PresetCreateResponse> Create(
@@ -23,6 +25,8 @@ namespace BeatNationAPI.Controllers
         {
             return await mediator.Send(command);
         }
+
+        [Authorize]
         [HttpDelete]
         [Route("presetdelete")]
         public async Task<IActionResult> DeletePreset(
@@ -35,7 +39,7 @@ namespace BeatNationAPI.Controllers
         }
 
         //Licencas
-
+        [Authorize]
         [HttpPost]
         [Route("licencacreate")]
         public async Task<LicencaCreateResponse> CreateLicenca(
@@ -47,7 +51,7 @@ namespace BeatNationAPI.Controllers
 
 
         }
-
+        [Authorize]
         [HttpDelete]
         [Route("licencadelete")]
         public async Task<IActionResult> DeleteLicenca(
@@ -59,6 +63,7 @@ namespace BeatNationAPI.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("licencaupdate")]
         public async Task<IActionResult> UpdateLicenca(
@@ -70,6 +75,7 @@ namespace BeatNationAPI.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("presets")]
         public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(
@@ -78,11 +84,5 @@ namespace BeatNationAPI.Controllers
             var response = await mediator.Send(new PresetGetAllRequest());
             return Ok(response);
         }
-
-
-
-
-
-
     }
 }

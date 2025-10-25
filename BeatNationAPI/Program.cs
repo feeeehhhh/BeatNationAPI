@@ -103,6 +103,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+builder.Services.AddAuthorization(); // necessário para [Authorize]
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -121,7 +123,9 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowLocalhost");
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
