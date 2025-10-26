@@ -84,5 +84,18 @@ namespace BeatNationAPI.Controllers
             var response = await mediator.Send(new PresetGetAllRequest());
             return Ok(response);
         }
+
+
+        [Authorize]
+        [HttpGet]
+        [Route("licencas")]
+        public async Task<ActionResult<List<LicencaCreateResponse>>> GetLicencas(
+            [FromServices] IMediator mediator
+        )
+        {
+            var response = await mediator.Send(new LicencaGetRequest());
+            return Ok(response);
+        }
+
     }
 }

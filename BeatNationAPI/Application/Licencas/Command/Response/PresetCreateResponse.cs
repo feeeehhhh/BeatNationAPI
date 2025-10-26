@@ -1,4 +1,5 @@
 
+using System.Text.Json.Serialization;
 using BeatNationAPI.Models;
 
 namespace BeatNationAPI.Application.Licencas.Command.Response
@@ -9,7 +10,9 @@ namespace BeatNationAPI.Application.Licencas.Command.Response
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public Guid? OwnerId { get; set; }
-        public ICollection<Licenca> Licencas { get; set; } = new List<Licenca> ();
+        
+        [JsonIgnore]
+        public ICollection<Licenca> Licencas { get; set; } = new List<Licenca>();
 
 
         public static implicit operator PresetCreateResponse(PresetLicenca p)
