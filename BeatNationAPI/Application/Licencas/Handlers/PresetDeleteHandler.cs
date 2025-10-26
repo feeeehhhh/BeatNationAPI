@@ -15,17 +15,17 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
         }
         public async Task<Guid> Handle(PresetDeleteRequest request, CancellationToken cancellationToken)
         {
-            // Pega o id do IdUsuario via Token
-            var currentUserIdString = _httpContextAccessor.HttpContext.User
-            .FindFirst("id")?.Value; ;
-            // faz a conversão do string para Guid
-            if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            {
-                throw new UnauthorizedAccessException("Token inválido ou ausente");
-            }
+            // // Pega o id do IdUsuario via Token
+            // var currentUserIdString = _httpContextAccessor.HttpContext.User
+            // .FindFirst("id")?.Value; ;
+            // // faz a conversão do string para Guid
+            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
+            // {
+            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
+            // }
 
             var preset = await _context.PresetLicencas
-            .FirstOrDefaultAsync(p => p.Id == request.Id && p.OwnerId == currentUserId);
+            .FirstOrDefaultAsync(p => p.Id == request.Id /*&& p.OwnerId == currentUserId*/);
             
             if (preset == null)
             {

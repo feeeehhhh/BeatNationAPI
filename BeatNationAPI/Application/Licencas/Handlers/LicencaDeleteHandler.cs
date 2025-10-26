@@ -16,17 +16,17 @@ namespace BeatNationAPI.Application.Licencas.Handlers
         }
         public async Task<Guid> Handle(LicencaDeleteRequest request, CancellationToken cancellationToken)
         {
-            // Pega o id do IdUsuario via Token
-            var currentUserIdString = _httpContextAccessor.HttpContext.User
-            .FindFirst("id")?.Value; ;
-            // faz a conversão do string para Guid
-            if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            {
-                throw new UnauthorizedAccessException("Token inválido ou ausente");
-            }
+            // // Pega o id do IdUsuario via Token
+            // var currentUserIdString = _httpContextAccessor.HttpContext.User
+            // .FindFirst("id")?.Value; ;
+            // // faz a conversão do string para Guid
+            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
+            // {
+            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
+            // }
 
             var licenca = await _context.Licencas
-            .FirstOrDefaultAsync(l => l.Id == request.Id && l.OwnerId == currentUserId);
+            .FirstOrDefaultAsync(l => l.Id == request.Id /*&& l.OwnerId == currentUserId*/);
             if (licenca == null)
             {
                 throw new Exception("Não foi possível deletar a licença");

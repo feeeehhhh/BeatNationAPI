@@ -24,18 +24,18 @@ namespace BeatNationAPI.Application.Licencas.Command
 
         public async Task<PresetCreateResponse> Handle(PresetCreateRequest request, CancellationToken cancellationToken)
         {
-            // Pega o id do IdUsuario via Token
-            var currentUserIdString = _httpContextAccessor.HttpContext.User
-            .FindFirst("id")?.Value; ;
-            // faz a conversão do string para Guid
-            if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            {
-                throw new UnauthorizedAccessException("Token inválido ou ausente");
-            }
+            // // Pega o id do IdUsuario via Token
+            // var currentUserIdString = _httpContextAccessor.HttpContext.User
+            // .FindFirst("id")?.Value; ;
+            // // faz a conversão do string para Guid
+            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
+            // {
+            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
+            // }
 
             PresetLicenca presetLicenca = request;
             presetLicenca.Id = Guid.NewGuid();
-            presetLicenca.OwnerId = currentUserId;
+            presetLicenca.OwnerId = Guid.NewGuid();
             presetLicenca.Licencas = new List<Licenca>();
             
             

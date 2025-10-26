@@ -52,7 +52,7 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); });
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddHttpContextAccessor();
@@ -81,7 +81,7 @@ builder.Services.AddCors(options =>
 // JWT
 var keyString = Environment.GetEnvironmentVariable("PRIVATE_KEY");
 if (string.IsNullOrEmpty(keyString))
-    throw new Exception("PRIVATE_KEY n�o definida!");
+    throw new Exception("PRIVATE_KEY não definida!");
 
 var key = Encoding.ASCII.GetBytes(keyString);
 
@@ -92,6 +92,18 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            if (context.Request.Cookies.ContainsKey("accessToken"))
+            {
+                context.Token = context.Request.Cookies["accessToken"];
+            }
+            return Task.CompletedTask;
+        }
+    };
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -103,17 +115,16 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+
 builder.Services.AddAuthorization(); // necessário para [Authorize]
 
-var app = builder.Build();
 
+var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minha API v1"));
 }
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

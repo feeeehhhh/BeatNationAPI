@@ -16,17 +16,9 @@ public class PresetGetAllHandler : IRequestHandler<PresetGetAllRequest, List<Pre
 
     public async Task<List<PresetCreateResponse>> Handle(PresetGetAllRequest request, CancellationToken cancellationToken)
     {
-        // Pega o id do IdUsuario via Token
-        var currentUserIdString = _httpContextAccessor.HttpContext.User
-        .FindFirst("id")?.Value; ;
-        // faz a conversão do string para Guid
-        if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-        {
-            throw new UnauthorizedAccessException("Token inválido ou ausente");
-        }
 
         var presets = await _context.PresetLicencas
-            .Where(p => p.OwnerId == currentUserId)
+          //  .Where(p => p.OwnerId == currentUserId)
             .ToListAsync(cancellationToken);
 
         return presets

@@ -19,19 +19,19 @@ namespace BeatNationAPI.Application.Licencas.Handlers
         public async Task<Guid> Handle(LicencaUpdateRequest request, CancellationToken cancellationToken)
         {
 
-            // Pega o id do IdUsuario via Token
-            var currentUserIdString = _httpContextAccessor.HttpContext.User
-            .FindFirst("id")?.Value; ;
-            // faz a conversão do string para Guid
-            if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            {
-                throw new UnauthorizedAccessException("Token inválido ou ausente");
-            }
+            // // Pega o id do IdUsuario via Token
+            // var currentUserIdString = _httpContextAccessor.HttpContext.User
+            // .FindFirst("id")?.Value; ;
+            // // faz a conversão do string para Guid
+            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
+            // {
+            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
+            // }
 
 
             var licenca = await _context.Licencas
             .Include(l => l.LicencaConfig)
-            .FirstOrDefaultAsync(l => l.Id == request.Id &&  l.OwnerId == currentUserId, cancellationToken);
+            .FirstOrDefaultAsync(l => l.Id == request.Id /*&&  l.OwnerId == currentUserId, cancellationToken*/);
 
             if (licenca == null)
             {
