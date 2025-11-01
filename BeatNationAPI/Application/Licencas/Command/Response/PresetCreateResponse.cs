@@ -11,7 +11,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Response
         public string Descricao { get; set; }
         public Guid? OwnerId { get; set; }
         
-        [JsonIgnore]
         public ICollection<Licenca> Licencas { get; set; } = new List<Licenca>();
 
 

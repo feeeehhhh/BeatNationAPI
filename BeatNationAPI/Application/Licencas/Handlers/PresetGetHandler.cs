@@ -18,6 +18,7 @@ public class PresetGetAllHandler : IRequestHandler<PresetGetAllRequest, List<Pre
     {
 
         var presets = await _context.PresetLicencas
+        .Include(p =>p.Licencas )
           //  .Where(p => p.OwnerId == currentUserId)
             .ToListAsync(cancellationToken);
 
