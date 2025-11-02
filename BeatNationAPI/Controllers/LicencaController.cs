@@ -45,8 +45,8 @@ namespace BeatNationAPI.Controllers
          )
         {
             var commandComId = command with { Id = Id };
-            await mediator.Send(commandComId);
-            return NoContent();
+            var result = await mediator.Send(commandComId);
+            return Ok(result);
         }
 
 
