@@ -8,6 +8,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
     Guid Id,
     string Nome,
     string Descricao,
-    Guid OwnerId
+    Guid? OwnerId
     ) : IRequest<Response<Guid>>;
 }

@@ -37,6 +37,19 @@ namespace BeatNationAPI.Controllers
             return NoContent();
         }
 
+        [HttpPut("presetupdate/{id}")]
+        public async Task<IActionResult> UpdatePreset(
+            Guid Id,
+           [FromServices] IMediator mediator,
+           [FromBody] Application.Licencas.Command.Request.PresetUpdateRequest command
+         )
+        {
+            var commandComId = command with { Id = Id };
+            await mediator.Send(commandComId);
+            return NoContent();
+        }
+
+
         //Licencas
         // [Authorize]
         [HttpPost]
@@ -69,7 +82,7 @@ namespace BeatNationAPI.Controllers
            [FromBody] Application.Licencas.Command.Request.LicencaUpdateRequest command
          )
         {
-            var commandComId = command with {Id =Id};
+            var commandComId = command with { Id = Id };
             await mediator.Send(commandComId);
             return NoContent();
         }
