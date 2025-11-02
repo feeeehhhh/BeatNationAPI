@@ -27,14 +27,13 @@ namespace BeatNationAPI.Controllers
         }
 
         // [Authorize]
-        [HttpDelete]
-        [Route("presetdelete")]
+        [HttpDelete("presetdelete/{id}")]
         public async Task<IActionResult> DeletePreset(
-           [FromServices] IMediator mediator,
-           [FromBody] Application.Licencas.Command.Request.PresetDeleteRequest command
+            Guid id,
+           [FromServices] IMediator mediator
          )
         {
-            await mediator.Send(command);
+            await mediator.Send(new PresetDeleteRequest(id));
             return NoContent();
         }
 
@@ -52,26 +51,26 @@ namespace BeatNationAPI.Controllers
 
         }
         // [Authorize]
-        [HttpDelete]
-        [Route("licencadelete")]
+        [HttpDelete("licencadelete/{id}")]
         public async Task<IActionResult> DeleteLicenca(
-           [FromServices] IMediator mediator,
-           [FromBody] Application.Licencas.Command.Request.LicencaDeleteRequest command
+            Guid Id,
+           [FromServices] IMediator mediator
          )
         {
-            await mediator.Send(command);
+            await mediator.Send(new LicencaDeleteRequest(Id));
             return NoContent();
         }
 
         // [Authorize]
-        [HttpPut]
-        [Route("licencaupdate")]
+        [HttpPut("licencaupdate/{id}")]
         public async Task<IActionResult> UpdateLicenca(
+            Guid Id,
            [FromServices] IMediator mediator,
            [FromBody] Application.Licencas.Command.Request.LicencaUpdateRequest command
          )
         {
-            await mediator.Send(command);
+            var commandComId = command with {Id =Id};
+            await mediator.Send(commandComId);
             return NoContent();
         }
 

@@ -18,9 +18,10 @@ public class PresetGetAllHandler : IRequestHandler<PresetGetAllRequest, List<Pre
     {
 
         var presets = await _context.PresetLicencas
-        .Include(p =>p.Licencas )
-          //  .Where(p => p.OwnerId == currentUserId)
-            .ToListAsync(cancellationToken);
+        .Include(p => p.Licencas)
+                .ThenInclude(l => l.LicencaConfig)
+            //  .Where(p => p.OwnerId == currentUserId)
+        .ToListAsync(cancellationToken);
 
         return presets
             .Select(p => (PresetCreateResponse)p)

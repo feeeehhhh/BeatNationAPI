@@ -26,7 +26,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
 
             var preset = await _context.PresetLicencas
             .FirstOrDefaultAsync(p => p.Id == request.Id /*&& p.OwnerId == currentUserId*/);
-            
             if (preset == null)
             {
                 throw new Exception("Não foi possível deletar o preset");
