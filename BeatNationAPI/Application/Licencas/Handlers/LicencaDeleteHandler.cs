@@ -1,11 +1,14 @@
+
 using BeatNationAPI.Application.Licencas.Command.Request;
+using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Data;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Application.Licencas.Handlers
 {
-    public class LicencaDeleteHandler : IRequestHandler<LicencaDeleteRequest>
+    public class LicencaDeleteHandler : IRequestHandler<LicencaDeleteRequest, Response<Guid>>
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -14,7 +17,7 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<Guid> Handle(LicencaDeleteRequest request, CancellationToken cancellationToken)
+        public async Task<Response<Guid>> Handle(LicencaDeleteRequest request, CancellationToken cancellationToken)
         {
             // // Pega o id do IdUsuario via Token
             // var currentUserIdString = _httpContextAccessor.HttpContext.User
@@ -29,18 +32,14 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             .FirstOrDefaultAsync(l => l.Id == request.Id /*&& l.OwnerId == currentUserId*/);
             if (licenca == null)
             {
-                throw new Exception("Não foi possível deletar a licença");
+                return Response<Guid>.Fail("Não foi possível excluir seua licença, tente mais tarde.");
             }
 
             _context.Licencas.Remove(licenca);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return licenca.Id;
+            return Response<Guid>.Ok(licenca.Id, "Licença atualizada com sucesso !");
         }
 
-        Task IRequestHandler<LicencaDeleteRequest>.Handle(LicencaDeleteRequest request, CancellationToken cancellationToken)
-        {
-            return Handle(request, cancellationToken);
-        }
     }
 }

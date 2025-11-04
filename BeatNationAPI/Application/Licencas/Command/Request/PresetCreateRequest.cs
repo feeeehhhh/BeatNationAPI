@@ -1,11 +1,12 @@
 using System.Text.Json.Serialization;
 using BeatNationAPI.Application.Licencas.Command.Response;
+using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Models;
 using MediatR;
 
 namespace BeatNationAPI.Application.Command.Licencas.Request
 {
-        public class PresetCreateRequest : IRequest<PresetCreateResponse>
+        public class PresetCreateRequest : IRequest<Response<PresetCreateResponse>>
         {
                 public Guid Id { get; set; }
                 public string Nome { get; set; }

@@ -1,12 +1,13 @@
 
 using BeatNationAPI.Application.Command.Licencas.Response;
 using BeatNationAPI.Application.Licencas.Command.Request;
+using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Models;
 using MediatR;
 
 namespace BeatNationAPI.Application.Licencas.Command.Request
 {
-    public class LicencaCreateRequest : IRequest<LicencaCreateResponse>
+    public class LicencaCreateRequest : IRequest<Response<LicencaCreateResponse>>
     {
 
         public Guid Id { get; set; }

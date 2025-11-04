@@ -1,4 +1,5 @@
 using BeatNationAPI.Application.Command.Licencas.Request;
+using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Models;
 using MediatR;
 
@@ -28,5 +29,5 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
     string? Descricao,
     string? Categoria,
     List<LicencaConfigCreateRequest>? LicencaConfig
-) : IRequest<Guid>;
+) : IRequest<Response<Guid>>;
 }

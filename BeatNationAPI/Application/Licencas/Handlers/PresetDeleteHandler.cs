@@ -1,10 +1,11 @@
+using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Application.Licencas.Command.Request
 {
-    public class PreseteDeleteHanler : IRequestHandler<PresetDeleteRequest, Guid>
+    public class PreseteDeleteHanler : IRequestHandler<PresetDeleteRequest, Response<Guid>>
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -13,7 +14,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<Guid> Handle(PresetDeleteRequest request, CancellationToken cancellationToken)
+        public async Task<Response<Guid>> Handle(PresetDeleteRequest request, CancellationToken cancellationToken)
         {
             // // Pega o id do IdUsuario via Token
             // var currentUserIdString = _httpContextAccessor.HttpContext.User
@@ -28,13 +29,13 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
             .FirstOrDefaultAsync(p => p.Id == request.Id /*&& p.OwnerId == currentUserId*/);
             if (preset == null)
             {
-                throw new Exception("Não foi possível deletar o preset");
+                return Response<Guid>.Fail("Não foi possível deletar o preset");
             }
 
             _context.PresetLicencas.Remove(preset);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return preset.Id;
+            return Response<Guid>.Ok(preset.Id, "Preset deletado com sucesso!");
         }
     }
 }

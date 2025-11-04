@@ -1,12 +1,14 @@
 
+
 using BeatNationAPI.Application.Licencas.Command.Request;
+using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Application.Licencas.Handlers
 {
-    public class LicencaUpdateHandler : IRequestHandler<LicencaUpdateRequest, Guid>
+    public class LicencaUpdateHandler : IRequestHandler<LicencaUpdateRequest, Response<Guid>>
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -16,7 +18,7 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<Guid> Handle(LicencaUpdateRequest request, CancellationToken cancellationToken)
+        public async Task<Response<Guid>> Handle(LicencaUpdateRequest request, CancellationToken cancellationToken)
         {
 
             // // Pega o id do IdUsuario via Token
@@ -35,7 +37,7 @@ namespace BeatNationAPI.Application.Licencas.Handlers
 
             if (licenca == null)
             {
-                throw new KeyNotFoundException("Não foi possível atulizar a liceça.");
+               return Response<Guid>.Fail("Não foi possível atualizar sua licença, tente novamente mais tarde.");
             }
 
             licenca.Nome = request.Nome ?? licenca.Nome;
@@ -67,7 +69,7 @@ namespace BeatNationAPI.Application.Licencas.Handlers
                 }
             }
             await _context.SaveChangesAsync(cancellationToken);
-            return licenca.Id;
+            return Response<Guid>.Ok(licenca.Id,"Licença atualizada com sucesso !");
         }
 
     }

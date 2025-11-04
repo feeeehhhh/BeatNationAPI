@@ -29,7 +29,7 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             preset.Descricao = request.Descricao;
 
             await _context.SaveChangesAsync(cancellationToken);
-            return Response<Guid>.Ok(preset.Id, "Licença atualizada com sucesso!");
+            return Response<Guid>.Ok(preset.Id, "Preset atualizado com sucesso!");
 
         }
     }

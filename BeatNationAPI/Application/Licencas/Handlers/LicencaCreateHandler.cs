@@ -1,5 +1,7 @@
+
 using BeatNationAPI.Application.Command.Licencas.Response;
 using BeatNationAPI.Application.Licencas.Command.Request;
+using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Data;
 using BeatNationAPI.Models;
 using MediatR;
@@ -8,7 +10,7 @@ using MediatR;
 namespace BeatNationAPI.Application.Handlers
 {
     public class LicencaCreateHandler :
-     IRequestHandler<LicencaCreateRequest, LicencaCreateResponse>
+     IRequestHandler<LicencaCreateRequest, Response<LicencaCreateResponse>>
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -19,7 +21,7 @@ namespace BeatNationAPI.Application.Handlers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<LicencaCreateResponse> Handle(LicencaCreateRequest request, CancellationToken cancellationToken)
+        public async Task<Response<LicencaCreateResponse>> Handle(LicencaCreateRequest request, CancellationToken cancellationToken)
         {
             // Pega o id do IdUsuario via Token
             // var currentUserIdString = _httpContextAccessor.HttpContext.User
@@ -34,11 +36,16 @@ namespace BeatNationAPI.Application.Handlers
             licencas.Id = Guid.NewGuid();
             licencas.OwnerId = Guid.NewGuid(); //trocar quando implementar requisições via token
 
+            if (licencas == null)
+            {
+                return Response<LicencaCreateResponse>.Fail("Não foi possível criar a licença, tente mais tarde");
+            }
+
             // Salva no banco
             _context.Licencas.Add(licencas);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return licencas;
+            return Response<LicencaCreateResponse>.Ok(licencas, "Licença criado com sucesso !");
 
         }
     }

@@ -18,13 +18,26 @@ namespace BeatNationAPI.Controllers
         // [Authorize]
         [HttpPost]
         [Route("presetcreate")]
-        public async Task<PresetCreateResponse> Create(
+        public async Task<ActionResult<PresetCreateResponse>> Create(
            [FromServices] IMediator mediator,
            [FromBody] PresetCreateRequest command
          )
         {
-            return await mediator.Send(command);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
+
+
+        // [Authorize]
+        [HttpGet]
+        [Route("presets")]
+        public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(
+        [FromServices] IMediator mediator)
+        {
+            var response = await mediator.Send(new PresetGetAllRequest());
+            return Ok(response);
+        }
+
 
         // [Authorize]
         [HttpDelete("presetdelete/{id}")]
@@ -33,8 +46,8 @@ namespace BeatNationAPI.Controllers
            [FromServices] IMediator mediator
          )
         {
-            await mediator.Send(new PresetDeleteRequest(id));
-            return NoContent();
+            var result = await mediator.Send(new PresetDeleteRequest(id));
+            return Ok(result);
         }
 
         [HttpPut("presetupdate/{id}")]
@@ -54,12 +67,13 @@ namespace BeatNationAPI.Controllers
         // [Authorize]
         [HttpPost]
         [Route("licencacreate")]
-        public async Task<LicencaCreateResponse> CreateLicenca(
+        public async Task<ActionResult<LicencaCreateResponse>> CreateLicenca(
             [FromServices] IMediator mediator,
             [FromBody] LicencaCreateRequest command
         )
         {
-            return await mediator.Send(command);
+            var result = await mediator.Send(command);
+            return Ok(result);
 
 
         }
@@ -70,8 +84,8 @@ namespace BeatNationAPI.Controllers
            [FromServices] IMediator mediator
          )
         {
-            await mediator.Send(new LicencaDeleteRequest(Id));
-            return NoContent();
+           var result = await mediator.Send(new LicencaDeleteRequest(Id));
+            return Ok(result);
         }
 
         // [Authorize]
@@ -83,19 +97,11 @@ namespace BeatNationAPI.Controllers
          )
         {
             var commandComId = command with { Id = Id };
-            await mediator.Send(commandComId);
-            return NoContent();
+            var result = await mediator.Send(commandComId);
+            return Ok(result);
+
         }
 
-        // [Authorize]
-        [HttpGet]
-        [Route("presets")]
-        public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(
-        [FromServices] IMediator mediator)
-        {
-            var response = await mediator.Send(new PresetGetAllRequest());
-            return Ok(response);
-        }
 
 
         //  [Authorize]
