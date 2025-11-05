@@ -66,12 +66,14 @@ namespace BeatNationAPI.Controllers
         //Licencas
         // [Authorize]
         [HttpPost]
-        [Route("licencacreate")]
+        [Route("licencacreate/{presetLicencaId}")]
         public async Task<ActionResult<LicencaCreateResponse>> CreateLicenca(
+            Guid presetLicencaId, 
             [FromServices] IMediator mediator,
             [FromBody] LicencaCreateRequest command
         )
         {
+            command.PresetLicencaId = presetLicencaId;
             var result = await mediator.Send(command);
             return Ok(result);
 

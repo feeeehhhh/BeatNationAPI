@@ -34,7 +34,7 @@ namespace BeatNationAPI.Application.Handlers
 
             Licenca licencas = request;
             licencas.Id = Guid.NewGuid();
-            licencas.OwnerId = Guid.NewGuid(); //trocar quando implementar requisições via token
+             //trocar quando implementar requisições via token
 
             if (licencas == null)
             {

@@ -4,37 +4,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeatNationAPI.Models
 {
-    
+
     public class ValorOuIlimitado
     {
 
-        public string Valor { get; set; }
-        public bool IsIlimitado => Valor?.Equals("Ilimitado", StringComparison.OrdinalIgnoreCase) == true;
-        public int? Numero
-        {
-            get
-            {
-                if (int.TryParse(Valor, out var numero))
-                    return numero;
-                return null;
-            }
-        }
-        public static ValorOuIlimitado CriarIlimitado()
-        {
-            return new ValorOuIlimitado { Valor = "Ilimitado" };
-        }
+
+        public bool IsIlimitado { get; set; }
+        public int? Numero { get; set; }
+        public string Valor => IsIlimitado ? "Ilimitado" : Numero.ToString();
+
+        public override string ToString() => Valor;
+
         public static ValorOuIlimitado CriarComNumero(int numero)
         {
-            return new ValorOuIlimitado { Valor = numero.ToString() };
+            return new ValorOuIlimitado { Numero = numero, IsIlimitado = false };
         }
-        public override string ToString() => Valor ?? "0";
-        public static implicit operator ValorOuIlimitado(int numero)
+
+        public static ValorOuIlimitado CriarIlimitado()
         {
-            return new ValorOuIlimitado { Valor = numero.ToString() };
-        }
-        public static implicit operator ValorOuIlimitado(string valor)
-        {
-            return new ValorOuIlimitado { Valor = valor };
+            return new ValorOuIlimitado { IsIlimitado = true };
         }
 
     }
