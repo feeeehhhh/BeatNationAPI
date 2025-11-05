@@ -28,7 +28,6 @@ public class LicencaGetHandler : IRequestHandler<LicencaGetRequest, List<Licenca
 
         var licencas = await _context.Licencas
        // .Where(l => l.OwnerId == currentUserId)
-            .Include(p => p.LicencaConfig)
             .ToListAsync(cancellationToken);
 
         return licencas

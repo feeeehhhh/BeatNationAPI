@@ -45,6 +45,8 @@ namespace BeatNationAPI.Application.Handlers
             _context.Licencas.Add(licencas);
             await _context.SaveChangesAsync(cancellationToken);
 
+    
+
             return Response<LicencaCreateResponse>.Ok(licencas, "Licença criado com sucesso !");
 
         }

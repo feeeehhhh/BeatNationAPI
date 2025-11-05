@@ -31,45 +31,32 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             // }
 
 
+            // Busca a licença
             var licenca = await _context.Licencas
-            .Include(l => l.LicencaConfig)
-            .FirstOrDefaultAsync(l => l.Id == request.Id /*&&  l.OwnerId == currentUserId, cancellationToken*/);
+                .FirstOrDefaultAsync(l => l.Id == request.Id, cancellationToken);
 
             if (licenca == null)
-            {
-               return Response<Guid>.Fail("Não foi possível atualizar sua licença, tente novamente mais tarde.");
-            }
+                return Response<Guid>.Fail("Licença não encontrada.");
 
+            // Atualiza os dados principais
             licenca.Nome = request.Nome ?? licenca.Nome;
             licenca.Descricao = request.Descricao ?? licenca.Descricao;
             licenca.Categoria = request.Categoria ?? licenca.Categoria;
 
-            if (request.LicencaConfig != null)
-            {
-                foreach (var configAtualizada in request.LicencaConfig)
-                {
-                    var configExistente = licenca.LicencaConfig
-                        .FirstOrDefault(c => c.Id == configAtualizada.Id);
-                    if (configExistente != null)
-                    {
-                        configExistente.PeriodoUso = configAtualizada.PeriodoUso;
-                        configExistente.Distribuicao = configAtualizada.Distribuicao;
-                        configExistente.StreamingAudio = configAtualizada.StreamingAudio;
-                        configExistente.StreamingVideo = configAtualizada.StreamingVideo;
-                        configExistente.Video = configAtualizada.Video;
-                        configExistente.ApresenSemFinsLucrativos = configAtualizada.ApresenSemFinsLucrativos;
-                        configExistente.ApresenFimLucrativos = configAtualizada.ApresenFimLucrativos;
-                        configExistente.Preco = configAtualizada.Preco;
-                        configExistente.Porcentagem = configAtualizada.Porcentagem;
-                        configExistente.RoyaltShare = configAtualizada.RoyaltShare;
-                        configExistente.ExibirEmissoraRadio = configAtualizada.ExibirEmissoraRadio;
-                        configExistente.ExibirEmissoraTV = configAtualizada.ExibirEmissoraTV;
-
-                    }
-                }
-            }
+            // Atualiza os campos que antes ficavam na LicencaConfig
+            licenca.PeriodoUso = request.PeriodoUso ?? licenca.PeriodoUso;
+            licenca.Distribuicao = request.Distribuicao ?? licenca.Distribuicao;
+            licenca.StreamingAudio = request.StreamingAudio ?? licenca.StreamingAudio;
+            licenca.StreamingVideo = request.StreamingVideo ?? licenca.StreamingVideo;
+            licenca.Video = request.Video ?? licenca.Video;
+            licenca.ApresenSemFinsLucrativos = request.ApresenSemFinsLucrativos ?? licenca.ApresenSemFinsLucrativos;
+            licenca.ApresenFimLucrativos = request.ApresenFimLucrativos ?? licenca.ApresenFimLucrativos;
+            licenca.Porcentagem = request.Porcentagem ?? licenca.Porcentagem;
+            licenca.RoyaltShare = request.RoyaltShare ?? licenca.RoyaltShare;
+            licenca.ExibirEmissoraRadio = request.ExibirEmissoraRadio ?? licenca.ExibirEmissoraRadio;
+            licenca.ExibirEmissoraTV = request.ExibirEmissoraTV ?? licenca.ExibirEmissoraTV;
             await _context.SaveChangesAsync(cancellationToken);
-            return Response<Guid>.Ok(licenca.Id,"Licença atualizada com sucesso !");
+            return Response<Guid>.Ok(licenca.Id, "Licença atualizada com sucesso !");
         }
 
     }
