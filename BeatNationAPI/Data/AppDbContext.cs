@@ -18,7 +18,7 @@ namespace BeatNationAPI.Data
         public DbSet<Licenca> Licencas { get; set; }
         public DbSet<PresetLicenca> PresetLicencas { get; set; }
         public DbSet<LicencaConfig> LicencaConfig { get; set; }
-        
+
 
         // Configurações extras (opcional)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,9 +46,11 @@ namespace BeatNationAPI.Data
 
             //Faz converão para que não de erro ao salvar "Ilimitado" no banco
             var converter = new ValueConverter<ValorOuIlimitado, string>(
-                   v => v.Valor, // Converte do objeto -> banco
-                   v => new ValorOuIlimitado { Valor = v } // Converte do banco -> objeto
-               );
+                v => v.Valor, // objeto → string (para salvar no banco)
+                v => v == "Ilimitado"
+                    ? ValorOuIlimitado.CriarIlimitado()
+                    : ValorOuIlimitado.CriarComNumero(int.Parse(v)) // string → objeto
+            );
 
             modelBuilder.Entity<LicencaConfig>(entity =>
             {
