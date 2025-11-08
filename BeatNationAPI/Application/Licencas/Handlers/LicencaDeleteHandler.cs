@@ -38,7 +38,7 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             _context.Licencas.Remove(licenca);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return Response<Guid>.Ok(licenca.Id, "Licença atualizada com sucesso !");
+            return Response<Guid>.Ok(licenca.Id, "Licença excluídas com sucesso !");
         }
 
     }
