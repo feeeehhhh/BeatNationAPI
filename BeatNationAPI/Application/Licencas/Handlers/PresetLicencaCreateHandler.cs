@@ -4,6 +4,7 @@ using BeatNationAPI.Application.Licencas.Command.Response;
 using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Data;
 using BeatNationAPI.Models;
+using FluentValidation;
 using MediatR;
 
 namespace BeatNationAPI.Application.Licencas.Command
@@ -13,26 +14,24 @@ namespace BeatNationAPI.Application.Licencas.Command
         IRequestHandler<PresetCreateRequest, Response<PresetCreateResponse>>
     {
         private readonly AppDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public PresetCreateHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IValidator<PresetCreateRequest> _validator;
+        public PresetCreateHandler(AppDbContext context, IValidator<PresetCreateRequest> validator)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
-
-
-
+            _validator = validator;
         }
 
         public async Task<Response<PresetCreateResponse>> Handle(PresetCreateRequest request, CancellationToken cancellationToken)
         {
-            // // Pega o id do IdUsuario via Token
-            // var currentUserIdString = _httpContextAccessor.HttpContext.User
-            // .FindFirst("id")?.Value; ;
-            // // faz a conversão do string para Guid
-            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            // {
-            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
-            // }
+
+            // Valida o request
+
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+                return Response<PresetCreateResponse>.Fail("Falha na validação" + errors);
+            }
 
             PresetLicenca presetLicenca = request;
             presetLicenca.Id = Guid.NewGuid();

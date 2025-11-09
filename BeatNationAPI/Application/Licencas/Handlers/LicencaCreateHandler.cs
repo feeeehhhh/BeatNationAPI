@@ -4,6 +4,7 @@ using BeatNationAPI.Application.Licencas.Command.Request;
 using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Data;
 using BeatNationAPI.Models;
+using FluentValidation;
 using MediatR;
 
 
@@ -13,28 +14,34 @@ namespace BeatNationAPI.Application.Handlers
      IRequestHandler<LicencaCreateRequest, Response<LicencaCreateResponse>>
     {
         private readonly AppDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IValidator<LicencaCreateRequest> _validator;
 
-        public LicencaCreateHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+
+
+        public LicencaCreateHandler(AppDbContext context, IValidator<LicencaCreateRequest> validator)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
+            _validator = validator;
+
         }
 
         public async Task<Response<LicencaCreateResponse>> Handle(LicencaCreateRequest request, CancellationToken cancellationToken)
         {
-            // Pega o id do IdUsuario via Token
-            // var currentUserIdString = _httpContextAccessor.HttpContext.User
-            // .FindFirst("id")?.Value; ;
-            // // faz a conversão do string para Guid
-            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            // {
-            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
-            // }
+            // Valida o request
+
+            // 🔍 Validação manual
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+                return Response<LicencaCreateResponse>.Fail("Falha na validação" + errors);
+            }
+
 
             Licenca licencas = request;
             licencas.Id = Guid.NewGuid();
-             //trocar quando implementar requisições via token
+            //trocar quando implementar requisições via token
 
             if (licencas == null)
             {
@@ -45,7 +52,7 @@ namespace BeatNationAPI.Application.Handlers
             _context.Licencas.Add(licencas);
             await _context.SaveChangesAsync(cancellationToken);
 
-    
+
 
             return Response<LicencaCreateResponse>.Ok(licencas, "Licença criado com sucesso !");
 

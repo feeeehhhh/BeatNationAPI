@@ -1,8 +1,8 @@
 
-
 using BeatNationAPI.Application.Licencas.Command.Request;
 using BeatNationAPI.Common.Responses;
 using BeatNationAPI.Data;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,24 +11,24 @@ namespace BeatNationAPI.Application.Licencas.Handlers
     public class LicencaUpdateHandler : IRequestHandler<LicencaUpdateRequest, Response<Guid>>
     {
         private readonly AppDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public LicencaUpdateHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IValidator<LicencaUpdateRequest> _validator;
+        public LicencaUpdateHandler(AppDbContext context, IValidator<LicencaUpdateRequest> validator)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
+            _validator = validator;
+           
         }
 
         public async Task<Response<Guid>> Handle(LicencaUpdateRequest request, CancellationToken cancellationToken)
         {
 
-            // // Pega o id do IdUsuario via Token
-            // var currentUserIdString = _httpContextAccessor.HttpContext.User
-            // .FindFirst("id")?.Value; ;
-            // // faz a conversão do string para Guid
-            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            // {
-            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
-            // }
+            // Valida o request
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                        if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+                return Response<Guid>.Fail("Falha na validação" + errors);
+            }
 
 
             // Busca a licença
