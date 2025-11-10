@@ -23,7 +23,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Validators
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("O ID é obrigatório para atualização.");
-
+                
         }
     }
 }
