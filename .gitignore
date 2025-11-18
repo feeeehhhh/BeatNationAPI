@@ -21,3 +21,4 @@ obj/
 # Arquivos de pacotes
 *.nupkg
 *.snupkg
+.env
