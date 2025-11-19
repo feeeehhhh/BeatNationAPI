@@ -42,65 +42,61 @@ namespace BeatNationAPI.Application.Handlers
             }
 
 
-            // Pega o id do IdUsuario via Token
-            var currentUserIdString = _httpContextAccessor.HttpContext.User
-            .FindFirst("id")?.Value; ;
-            // faz a conversão do string para Guid
-            if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
-            {
-                throw new UnauthorizedAccessException("Token inválido ou ausente");
-            }
+            // // Pega o id do IdUsuario via Token
+            // var currentUserIdString = _httpContextAccessor.HttpContext.User
+            // .FindFirst("id")?.Value; ;
+            // // faz a conversão do string para Guid
+            // if (!Guid.TryParse(currentUserIdString, out Guid currentUserId))
+            // {
+            //     throw new UnauthorizedAccessException("Token inválido ou ausente");
+            // }
             //setar no request
-            request.OwnerId = currentUserId;
+
+            // --- Verifica duplicidade de Nome ou ISRC ---
+            var existingBeat = await _context.Beats
+                .FirstOrDefaultAsync(b => b.Nome == request.Nome || b.ISRC == request.ISRC, cancellationToken);
+
+            if (existingBeat != null)
+            {
+                if (existingBeat.Nome == request.Nome)
+                    throw new InvalidOperationException("Já existe um Beat cadastrado com esse nome!");
+
+                if (existingBeat.ISRC == request.ISRC)
+                    throw new InvalidOperationException("Já existe um Beat cadastrado com esse ISRC!");
+            }
+
             Beat beat = request;
             beat.Id = Guid.NewGuid();
             beat.CriadoEm = DateTime.UtcNow;
             beat.AtualizadoEm = DateTime.UtcNow;
 
-            // Faz a criação das licencas relacionadas ao beat
-            var beatLicencasGeradas = new List<BeatLicencas>();
-            foreach (var licenca in beat.BeatLicencas)
+            // --- Cria as licenças relacionadas ---
+            var beatLicencas = new List<BeatLicencas>();
+
+            if (request.BeatLicencas != null && request.BeatLicencas.Any())
             {
-                if (licenca.PresetLicencaId != Guid.Empty)
+                foreach (var licencaReq in request.BeatLicencas)
                 {
-                    var preset = await _context.PresetLicencas
-                        .Include(p => p.Licencas)
-                        .FirstOrDefaultAsync(p => p.Id == licenca.PresetLicencaId);
+                    var licenca = await _context.Licencas
+                        .FirstOrDefaultAsync(l => l.Id == licencaReq.LicencaId, cancellationToken);
 
-                    if (preset != null)
+                    if (licenca == null)
                     {
-                        var beatLicencas = preset.Licencas
-                        .Select(config => new BeatLicencaCreateRequest
-                        {
-                            Id = Guid.NewGuid(),
-                            BeatId = beat.Id,
-                            PresetLicencaId = preset.Id,
-                            Preco = config.Preco,
-                            PeriodoUso = config.PeriodoUso,
-                            Distribuicao = config.Distribuicao,
-                            StreamingAudio = config.StreamingAudio,
-                            StreamingVideo = config.StreamingVideo,
-                            Video = config.Video,
-                            ApresenSemFinsLucrativos = config.ApresenSemFinsLucrativos,
-                            ApresenFimLucrativos = config.ApresenFimLucrativos,
-                            Porcentagem = config.Porcentagem,
-                            RoyaltShare = config.RoyaltShare,
-                            ExibirEmissoraRadio = config.ExibirEmissoraRadio,
-                            ExibirEmissoraTV = config.ExibirEmissoraTV
-                        }).ToList();
+                        throw new InvalidOperationException("Licença selecionada não existe, tente novamente mais tarde");
+                    }
 
-                        beat.BeatLicencas.AddRange((IEnumerable<BeatLicencas>)beatLicencas);
-                    }
-                    else
+
+                    var beatLicenca = new BeatLicencas
                     {
-                        preset = await _context.PresetLicencas
-                        .Include(p => p.Licencas)
-                        .FirstOrDefaultAsync(p => p.Id == Guid.Parse("97806a3e-ea4d-4c0f-a82f-664f9016990f"));
-                    }
+                        Id = Guid.NewGuid(),
+                        BeatId = beat.Id,
+                        LicencaId = licenca.Id
+                    };
+
+                    beatLicencas.Add(beatLicenca);
                 }
             }
-            beat.BeatLicencas = beatLicencasGeradas;
-
+            beat.BeatLicencas = beatLicencas;
             var beatColabs = request.Colaboradores.Select(c => new BeatColab
             {
                 BeatId = beat.Id, // <-- aqui é o Id do beat que acabou de ser salvo
@@ -109,7 +105,7 @@ namespace BeatNationAPI.Application.Handlers
             }).ToList();
 
             await _context.BeatColabs.AddRangeAsync(beatColabs);
-            await _context.BeatLicencas.AddRangeAsync(beatLicencasGeradas);
+            await _context.BeatLicencas.AddRangeAsync(beatLicencas);
             await _context.AddAsync(beat);
             await _context.SaveChangesAsync();
 
@@ -118,7 +114,6 @@ namespace BeatNationAPI.Application.Handlers
 
         }
 
-
-
     }
+
 }

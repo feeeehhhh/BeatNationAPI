@@ -1,5 +1,7 @@
 ﻿
 
+using System.Text.Json.Serialization;
+
 namespace BeatNationAPI.Models
 {
     public class BeatColab
@@ -7,6 +9,8 @@ namespace BeatNationAPI.Models
         public Guid Id { get; set; }
 
         public Guid BeatId { get; set; } //Chave estrangeira do Beat
+        
+        [JsonIgnore]
         public Beat? Beat { get; set; } // agora pode ser nulo
         public string Username { get; set; } = string.Empty; // Nome do colaborador/produtor
 

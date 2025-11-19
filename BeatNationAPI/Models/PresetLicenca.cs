@@ -7,7 +7,7 @@ public class PresetLicenca
     public string Descricao { get; set; } = string.Empty;
     public Guid? OwnerId { get; set; }
 
-    public List<PresetLicencaConfig> Licencas { get; set; } = new();
+    public List<Licenca> Licencas { get; set; } = new();
 }
 
 }

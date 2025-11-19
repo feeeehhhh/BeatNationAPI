@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeatNationAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251012000658_SeedPresetDefault")]
-    partial class SeedPresetDefault
+    [Migration("20251024235517_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,9 +129,6 @@ namespace BeatNationAPI.Migrations
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("PresetLicencaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BeatId");
@@ -141,35 +138,184 @@ namespace BeatNationAPI.Migrations
                     b.ToTable("BeatLicencas");
                 });
 
-            modelBuilder.Entity("BeatNationAPI.Models.LicencaBase", b =>
+            modelBuilder.Entity("BeatNationAPI.Models.Licenca", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PresetLicencaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.ToTable("LicencasBase");
+                    b.HasIndex("PresetLicencaId");
+
+                    b.ToTable("Licencas");
 
                     b.HasData(
                         new
                         {
                             Id = new Guid("724c5c55-ecb3-4fc1-a2ad-d77a02833d24"),
-                            Nome = "Básica"
+                            AtualizadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Categoria = "NaoExclusiva",
+                            CriadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descricao = "Licença padrão para uso básico",
+                            Nome = "Básica",
+                            PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f")
                         },
                         new
                         {
                             Id = new Guid("75974e74-12de-41e4-9fca-f9b87e04e5a6"),
-                            Nome = "VIP"
+                            AtualizadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Categoria = "NaoExclusiva",
+                            CriadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descricao = "Licença avançada com mais benefícios dispóniveis",
+                            Nome = "VIP",
+                            PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f")
                         },
                         new
                         {
                             Id = new Guid("ead25d1b-6568-4913-98cd-2f363f235d8b"),
-                            Nome = "Exclusiva"
+                            AtualizadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Categoria = "Exclusiva",
+                            CriadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descricao = "Licença exclusiva para uso total e irrestrito",
+                            Nome = "Exclusiva",
+                            PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f")
+                        });
+                });
+
+            modelBuilder.Entity("BeatNationAPI.Models.LicencaConfig", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApresenFimLucrativos")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ApresenSemFinsLucrativos")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Distribuicao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ExibirEmissoraRadio")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ExibirEmissoraTV")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("LicencaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PeriodoUso")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Porcentagem")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Preco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoyaltShare")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StreamingAudio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreamingVideo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Video")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LicencaId");
+
+                    b.ToTable("LicencaConfig");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                            ApresenFimLucrativos = "300",
+                            ApresenSemFinsLucrativos = "2500",
+                            Distribuicao = "15000",
+                            ExibirEmissoraRadio = true,
+                            ExibirEmissoraTV = false,
+                            LicencaId = new Guid("724c5c55-ecb3-4fc1-a2ad-d77a02833d24"),
+                            PeriodoUso = "1",
+                            Porcentagem = 20,
+                            Preco = 0,
+                            RoyaltShare = 20,
+                            StreamingAudio = "20000",
+                            StreamingVideo = "20000",
+                            Video = "1"
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            ApresenFimLucrativos = "500",
+                            ApresenSemFinsLucrativos = "5000",
+                            Distribuicao = "20000",
+                            ExibirEmissoraRadio = true,
+                            ExibirEmissoraTV = true,
+                            LicencaId = new Guid("75974e74-12de-41e4-9fca-f9b87e04e5a6"),
+                            PeriodoUso = "3",
+                            Porcentagem = 30,
+                            Preco = 0,
+                            RoyaltShare = 20,
+                            StreamingAudio = "50000",
+                            StreamingVideo = "50000",
+                            Video = "1"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
+                            ApresenFimLucrativos = "Ilimitado",
+                            ApresenSemFinsLucrativos = "Ilimitado",
+                            Distribuicao = "Ilimitado",
+                            ExibirEmissoraRadio = true,
+                            ExibirEmissoraTV = true,
+                            LicencaId = new Guid("ead25d1b-6568-4913-98cd-2f363f235d8b"),
+                            PeriodoUso = "Ilimitado",
+                            Porcentagem = 100,
+                            Preco = 0,
+                            RoyaltShare = 20,
+                            StreamingAudio = "Ilimitado",
+                            StreamingVideo = "Ilimitado",
+                            Video = "Ilimitado"
                         });
                 });
 
@@ -203,119 +349,6 @@ namespace BeatNationAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BeatNationAPI.Models.PresetLicencaConfig", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ApresenFimLucrativos")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ApresenSemFinsLucrativos")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Distribuicao")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("ExibirEmissoraRadio")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("ExibirEmissoraTV")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("LicencaBaseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("PeriodoUso")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Porcentagem")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Preco")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("PresetLicencaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("RoyaltShare")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StreamingAudio")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StreamingVideo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Video")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LicencaBaseId");
-
-                    b.HasIndex("PresetLicencaId");
-
-                    b.ToTable("PresetLicencasConfig");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            ApresenFimLucrativos = 300,
-                            ApresenSemFinsLucrativos = 2500,
-                            Distribuicao = 15000,
-                            ExibirEmissoraRadio = true,
-                            ExibirEmissoraTV = false,
-                            LicencaBaseId = new Guid("724c5c55-ecb3-4fc1-a2ad-d77a02833d24"),
-                            PeriodoUso = 1,
-                            Porcentagem = 20,
-                            Preco = 0,
-                            PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f"),
-                            RoyaltShare = 20,
-                            StreamingAudio = 20000,
-                            StreamingVideo = 20000,
-                            Video = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            ApresenFimLucrativos = 500,
-                            ApresenSemFinsLucrativos = 5000,
-                            Distribuicao = 20000,
-                            ExibirEmissoraRadio = true,
-                            ExibirEmissoraTV = true,
-                            LicencaBaseId = new Guid("75974e74-12de-41e4-9fca-f9b87e04e5a6"),
-                            PeriodoUso = 3,
-                            Porcentagem = 30,
-                            Preco = 0,
-                            PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f"),
-                            RoyaltShare = 20,
-                            StreamingAudio = 50000,
-                            StreamingVideo = 50000,
-                            Video = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            ApresenFimLucrativos = 999999,
-                            ApresenSemFinsLucrativos = 999999,
-                            Distribuicao = 999999,
-                            ExibirEmissoraRadio = true,
-                            ExibirEmissoraTV = true,
-                            LicencaBaseId = new Guid("ead25d1b-6568-4913-98cd-2f363f235d8b"),
-                            PeriodoUso = 99999,
-                            Porcentagem = 100,
-                            Preco = 0,
-                            PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f"),
-                            RoyaltShare = 20,
-                            StreamingAudio = 999999,
-                            StreamingVideo = 999999,
-                            Video = 999999
-                        });
-                });
-
             modelBuilder.Entity("BeatNationAPI.Models.BeatColab", b =>
                 {
                     b.HasOne("BeatNationAPI.Models.Beat", "Beat")
@@ -335,7 +368,7 @@ namespace BeatNationAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BeatNationAPI.Models.LicencaBase", "Licenca")
+                    b.HasOne("BeatNationAPI.Models.Licenca", "Licencas")
                         .WithMany()
                         .HasForeignKey("LicencaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -343,26 +376,29 @@ namespace BeatNationAPI.Migrations
 
                     b.Navigation("Beat");
 
-                    b.Navigation("Licenca");
+                    b.Navigation("Licencas");
                 });
 
-            modelBuilder.Entity("BeatNationAPI.Models.PresetLicencaConfig", b =>
+            modelBuilder.Entity("BeatNationAPI.Models.Licenca", b =>
                 {
-                    b.HasOne("BeatNationAPI.Models.LicencaBase", "Licencas")
-                        .WithMany("Presets")
-                        .HasForeignKey("LicencaBaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BeatNationAPI.Models.PresetLicenca", "PresetLicenca")
                         .WithMany("Licencas")
                         .HasForeignKey("PresetLicencaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Licencas");
-
                     b.Navigation("PresetLicenca");
+                });
+
+            modelBuilder.Entity("BeatNationAPI.Models.LicencaConfig", b =>
+                {
+                    b.HasOne("BeatNationAPI.Models.Licenca", "Licenca")
+                        .WithMany("LicencaConfig")
+                        .HasForeignKey("LicencaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Licenca");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.Beat", b =>
@@ -372,9 +408,9 @@ namespace BeatNationAPI.Migrations
                     b.Navigation("Colaboradores");
                 });
 
-            modelBuilder.Entity("BeatNationAPI.Models.LicencaBase", b =>
+            modelBuilder.Entity("BeatNationAPI.Models.Licenca", b =>
                 {
-                    b.Navigation("Presets");
+                    b.Navigation("LicencaConfig");
                 });
 
             modelBuilder.Entity("BeatNationAPI.Models.PresetLicenca", b =>

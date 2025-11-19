@@ -1,9 +1,15 @@
 ﻿using BeatNationAPI.Data;
-using MediatR;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,10 +47,15 @@ if (retryCount == 0)
     throw new Exception("N�o foi poss�vel conectar ao SQL Server ap�s v�rias tentativas.");
 }
 
-builder.Services.AddControllers();
-// Por esta linha:
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.WriteIndented = true; // deixa o JSON legível
+        options.JsonSerializerOptions.MaxDepth = 32;        // aumenta profundidade para testar
+    });
+
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); });
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddHttpContextAccessor();
@@ -55,10 +66,77 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minha API", Version = "v1" });
 
 });
+// EnvConfig
+
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, ".env");
+EnvConfig.Load(dotenv);
+
+builder.Configuration["Cloudflare:AccountId"] = Environment.GetEnvironmentVariable("CloudFlare_AccountId");
+builder.Configuration["Cloudflare:AccessKeyId"] = Environment.GetEnvironmentVariable("CloudFlare_AccessKeyId");
+builder.Configuration["Cloudflare:SecretAccessKey"] = Environment.GetEnvironmentVariable("CloudFlare_SecretAccessKey");
+builder.Configuration["Cloudflare:Bucket"] = Environment.GetEnvironmentVariable("CloudFlare_Bucket");
+builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVariable("CloudFlare_PublicDomain");
+
+
+
+
+// Configura CORS para permitir requisições do frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:3000") // origem do frontend
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials(); // só se estiver usando cookies/autenticação
+        });
+});
+
+// JWT
+var keyString = Environment.GetEnvironmentVariable("PRIVATE_KEY");
+if (string.IsNullOrEmpty(keyString))
+    throw new Exception("PRIVATE_KEY não definida!");
+
+var key = Encoding.ASCII.GetBytes(keyString);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            if (context.Request.Cookies.ContainsKey("accessToken"))
+            {
+                context.Token = context.Request.Cookies["accessToken"];
+            }
+            return Task.CompletedTask;
+        }
+    };
+
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "AuthAPI",
+        ValidAudience = "BeatNationAPI",
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+builder.Services.AddAuthorization(); // necessário para [Authorize]
 
 
 var app = builder.Build();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -70,10 +148,12 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
+app.UseCors("AllowLocalhost");
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

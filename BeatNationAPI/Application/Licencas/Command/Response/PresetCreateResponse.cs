@@ -1,4 +1,5 @@
-using BeatNationAPI.Application.Command.Licencas.Request;
+
+using System.Text.Json.Serialization;
 using BeatNationAPI.Models;
 
 namespace BeatNationAPI.Application.Licencas.Command.Response
@@ -9,7 +10,8 @@ namespace BeatNationAPI.Application.Licencas.Command.Response
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public Guid? OwnerId { get; set; }
-        public List<PresetLicencaConfig> Licencas { get; set; } = new();
+        
+        public ICollection<Licenca> Licencas { get; set; } = new List<Licenca>();
 
 
         public static implicit operator PresetCreateResponse(PresetLicenca p)
@@ -21,7 +23,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Response
                 Descricao = p.Descricao,
                 OwnerId = p.OwnerId,
                 Licencas = p.Licencas?
-                    .Select(l => (PresetLicencaConfig)l) // converte cada item individualmente
+                    .Select(l => (Licenca)l) // converte cada item individualmente
                    .ToList()
             };
         }

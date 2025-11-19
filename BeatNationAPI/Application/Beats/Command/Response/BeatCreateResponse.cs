@@ -19,8 +19,8 @@ namespace BeatNationAPI.Application.Beats.Command.Response
         public string UrlCapa { get; set; } = string.Empty;
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
-        List<BeatColab> Colaboradores { get; set; } = new();
-        List<BeatLicencas> BeatLicencas { get; set; } = new();
+        public List<BeatColab> Colaboradores { get; set; } = new();
+        public List<BeatLicencas> BeatLicencas { get; set; } = new();
 
 
         public static implicit operator BeatCreateResponse(Beat b)

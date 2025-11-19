@@ -8,6 +8,7 @@ namespace BeatNationAPI.Application.Beats.Command.Request
     {
         public Guid Id { get; set; }
         public Guid OwnerId { get; set; }  // ID pegado via token
+        public Guid LicencaId { get; set; } // Licença Padrão
         public string Nome { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
         public string Genero { get; set; } = string.Empty;
@@ -51,9 +52,10 @@ namespace BeatNationAPI.Application.Beats.Command.Request
                 .Select(l => new BeatLicencas
                 {   
                     Id = l.Id,
-                    PresetLicencaId = l.PresetLicencaId
+                    LicencaId = l.LicencaId
                 })
                 .ToList()
+                
 
             };
         }
