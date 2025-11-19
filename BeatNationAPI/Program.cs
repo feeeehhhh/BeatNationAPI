@@ -1,5 +1,5 @@
 ﻿using BeatNationAPI.Data;
-using MediatR;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,6 +66,20 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minha API", Version = "v1" });
 
 });
+// EnvConfig
+
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, ".env");
+EnvConfig.Load(dotenv);
+
+builder.Configuration["Cloudflare:AccountId"] = Environment.GetEnvironmentVariable("CloudFlare_AccountId");
+builder.Configuration["Cloudflare:AccessKeyId"] = Environment.GetEnvironmentVariable("CloudFlare_AccessKeyId");
+builder.Configuration["Cloudflare:SecretAccessKey"] = Environment.GetEnvironmentVariable("CloudFlare_SecretAccessKey");
+builder.Configuration["Cloudflare:Bucket"] = Environment.GetEnvironmentVariable("CloudFlare_Bucket");
+builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVariable("CloudFlare_PublicDomain");
+
+
+
 
 // Configura CORS para permitir requisições do frontend
 builder.Services.AddCors(options =>
