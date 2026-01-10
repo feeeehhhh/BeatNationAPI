@@ -52,6 +52,7 @@ namespace BeatNationAPI.Application.Handlers
             // }
             //setar no request
 
+<<<<<<< HEAD
             // --- Verifica duplicidade de Nome ou ISRC ---
             var existingBeat = await _context.Beats
                 .FirstOrDefaultAsync(b => b.Nome == request.Nome || b.ISRC == request.ISRC, cancellationToken);
@@ -69,6 +70,29 @@ namespace BeatNationAPI.Application.Handlers
             beat.Id = Guid.NewGuid();
             beat.CriadoEm = DateTime.UtcNow;
             beat.AtualizadoEm = DateTime.UtcNow;
+=======
+
+            var beat = new Beat
+            {
+                Id = Guid.NewGuid(),
+                OwnerId = request.OwnerId,
+                Nome = request.Nome,
+                Tags = request.Tags,
+                Genero = request.Genero,
+                Bpm = request.Bpm,
+                ISRC = request.ISRC,
+                Escala = request.Escala,
+                Tom = request.Tom,
+                UrlMp3 = request.UrlMp3,
+                UrlWav = request.UrlWav,
+                UrlTrackout = request.UrlTrackout,
+                UrlCapa = request.UrlCapa,
+                CriadoEm = DateTime.UtcNow,
+                AtualizadoEm = DateTime.UtcNow,
+
+            };
+
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
             // --- Cria as licenças relacionadas ---
             var beatLicencas = new List<BeatLicencas>();
@@ -85,12 +109,34 @@ namespace BeatNationAPI.Application.Handlers
                         throw new InvalidOperationException("Licença selecionada não existe, tente novamente mais tarde");
                     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     var beatLicenca = new BeatLicencas
                     {
                         Id = Guid.NewGuid(),
                         BeatId = beat.Id,
+<<<<<<< HEAD
                         LicencaId = licenca.Id
+=======
+                        LicencaId = licenca.Id,
+                        Preco = licenca.Preco,
+
+                        //copia as configurações
+                        PeriodoUso = licenca.PeriodoUso,
+                        Distribuicao = licenca.Distribuicao,
+                        StreamingAudio = licenca.StreamingAudio,
+                        StreamingVideo = licenca.StreamingVideo,
+                        Video = licenca.Video,
+                        ApresenSemFinsLucrativos = licenca.ApresenSemFinsLucrativos,
+                        ApresenFimLucrativos = licenca.ApresenFimLucrativos,
+                        RoyaltShare = licenca.RoyaltShare,
+                        ExibirEmissoraRadio = licenca.ExibirEmissoraRadio,
+                        ExibirEmissoraTV = licenca.ExibirEmissoraTV
+
+
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     };
 
                     beatLicencas.Add(beatLicenca);
@@ -100,7 +146,10 @@ namespace BeatNationAPI.Application.Handlers
             var beatColabs = request.Colaboradores.Select(c => new BeatColab
             {
                 BeatId = beat.Id, // <-- aqui é o Id do beat que acabou de ser salvo
+<<<<<<< HEAD
                 IdUsuario = c.IdUsuario,
+=======
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                 Participacao = c.Participacao
             }).ToList();
 

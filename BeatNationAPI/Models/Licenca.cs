@@ -1,5 +1,6 @@
 ﻿
 
+<<<<<<< HEAD
 using System.Text.Json.Serialization;
 
 namespace BeatNationAPI.Models
@@ -10,6 +11,14 @@ namespace BeatNationAPI.Models
     {
 
 
+=======
+
+namespace BeatNationAPI.Models
+{
+    public class ValorOuIlimitado
+    {
+
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
         public bool IsIlimitado { get; set; }
         public int? Numero { get; set; }
         public string Valor => IsIlimitado ? "Ilimitado" : Numero.ToString();
@@ -37,6 +46,7 @@ namespace BeatNationAPI.Models
 
         public Guid PresetLicencaId { get; set; }
 
+<<<<<<< HEAD
         public  ValorOuIlimitado PeriodoUso { get; set; }
         public  ValorOuIlimitado Distribuicao { get; set; }
         public ValorOuIlimitado StreamingAudio { get; set; }
@@ -53,6 +63,25 @@ namespace BeatNationAPI.Models
         public PresetLicenca? PresetLicenca { get; set; }
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
+=======
+        public ValorOuIlimitado PeriodoUso { get; set; }
+        public ValorOuIlimitado Distribuicao { get; set; }
+        public ValorOuIlimitado StreamingAudio { get; set; }
+        public ValorOuIlimitado StreamingVideo { get; set; }
+        public ValorOuIlimitado Video { get; set; }
+        public ValorOuIlimitado ApresenSemFinsLucrativos { get; set; }
+        public ValorOuIlimitado ApresenFimLucrativos { get; set; }
+        public decimal Preco { get; set; }
+        public int RoyaltShare { get; set; }
+        public bool ExibirEmissoraRadio { get; set; }
+        public bool ExibirEmissoraTV { get; set; }
+        public PresetLicenca PresetLicenca { get; set; }
+        public DateTime CriadoEm { get; set; }
+        public DateTime AtualizadoEm { get; set; }
+        public bool CompartilharMp3 { get; set; } = false;
+        public bool CompartilharWav { get; set; } = false;
+        public bool CompartilharTrackout { get; set; } = false;
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
 
     }

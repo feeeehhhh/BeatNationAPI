@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 ﻿using BeatNationAPI.Data;
 
+=======
+﻿using BeatNationAPI.Application.Licencas.Command.Validators;
+using BeatNationAPI.Data;
+using FluentValidation;
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -72,11 +78,19 @@ var root = Directory.GetCurrentDirectory();
 var dotenv = Path.Combine(root, ".env");
 EnvConfig.Load(dotenv);
 
+<<<<<<< HEAD
 builder.Configuration["Cloudflare:AccountId"] = Environment.GetEnvironmentVariable("CloudFlare_AccountId");
 builder.Configuration["Cloudflare:AccessKeyId"] = Environment.GetEnvironmentVariable("CloudFlare_AccessKeyId");
 builder.Configuration["Cloudflare:SecretAccessKey"] = Environment.GetEnvironmentVariable("CloudFlare_SecretAccessKey");
 builder.Configuration["Cloudflare:Bucket"] = Environment.GetEnvironmentVariable("CloudFlare_Bucket");
 builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVariable("CloudFlare_PublicDomain");
+=======
+builder.Configuration["Cloudflare:AccountId"] = Environment.GetEnvironmentVariable("CLOUDFLARE_ACCOUNTID");
+builder.Configuration["Cloudflare:AccessKeyId"] = Environment.GetEnvironmentVariable("CLOUDFLARE_ACCESSKEYID");
+builder.Configuration["Cloudflare:SecretAccessKey"] = Environment.GetEnvironmentVariable("CLOUDFLARE_SECRETACCESSKEY");
+builder.Configuration["Cloudflare:Bucket"] = Environment.GetEnvironmentVariable("CLOUDFLARE_BUCKET");
+builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVariable("CLOUDFLARE_PUBLICDOMAIN");
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
 
 
@@ -135,6 +149,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(); // necessário para [Authorize]
 
+<<<<<<< HEAD
+=======
+builder.Services.AddValidatorsFromAssembly(typeof(PresetCreateValidator).Assembly);
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

@@ -4,6 +4,7 @@ using BeatNationAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeatNationAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251203002820_RemoveAlgumasPropriedades")]
+    partial class RemoveAlgumasPropriedades
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,11 +34,7 @@ namespace BeatNationAPI.Migrations
                     b.Property<DateTime>("AtualizadoEm")
                         .HasColumnType("datetime2");
 
-<<<<<<< HEAD
-                    b.Property<int>("Bpm")
-=======
                     b.Property<int?>("Bpm")
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CriadoEm")
@@ -98,12 +97,6 @@ namespace BeatNationAPI.Migrations
                     b.Property<Guid>("BeatId")
                         .HasColumnType("uniqueidentifier");
 
-<<<<<<< HEAD
-                    b.Property<int>("IdUsuario")
-                        .HasColumnType("int");
-
-=======
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     b.Property<decimal>("Participacao")
                         .HasColumnType("decimal(18,2)");
 
@@ -124,17 +117,6 @@ namespace BeatNationAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-<<<<<<< HEAD
-                    b.Property<Guid>("BeatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LicencaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)");
-
-=======
                     b.Property<string>("ApresenFimLucrativos")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -188,7 +170,6 @@ namespace BeatNationAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     b.HasKey("Id");
 
                     b.HasIndex("BeatId");
@@ -219,18 +200,6 @@ namespace BeatNationAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-=======
-                    b.Property<bool>("CompartilharMp3")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CompartilharTrackout")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CompartilharWav")
-                        .HasColumnType("bit");
-
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     b.Property<DateTime>("CriadoEm")
                         .HasColumnType("datetime2");
 
@@ -259,13 +228,8 @@ namespace BeatNationAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-                    b.Property<int>("Porcentagem")
-                        .HasColumnType("int");
-=======
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
                     b.Property<Guid>("PresetLicencaId")
                         .HasColumnType("uniqueidentifier");
@@ -299,12 +263,6 @@ namespace BeatNationAPI.Migrations
                             ApresenSemFinsLucrativos = "2500",
                             AtualizadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Categoria = "NaoExclusiva",
-<<<<<<< HEAD
-=======
-                            CompartilharMp3 = true,
-                            CompartilharTrackout = false,
-                            CompartilharWav = false,
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                             CriadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Licença padrão para uso básico",
                             Distribuicao = "15000",
@@ -312,11 +270,7 @@ namespace BeatNationAPI.Migrations
                             ExibirEmissoraTV = false,
                             Nome = "Básica",
                             PeriodoUso = "1",
-<<<<<<< HEAD
-                            Porcentagem = 20,
-=======
                             Preco = 0m,
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                             PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f"),
                             RoyaltShare = 20,
                             StreamingAudio = "20000",
@@ -330,12 +284,6 @@ namespace BeatNationAPI.Migrations
                             ApresenSemFinsLucrativos = "5000",
                             AtualizadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Categoria = "NaoExclusiva",
-<<<<<<< HEAD
-=======
-                            CompartilharMp3 = false,
-                            CompartilharTrackout = false,
-                            CompartilharWav = true,
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                             CriadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Licença avançada com mais benefícios dispóniveis",
                             Distribuicao = "20000",
@@ -343,11 +291,7 @@ namespace BeatNationAPI.Migrations
                             ExibirEmissoraTV = true,
                             Nome = "VIP",
                             PeriodoUso = "3",
-<<<<<<< HEAD
-                            Porcentagem = 30,
-=======
                             Preco = 0m,
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                             PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f"),
                             RoyaltShare = 20,
                             StreamingAudio = "50000",
@@ -361,12 +305,6 @@ namespace BeatNationAPI.Migrations
                             ApresenSemFinsLucrativos = "Ilimitado",
                             AtualizadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Categoria = "Exclusiva",
-<<<<<<< HEAD
-=======
-                            CompartilharMp3 = true,
-                            CompartilharTrackout = true,
-                            CompartilharWav = true,
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                             CriadoEm = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Licença exclusiva para uso total e irrestrito",
                             Distribuicao = "Ilimitado",
@@ -374,11 +312,7 @@ namespace BeatNationAPI.Migrations
                             ExibirEmissoraTV = true,
                             Nome = "Exclusiva",
                             PeriodoUso = "Ilimitado",
-<<<<<<< HEAD
-                            Porcentagem = 100,
-=======
                             Preco = 0m,
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                             PresetLicencaId = new Guid("97806a3e-ea4d-4c0f-a82f-664f9016990f"),
                             RoyaltShare = 20,
                             StreamingAudio = "Ilimitado",
