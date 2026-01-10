@@ -24,22 +24,15 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
         public required ValorOuIlimitado Video { get; set; }
         public required ValorOuIlimitado ApresenSemFinsLucrativos { get; set; }
         public required ValorOuIlimitado ApresenFimLucrativos { get; set; }
-<<<<<<< HEAD
-        public int Porcentagem { get; set; }
-=======
         public decimal Preco { get; set; }
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
         public int RoyaltShare { get; set; }
         public bool ExibirEmissoraRadio { get; set; }
         public bool ExibirEmissoraTV { get; set; }
 
-<<<<<<< HEAD
-=======
         public bool CompartilharMp3 { get; set; } = false;
         public bool CompartilharWav { get; set; } = false;
         public bool CompartilharTrackout { get; set; } = false;
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
         public static implicit operator Licenca(LicencaCreateRequest l)
         {
@@ -51,10 +44,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
                 Categoria = l.Categoria,
                 OwnerId = l.OwnerId,
                 PresetLicencaId = l.PresetLicencaId,
-<<<<<<< HEAD
-=======
                 Preco = l.Preco,
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                 PeriodoUso = l.PeriodoUso,
                 Distribuicao = l.Distribuicao,
                 StreamingAudio = l.StreamingAudio,
@@ -62,12 +52,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
                 Video = l.Video,
                 ApresenSemFinsLucrativos = l.ApresenSemFinsLucrativos,
                 ApresenFimLucrativos = l.ApresenFimLucrativos,
-<<<<<<< HEAD
-                Porcentagem = l.Porcentagem,
-                RoyaltShare = l.RoyaltShare,
-                ExibirEmissoraRadio = l.ExibirEmissoraRadio,
-                ExibirEmissoraTV = l.ExibirEmissoraTV
-=======
                 RoyaltShare = l.RoyaltShare,
                 ExibirEmissoraRadio = l.ExibirEmissoraRadio,
                 ExibirEmissoraTV = l.ExibirEmissoraTV,
@@ -76,7 +60,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Request
                 CompartilharTrackout = l.CompartilharTrackout
 
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
             };
         }
     }

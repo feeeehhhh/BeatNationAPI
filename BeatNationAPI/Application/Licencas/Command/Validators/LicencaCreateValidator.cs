@@ -14,11 +14,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Validators
             .MinimumLength(5).WithMessage("O nome deve ter no mínimo 5 caracteres!")
             .MaximumLength(100).WithMessage("O nome deve ter no máximo 100 caracteres!")
             .Matches("^[A-Za-zÀ-ÿ0-9 ,.()-]+$").WithMessage("O campo deve conter apenas letras e números.");
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
             RuleFor(x => x.Descricao)
             .NotEmpty().WithMessage("O nome da licença é obrigatório!")
             .MinimumLength(5).WithMessage("O nome deve ter no mínimo 5 caracteres!")
@@ -52,13 +48,6 @@ namespace BeatNationAPI.Application.Licencas.Command.Validators
             RuleFor(x => x.ApresenFimLucrativos)
             .NotNull().WithMessage("A quantidade de apresentações com fins lucrativos é obrigatório!");
 
-<<<<<<< HEAD
-            RuleFor(x => x.Porcentagem)
-            .NotNull().WithMessage("A porcentagem é obrigatória!")
-            .InclusiveBetween(0, 100).WithMessage("A porcentagem deve estar entre 0 e 100.");
-
-=======
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
             RuleFor(x => x.RoyaltShare)
             .NotNull().WithMessage("O Royalty Share é obrigatório!")
             .InclusiveBetween(0, 100).WithMessage("O Royalty Share deve estar entre 0 e 100.");
@@ -68,11 +57,7 @@ namespace BeatNationAPI.Application.Licencas.Command.Validators
 
             RuleFor(x => x.ExibirEmissoraTV)
             .NotNull().WithMessage("O campo Exibir Emissora TV é obrigatório!");
-<<<<<<< HEAD
-           
-=======
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
         }
     }
 }

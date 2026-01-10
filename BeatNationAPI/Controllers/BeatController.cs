@@ -43,8 +43,6 @@ namespace BeatNationAPI.Controllers
             await mediator.Send(command);
             return NoContent();
         }
-<<<<<<< HEAD
-=======
 
         // Assinatura assinado pro cloudflare r2
 
@@ -58,6 +56,5 @@ namespace BeatNationAPI.Controllers
             var result = await mediator.Send(command);
             return Ok(result);
         }
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
     }
 }

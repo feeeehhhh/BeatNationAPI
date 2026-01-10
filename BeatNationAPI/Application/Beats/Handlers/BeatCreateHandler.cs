@@ -52,25 +52,6 @@ namespace BeatNationAPI.Application.Handlers
             // }
             //setar no request
 
-<<<<<<< HEAD
-            // --- Verifica duplicidade de Nome ou ISRC ---
-            var existingBeat = await _context.Beats
-                .FirstOrDefaultAsync(b => b.Nome == request.Nome || b.ISRC == request.ISRC, cancellationToken);
-
-            if (existingBeat != null)
-            {
-                if (existingBeat.Nome == request.Nome)
-                    throw new InvalidOperationException("Já existe um Beat cadastrado com esse nome!");
-
-                if (existingBeat.ISRC == request.ISRC)
-                    throw new InvalidOperationException("Já existe um Beat cadastrado com esse ISRC!");
-            }
-
-            Beat beat = request;
-            beat.Id = Guid.NewGuid();
-            beat.CriadoEm = DateTime.UtcNow;
-            beat.AtualizadoEm = DateTime.UtcNow;
-=======
 
             var beat = new Beat
             {
@@ -92,7 +73,6 @@ namespace BeatNationAPI.Application.Handlers
 
             };
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
             // --- Cria as licenças relacionadas ---
             var beatLicencas = new List<BeatLicencas>();
@@ -109,17 +89,10 @@ namespace BeatNationAPI.Application.Handlers
                         throw new InvalidOperationException("Licença selecionada não existe, tente novamente mais tarde");
                     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     var beatLicenca = new BeatLicencas
                     {
                         Id = Guid.NewGuid(),
                         BeatId = beat.Id,
-<<<<<<< HEAD
-                        LicencaId = licenca.Id
-=======
                         LicencaId = licenca.Id,
                         Preco = licenca.Preco,
 
@@ -136,7 +109,6 @@ namespace BeatNationAPI.Application.Handlers
                         ExibirEmissoraTV = licenca.ExibirEmissoraTV
 
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     };
 
                     beatLicencas.Add(beatLicenca);
@@ -146,10 +118,6 @@ namespace BeatNationAPI.Application.Handlers
             var beatColabs = request.Colaboradores.Select(c => new BeatColab
             {
                 BeatId = beat.Id, // <-- aqui é o Id do beat que acabou de ser salvo
-<<<<<<< HEAD
-                IdUsuario = c.IdUsuario,
-=======
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                 Participacao = c.Participacao
             }).ToList();
 

@@ -51,10 +51,6 @@ namespace BeatNationAPI.Application.Licencas.Handlers
             licenca.Video = request.Video ?? licenca.Video;
             licenca.ApresenSemFinsLucrativos = request.ApresenSemFinsLucrativos ?? licenca.ApresenSemFinsLucrativos;
             licenca.ApresenFimLucrativos = request.ApresenFimLucrativos ?? licenca.ApresenFimLucrativos;
-<<<<<<< HEAD
-            licenca.Porcentagem = request.Porcentagem ?? licenca.Porcentagem;
-=======
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
             licenca.RoyaltShare = request.RoyaltShare ?? licenca.RoyaltShare;
             licenca.ExibirEmissoraRadio = request.ExibirEmissoraRadio ?? licenca.ExibirEmissoraRadio;
             licenca.ExibirEmissoraTV = request.ExibirEmissoraTV ?? licenca.ExibirEmissoraTV;

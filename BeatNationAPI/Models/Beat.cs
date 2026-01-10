@@ -9,11 +9,7 @@ namespace BeatNationAPI.Models
         public string Nome { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
         public string Genero { get; set; } = string.Empty;
-<<<<<<< HEAD
-        public int Bpm { get; set; } 
-=======
         public int? Bpm { get; set; } 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
         public string ISRC { get; set; } = string.Empty;
         public string Escala { get; set; } = string.Empty;
         public string Tom { get; set; } = string.Empty;
