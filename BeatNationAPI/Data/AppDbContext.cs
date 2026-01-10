@@ -35,6 +35,10 @@ namespace BeatNationAPI.Data
                     .HasForeignKey(l => l.BeatId);
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
             //Faz converão para que não de erro ao salvar "Ilimitado" no banco
             var converter = new ValueConverter<ValorOuIlimitado, string>(
                 v => v.Valor, // objeto → string (para salvar no banco)
@@ -43,6 +47,21 @@ namespace BeatNationAPI.Data
                     : ValorOuIlimitado.CriarComNumero(int.Parse(v)) // string → objeto
             );
 
+<<<<<<< HEAD
+=======
+
+            modelBuilder.Entity<BeatLicencas>(entity =>
+            {
+                entity.Property(e => e.Distribuicao).HasConversion(converter);
+                entity.Property(e => e.PeriodoUso).HasConversion(converter);
+                entity.Property(e => e.StreamingAudio).HasConversion(converter);
+                entity.Property(e => e.StreamingVideo).HasConversion(converter);
+                entity.Property(e => e.Video).HasConversion(converter);
+                entity.Property(e => e.ApresenSemFinsLucrativos).HasConversion(converter);
+                entity.Property(e => e.ApresenFimLucrativos).HasConversion(converter);
+            });
+
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
             modelBuilder.Entity<Licenca>(entity =>
             {
                 entity.Property(e => e.Distribuicao).HasConversion(converter);
@@ -91,10 +110,19 @@ namespace BeatNationAPI.Data
                         Video = ValorOuIlimitado.CriarComNumero(1),
                         ApresenSemFinsLucrativos = ValorOuIlimitado.CriarComNumero(2500),
                         ApresenFimLucrativos = ValorOuIlimitado.CriarComNumero(300),
+<<<<<<< HEAD
                         Porcentagem = 20,
                         RoyaltShare = 20,
                         ExibirEmissoraRadio = true,
                         ExibirEmissoraTV = false
+=======
+                        RoyaltShare = 20,
+                        ExibirEmissoraRadio = true,
+                        ExibirEmissoraTV = false,
+                        CompartilharMp3 = true,
+                        CompartilharWav = false,
+                        CompartilharTrackout = false
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 
                     },
                     new Licenca
@@ -112,10 +140,19 @@ namespace BeatNationAPI.Data
                         Video = ValorOuIlimitado.CriarComNumero(1),
                         ApresenSemFinsLucrativos = ValorOuIlimitado.CriarComNumero(5000),
                         ApresenFimLucrativos = ValorOuIlimitado.CriarComNumero(500),
+<<<<<<< HEAD
                         Porcentagem = 30,
                         RoyaltShare = 20,
                         ExibirEmissoraRadio = true,
                         ExibirEmissoraTV = true
+=======
+                        RoyaltShare = 20,
+                        ExibirEmissoraRadio = true,
+                        ExibirEmissoraTV = true,
+                        CompartilharMp3 = false,
+                        CompartilharWav = true,
+                        CompartilharTrackout = false
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     },
 
                     new Licenca
@@ -133,10 +170,19 @@ namespace BeatNationAPI.Data
                         Video = ValorOuIlimitado.CriarIlimitado(),
                         ApresenSemFinsLucrativos = ValorOuIlimitado.CriarIlimitado(),
                         ApresenFimLucrativos = ValorOuIlimitado.CriarIlimitado(),
+<<<<<<< HEAD
                         Porcentagem = 100,
                         RoyaltShare = 20,
                         ExibirEmissoraRadio = true,
                         ExibirEmissoraTV = true
+=======
+                        RoyaltShare = 20,
+                        ExibirEmissoraRadio = true,
+                        ExibirEmissoraTV = true,
+                        CompartilharMp3 = true,
+                        CompartilharWav = true,
+                        CompartilharTrackout = true
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                     }
                 );
         }

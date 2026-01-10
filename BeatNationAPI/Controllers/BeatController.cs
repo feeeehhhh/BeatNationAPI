@@ -43,5 +43,21 @@ namespace BeatNationAPI.Controllers
             await mediator.Send(command);
             return NoContent();
         }
+<<<<<<< HEAD
+=======
+
+        // Assinatura assinado pro cloudflare r2
+
+        [HttpPost]
+        [Route("createupload")]
+        public async Task<ActionResult<CreateUploadResponse>> CreateUpload(
+           [FromServices] IMediator mediator,
+           [FromBody] CreateUploadRequest command
+         )
+        {
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
+>>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
     }
 }
