@@ -1,39 +1,8 @@
 ﻿
-<<<<<<< HEAD
-
-
-
-using System.Text.Json.Serialization;
-
-=======
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 namespace BeatNationAPI.Models
 {
     public class BeatLicencas
     {
-<<<<<<< HEAD
-        
-        public Guid Id { get; set; }
-
-        // Relacionamento com Beat
-        public Guid BeatId { get; set; }
-        
-        [JsonIgnore] // Evita referência circular na serialização JSON
-        public Beat? Beat { get; set; } // agora pode ser nulo
-
-
-        public decimal Preco { get; set; }
-        // Relacionamento com Licença
-        public Guid LicencaId { get; set; }
-        
-        [JsonIgnore] // Evita referência circular na serialização JSON
-        public Licenca Licencas { get; set; }
-    }
-}
-
-        
-    
-=======
 
         public Guid Id { get; set; }
         public Guid BeatId { get; set; }
@@ -63,4 +32,3 @@ namespace BeatNationAPI.Models
 
 
 
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)

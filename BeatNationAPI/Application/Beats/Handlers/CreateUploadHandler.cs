@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 using System.Text;
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
 using BeatNationAPI.Application.Beats.Command.Request;
 using BeatNationAPI.Application.Beats.Command.Response;
 using BeatNationAPI.Common.Responses;
@@ -11,8 +8,6 @@ namespace BeatNationAPI.Application.Beats.Handlers
 {
     public class CreateUploadHandler : IRequestHandler<CreateUploadRequest, Response<CreateUploadResponse>>
     {
-<<<<<<< HEAD
-=======
         private readonly IConfiguration _config;
         public CreateUploadHandler(IConfiguration config)
         {
@@ -51,6 +46,5 @@ namespace BeatNationAPI.Application.Beats.Handlers
             );
 
         }
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
     }
 }

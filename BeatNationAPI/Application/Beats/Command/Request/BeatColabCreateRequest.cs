@@ -25,10 +25,6 @@ namespace BeatNationAPI.Application.Beats.Command.Request
             {
                 Id = b.Id,
                 BeatId = b.BeatId,
-<<<<<<< HEAD
-                IdUsuario = b.IdUsuario,
-=======
->>>>>>> 96a9536 (fix: fiz merda no .git da pasta e estou corrigindo mandando todas as alterçaoes em um só commit)
                 Beat = b.Beat,
                 Participacao = b.Participacao,
                 Username = b.Username
