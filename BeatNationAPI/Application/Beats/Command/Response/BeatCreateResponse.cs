@@ -41,9 +41,9 @@ namespace BeatNationAPI.Application.Beats.Command.Response
                 UrlCapa = b.UrlCapa,
                 CriadoEm = b.CriadoEm,
                 AtualizadoEm = b.AtualizadoEm,
-                Colaboradores = b.Colaboradores?
-                .Select(l => (BeatColab)l)
-                .ToList(),
+                // Colaboradores = b.Colaboradores?
+                // .Select(l => (BeatColab)l)
+                // .ToList(),
                 BeatLicencas = b.BeatLicencas?
                 .Select(l => new BeatLicencaCreateRequest
                 {

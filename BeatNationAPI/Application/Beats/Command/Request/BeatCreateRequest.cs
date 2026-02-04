@@ -38,13 +38,13 @@ namespace BeatNationAPI.Application.Beats.Command.Request
                 UrlWav = b.UrlWav,
                 UrlTrackout = b.UrlTrackout,
                 UrlCapa = b.UrlCapa,
-                Colaboradores = b.Colaboradores?
-                .Select(l => new BeatColab
-                {
-                    Username = l.Username,
-                    Participacao = l.Participacao
-                })
-                .ToList(),
+                // Colaboradores = b.Colaboradores?
+                // .Select(l => new BeatColab
+                // {
+                //     Username = l.Username,
+                //     Participacao = l.Participacao
+                // })
+                // .ToList(),
                 BeatLicencas = b.BeatLicencas?
                 .Select(l => new BeatLicencas
                 {
