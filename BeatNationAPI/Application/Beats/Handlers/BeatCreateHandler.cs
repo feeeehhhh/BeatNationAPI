@@ -115,11 +115,11 @@ namespace BeatNationAPI.Application.Handlers
                 }
             }
             beat.BeatLicencas = beatLicencas;
-            var beatColabs = request.Colaboradores.Select(c => new BeatColab
-            {
-                BeatId = beat.Id, // <-- aqui é o Id do beat que acabou de ser salvo
-                Participacao = c.Participacao
-            }).ToList();
+            // var beatColabs = request.Colaboradores.Select(c => new BeatColab
+            // {
+            //     BeatId = beat.Id, // <-- aqui é o Id do beat que acabou de ser salvo
+            //     Participacao = c.Participacao
+            // }).ToList();
 
             await _context.BeatColabs.AddRangeAsync(beatColabs);
             await _context.BeatLicencas.AddRangeAsync(beatLicencas);

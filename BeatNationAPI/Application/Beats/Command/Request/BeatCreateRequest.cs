@@ -19,7 +19,7 @@ namespace BeatNationAPI.Application.Beats.Command.Request
         public string UrlTrackout { get; set; } = string.Empty;
         public string UrlCapa { get; set; } = string.Empty;
 
-        public List<BeatColabCreateRequest> Colaboradores { get; set; } = new();
+        // public List<BeatColabCreateRequest> Colaboradores { get; set; } = new();
         public List<BeatLicencaCreateRequest> BeatLicencas { get; set; } = new();
 
         public static implicit operator Beat(BeatCreateRequest b)

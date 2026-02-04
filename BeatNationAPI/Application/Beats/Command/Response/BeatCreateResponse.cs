@@ -19,7 +19,7 @@ namespace BeatNationAPI.Application.Beats.Command.Response
         public string UrlCapa { get; set; } = string.Empty;
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
-        public List<BeatColab> Colaboradores { get; set; } = new();
+        // public List<BeatColab> Colaboradores { get; set; } = new();
         public List<BeatLicencaCreateRequest> BeatLicencas { get; set; } = new();
 
 
