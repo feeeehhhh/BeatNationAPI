@@ -27,6 +27,8 @@ namespace BeatNationAPI.Models
         public bool CompartilharMp3 { get; set; } = false;
         public bool CompartilharWav { get; set; } = false;
         public bool CompartilharTrackout { get; set; } = false;
+        
+        
     }
 }
 
