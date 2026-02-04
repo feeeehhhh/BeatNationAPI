@@ -121,7 +121,7 @@ namespace BeatNationAPI.Application.Handlers
             //     Participacao = c.Participacao
             // }).ToList();
 
-            await _context.BeatColabs.AddRangeAsync(beatColabs);
+            // await _context.BeatColabs.AddRangeAsync(beatColabs);
             await _context.BeatLicencas.AddRangeAsync(beatLicencas);
             await _context.AddAsync(beat);
             await _context.SaveChangesAsync();
