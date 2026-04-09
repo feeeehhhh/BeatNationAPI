@@ -136,6 +136,27 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(); // necessário para [Authorize]
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Insira o token JWT com Bearer",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme { Reference = new OpenApiReference {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+            }},
+            new string[]{}
+        }
+    });
+});
+
 builder.Services.AddValidatorsFromAssembly(typeof(PresetCreateValidator).Assembly);
 
 var app = builder.Build();

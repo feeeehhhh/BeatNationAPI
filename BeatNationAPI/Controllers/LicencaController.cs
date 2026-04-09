@@ -68,7 +68,7 @@ namespace BeatNationAPI.Controllers
         [HttpPost]
         [Route("licencacreate/{presetLicencaId}")]
         public async Task<ActionResult<LicencaCreateResponse>> CreateLicenca(
-            Guid presetLicencaId, 
+            Guid presetLicencaId,
             [FromServices] IMediator mediator,
             [FromBody] LicencaCreateRequest command
         )
@@ -86,7 +86,7 @@ namespace BeatNationAPI.Controllers
            [FromServices] IMediator mediator
          )
         {
-           var result = await mediator.Send(new LicencaDeleteRequest(Id));
+            var result = await mediator.Send(new LicencaDeleteRequest(Id));
             return Ok(result);
         }
 
@@ -103,9 +103,21 @@ namespace BeatNationAPI.Controllers
             return Ok(result);
 
         }
+        [Authorize]
+        [HttpGet("me")]
+        public IActionResult Me()
+        {
+            var userId = User.FindFirst("sub")?.Value;
+            return Ok(new { UserId = userId, Authenticated = User.Identity.IsAuthenticated });
+        }
 
-
-
+        [Authorize]
+        [HttpGet("debug-cookie")]
+        public IActionResult DebugCookie()
+        {
+            var token = Request.Cookies["accessToken"];
+            return Ok(token ?? "Cookie não encontrado");
+        }
         //  [Authorize]
         // [HttpGet]
         // [Route("licencas")]
