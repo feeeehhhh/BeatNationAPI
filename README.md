@@ -102,7 +102,7 @@ Define a estrutura dos dados da aplicação.
 
     adicione sua string de conexão:
 
-    ![alt text](<string conection-2.png>)
+    ![alt text](<Documentação/imgs/string conection-2.png>)
 
 4. Rodar o projeto
 
