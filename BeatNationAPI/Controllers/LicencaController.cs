@@ -15,8 +15,8 @@ namespace BeatNationAPI.Controllers
     public class LicencaController : ControllerBase
     {
         //Presets da Licencas
-        // [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Admin,Produtor")]
         [Route("presetcreate")]
         public async Task<ActionResult<PresetCreateResponse>> Create(
            [FromServices] IMediator mediator,
@@ -28,9 +28,10 @@ namespace BeatNationAPI.Controllers
         }
 
 
-        // [Authorize]
+        
         [HttpGet]
         [Route("presets")]
+        [Authorize(Roles = "Admin,Produtor")]
         public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(
         [FromServices] IMediator mediator)
         {
@@ -39,8 +40,8 @@ namespace BeatNationAPI.Controllers
         }
 
 
-        // [Authorize]
         [HttpDelete("presetdelete/{id}")]
+        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> DeletePreset(
             Guid id,
            [FromServices] IMediator mediator
@@ -51,6 +52,7 @@ namespace BeatNationAPI.Controllers
         }
 
         [HttpPut("presetupdate/{id}")]
+        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> UpdatePreset(
             Guid Id,
            [FromServices] IMediator mediator,
@@ -64,9 +66,10 @@ namespace BeatNationAPI.Controllers
 
 
         //Licencas
-        // [Authorize]
+        
         [HttpPost]
         [Route("licencacreate/{presetLicencaId}")]
+        [Authorize(Roles = "Admin,Produtor")]
         public async Task<ActionResult<LicencaCreateResponse>> CreateLicenca(
             Guid presetLicencaId,
             [FromServices] IMediator mediator,
@@ -79,8 +82,9 @@ namespace BeatNationAPI.Controllers
 
 
         }
-        // [Authorize]
+        
         [HttpDelete("licencadelete/{id}")]
+        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> DeleteLicenca(
             Guid Id,
            [FromServices] IMediator mediator
@@ -90,8 +94,9 @@ namespace BeatNationAPI.Controllers
             return Ok(result);
         }
 
-        // [Authorize]
+        
         [HttpPut("licencaupdate/{id}")]
+        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> UpdateLicenca(
             Guid Id,
            [FromServices] IMediator mediator,
@@ -103,21 +108,23 @@ namespace BeatNationAPI.Controllers
             return Ok(result);
 
         }
-        [Authorize]
-        [HttpGet("me")]
-        public IActionResult Me()
-        {
-            var userId = User.FindFirst("sub")?.Value;
-            return Ok(new { UserId = userId, Authenticated = User.Identity.IsAuthenticated });
-        }
+        // [Authorize]
+        // [HttpGet("me")]
+        // public IActionResult Me()
+        // {
+        //     var userId = User.FindFirst("sub")?.Value;
+        //     return Ok(new { UserId = userId, Authenticated = User.Identity.IsAuthenticated });
+        // }
 
-        [Authorize]
-        [HttpGet("debug-cookie")]
-        public IActionResult DebugCookie()
-        {
-            var token = Request.Cookies["accessToken"];
-            return Ok(token ?? "Cookie não encontrado");
-        }
+        // [Authorize]
+        // [HttpGet("debug-cookie")]
+        // public IActionResult DebugCookie()
+        // {
+        //     var token = Request.Cookies["accessToken"];
+        //     return Ok(token ?? "Cookie não encontrado");
+        // }
+
+
         //  [Authorize]
         // [HttpGet]
         // [Route("licencas")]
