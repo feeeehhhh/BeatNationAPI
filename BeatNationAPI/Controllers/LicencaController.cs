@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace BeatNationAPI.Controllers
 {
+    [Authorize(Roles = "Admin,Produtor")]
     [Route("api/licencas")]
     [ApiController]
     public class LicencaController : ControllerBase
     {
         //Presets da Licencas
         [HttpPost]
-        [Authorize(Roles = "Admin,Produtor")]
         [Route("presetcreate")]
         public async Task<ActionResult<PresetCreateResponse>> Create(
            [FromServices] IMediator mediator,
@@ -31,7 +31,6 @@ namespace BeatNationAPI.Controllers
         
         [HttpGet]
         [Route("presets")]
-        [Authorize(Roles = "Admin,Produtor")]
         public async Task<ActionResult<List<PresetCreateResponse>>> GetPresets(
         [FromServices] IMediator mediator)
         {
@@ -41,7 +40,6 @@ namespace BeatNationAPI.Controllers
 
 
         [HttpDelete("presetdelete/{id}")]
-        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> DeletePreset(
             Guid id,
            [FromServices] IMediator mediator
@@ -52,7 +50,6 @@ namespace BeatNationAPI.Controllers
         }
 
         [HttpPut("presetupdate/{id}")]
-        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> UpdatePreset(
             Guid Id,
            [FromServices] IMediator mediator,
@@ -69,7 +66,6 @@ namespace BeatNationAPI.Controllers
         
         [HttpPost]
         [Route("licencacreate/{presetLicencaId}")]
-        [Authorize(Roles = "Admin,Produtor")]
         public async Task<ActionResult<LicencaCreateResponse>> CreateLicenca(
             Guid presetLicencaId,
             [FromServices] IMediator mediator,
@@ -84,7 +80,6 @@ namespace BeatNationAPI.Controllers
         }
         
         [HttpDelete("licencadelete/{id}")]
-        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> DeleteLicenca(
             Guid Id,
            [FromServices] IMediator mediator
@@ -96,7 +91,6 @@ namespace BeatNationAPI.Controllers
 
         
         [HttpPut("licencaupdate/{id}")]
-        [Authorize(Roles = "Admin,Produtor")]
         public async Task<IActionResult> UpdateLicenca(
             Guid Id,
            [FromServices] IMediator mediator,
