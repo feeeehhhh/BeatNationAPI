@@ -19,7 +19,6 @@ namespace BeatNationAPI.Application.Beats.Command.Request
         public string UrlTrackout { get; set; } = string.Empty;
         public string UrlCapa { get; set; } = string.Empty;
 
-        // public List<BeatColabCreateRequest> Colaboradores { get; set; } = new();
         public List<BeatLicencaCreateRequest> BeatLicencas { get; set; } = new();
 
         public static implicit operator Beat(BeatCreateRequest b)
@@ -38,13 +37,6 @@ namespace BeatNationAPI.Application.Beats.Command.Request
                 UrlWav = b.UrlWav,
                 UrlTrackout = b.UrlTrackout,
                 UrlCapa = b.UrlCapa,
-                // Colaboradores = b.Colaboradores?
-                // .Select(l => new BeatColab
-                // {
-                //     Username = l.Username,
-                //     Participacao = l.Participacao
-                // })
-                // .ToList(),
                 BeatLicencas = b.BeatLicencas?
                 .Select(l => new BeatLicencas
                 {

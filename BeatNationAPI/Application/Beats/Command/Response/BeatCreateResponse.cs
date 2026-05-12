@@ -19,7 +19,6 @@ namespace BeatNationAPI.Application.Beats.Command.Response
         public string UrlCapa { get; set; } = string.Empty;
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
-        // public List<BeatColab> Colaboradores { get; set; } = new();
         public List<BeatLicencaCreateRequest> BeatLicencas { get; set; } = new();
 
 
@@ -41,9 +40,6 @@ namespace BeatNationAPI.Application.Beats.Command.Response
                 UrlCapa = b.UrlCapa,
                 CriadoEm = b.CriadoEm,
                 AtualizadoEm = b.AtualizadoEm,
-                // Colaboradores = b.Colaboradores?
-                // .Select(l => (BeatColab)l)
-                // .ToList(),
                 BeatLicencas = b.BeatLicencas?
                 .Select(l => new BeatLicencaCreateRequest
                 {
