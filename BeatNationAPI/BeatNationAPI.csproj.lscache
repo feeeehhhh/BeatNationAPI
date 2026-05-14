@@ -120,9 +120,12 @@ Migrations/
  AppDbContextModelSnapshot.cs
 Models/
  Beat.cs
- BeatLicencas.cs
  License.cs
+ LicenseAssignment.cs
+ Order.cs
+ OrderItems.cs
  PresetLicenca.cs
+ Producer.cs
  User.cs
 obj/Debug/net9.0/
  .NETCoreApp,Version=v9.0.AssemblyAttributes.cs

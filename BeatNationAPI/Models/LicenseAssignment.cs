@@ -1,7 +1,7 @@
 ﻿
 namespace BeatNationAPI.Models
 {
-    public class BeatLicencas
+    public class LicenseAssignment 
     {
 
         public Guid Id { get; set; }
