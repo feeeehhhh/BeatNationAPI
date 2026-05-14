@@ -5,24 +5,22 @@ namespace BeatNationAPI.Models
     public class Beat
     {
         public Guid Id { get; set; }
-        public Guid OwnerId { get; set; }  // ID do colaborador/produtor
-        public string Nome { get; set; } = string.Empty;
+        public Guid ProducerId { get; set; }  // ID do colaborador/
+        public string Name { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
-        public string Genero { get; set; } = string.Empty;
+        public string Genre { get; set; } = string.Empty;
         public int? Bpm { get; set; } 
         public string ISRC { get; set; } = string.Empty;
-        public string Escala { get; set; } = string.Empty;
-        public string Tom { get; set; } = string.Empty;
+        public string Scale { get; set; } = string.Empty;
+        public string Tone { get; set; } = string.Empty;
         public string UrlMp3 { get; set; } = string.Empty;
         public string UrlWav { get; set; } = string.Empty;
         public string UrlTrackout { get; set; } = string.Empty;
-        public string UrlCapa { get; set; } = string.Empty;
+        public string UrlCover { get; set; } = string.Empty;
 
-        public DateTime CriadoEm { get; set; }
-        public DateTime AtualizadoEm { get; set ; }
-
-        public ICollection<BeatLicencas> BeatLicencas { get; set; } = new List<BeatLicencas>();
-        public ICollection<BeatColab> Colaboradores { get; set; } = new List<BeatColab>();
+        public DateTime CreatedAt{ get; set; }
+        public DateTime UpdatedAt { get; set ; }
+       // public ICollection<BeatLicencas> LicenseAssingnment { get; set; } = new List<BeatLicencas>();
 
     }
 }
