@@ -13,39 +13,37 @@ namespace BeatNationAPI.Data
 
         // DbSets representam suas tabelas
         public DbSet<Beat> Beats { get; set; }
-        public DbSet<BeatColab> BeatColabs { get; set; }
-        public DbSet<BeatLicencas> BeatLicencas { get; set; }
-        public DbSet<Licenca> Licencas { get; set; }
-        public DbSet<PresetLicenca> PresetLicencas { get; set; }
+        // public DbSet<BeatLicencas> BeatLicencas { get; set; }
+        public DbSet<License> Licenses { get; set; }
 
         // Configurações extras (opcional)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            // Exemplo: relação 1:N Beat -> BeatColab
-            modelBuilder.Entity<BeatColab>()
-                    .HasOne(c => c.Beat)
-                    .WithMany(b => b.Colaboradores)
-                    .HasForeignKey(c => c.BeatId);
+            // base.OnModelCreating(modelBuilder);
+            // // Exemplo: relação 1:N Beat -> BeatColab
+            // modelBuilder.Entity<BeatColab>()
+            //         .HasOne(c => c.Beat)
+            //         .WithMany(b => b.Colaboradores)
+            //         .HasForeignKey(c => c.BeatId);
 
-            // Exemplo: relação 1:N Beat -> BeatLicencas
-            modelBuilder.Entity<BeatLicencas>()
-                    .HasOne(l => l.Beat)
-                    .WithMany(b => b.BeatLicencas)
-                    .HasForeignKey(l => l.BeatId);
+            // // Exemplo: relação 1:N Beat -> BeatLicencas
+            // modelBuilder.Entity<BeatLicencas>()
+            //         .HasOne(l => l.Beat)
+            //         .WithMany(b => b.BeatLicencas)
+            //         .HasForeignKey(l => l.BeatId);
 
 
 
             //Faz converão para que não de erro ao salvar "Ilimitado" no banco
-            var converter = new ValueConverter<ValorOuIlimitado, string>(
-                v => v.Valor, // objeto → string (para salvar no banco)
+            var converter = new ValueConverter<ValueOrIlimited, string>(
+                v => v.Value, // objeto → string (para salvar no banco)
                 v => v == "Ilimitado"
-                    ? ValorOuIlimitado.CriarIlimitado()
-                    : ValorOuIlimitado.CriarComNumero(int.Parse(v)) // string → objeto
+                    ? ValueOrIlimited.CreateIlimited()
+                    : ValueOrIlimited.CreateNumber(int.Parse(v)) // string → objeto
             );
 
-
-            modelBuilder.Entity<BeatLicencas>(entity =>
+            //Refazer depois essa parte 
+            modelBuilder.Entity<LicenseAssignment>(entity =>
             {
                 entity.Property(e => e.Distribuicao).HasConversion(converter);
                 entity.Property(e => e.PeriodoUso).HasConversion(converter);
@@ -56,10 +54,10 @@ namespace BeatNationAPI.Data
                 entity.Property(e => e.ApresenFimLucrativos).HasConversion(converter);
             });
 
-            modelBuilder.Entity<Licenca>(entity =>
+            modelBuilder.Entity<License>(entity =>
             {
-                entity.Property(e => e.Distribuicao).HasConversion(converter);
-                entity.Property(e => e.PeriodoUso).HasConversion(converter);
+                entity.Property(e => e.Distribution).HasConversion(converter);
+                entity.Property(e => e.DurationUse).HasConversion(converter);
                 entity.Property(e => e.StreamingAudio).HasConversion(converter);
                 entity.Property(e => e.StreamingVideo).HasConversion(converter);
                 entity.Property(e => e.Video).HasConversion(converter);
@@ -68,94 +66,75 @@ namespace BeatNationAPI.Data
             });
 
             // Seed inicial das licenças base
-            var licencaBasicaId = Guid.Parse("724c5c55-ecb3-4fc1-a2ad-d77a02833d24");
-            var licencaVIPId = Guid.Parse("75974e74-12de-41e4-9fca-f9b87e04e5a6");
-            var licencaExclusivaId = Guid.Parse("ead25d1b-6568-4913-98cd-2f363f235d8b");
+            var licenseBasicId = Guid.Parse("724c5c55-ecb3-4fc1-a2ad-d77a02833d24");
+            var licenseVIPId = Guid.Parse("75974e74-12de-41e4-9fca-f9b87e04e5a6");
+            var licenseExclusiveId = Guid.Parse("ead25d1b-6568-4913-98cd-2f363f235d8b");
 
-            // Configurações padrão para cada licença no preset "Default"
-            var presetConfigBasicaId = Guid.Parse("11111111-1111-1111-1111-111111111111");
-            var presetConfigVIPId = Guid.Parse("22222222-2222-2222-2222-222222222222");
-            var presetConfigExclusivaId = Guid.Parse("33333333-3333-3333-3333-333333333333");
-
-            var defaultPresetId = Guid.Parse("97806a3e-ea4d-4c0f-a82f-664f9016990f");
-            modelBuilder.Entity<PresetLicenca>().HasData(
-                new PresetLicenca
-                {
-                    Id = defaultPresetId,
-                    Nome = "Default",
-                    Descricao = "Preset inicial com as 3 licenças padrão",
-                    OwnerId = null // preset padrão não tem dono
-                }
-            );
-
-            modelBuilder.Entity<Licenca>().HasData(
-                    new Licenca
+            modelBuilder.Entity<License>().HasData(
+                    new License
                     {
-                        Id = licencaBasicaId,
-                        Nome = "Básica",
-                        OwnerId = null,
-                        Categoria = "NaoExclusiva",
-                        Descricao = "Licença padrão para uso básico",
-                        PresetLicencaId = defaultPresetId,
-                        PeriodoUso = ValorOuIlimitado.CriarComNumero(1),
-                        Distribuicao = ValorOuIlimitado.CriarComNumero(15000),
-                        StreamingAudio = ValorOuIlimitado.CriarComNumero(20000),
-                        StreamingVideo = ValorOuIlimitado.CriarComNumero(20000),
-                        Video = ValorOuIlimitado.CriarComNumero(1),
-                        ApresenSemFinsLucrativos = ValorOuIlimitado.CriarComNumero(2500),
-                        ApresenFimLucrativos = ValorOuIlimitado.CriarComNumero(300),
+                        Id = licenseBasicId,
+                        Name = "Básica",
+                        ProducerId = null,
+                        Category = "NaoExclusiva",
+                        Description = "Licença padrão para uso básico",
+                        DurationUse = ValueOrIlimited.CreateNumber(1),
+                        Distribution = ValueOrIlimited.CreateNumber(15000),
+                        StreamingAudio = ValueOrIlimited.CreateNumber(20000),
+                        StreamingVideo = ValueOrIlimited.CreateNumber(20000),
+                        Video = ValueOrIlimited.CreateNumber(1),
+                        ApresenSemFinsLucrativos = ValueOrIlimited.CreateNumber(2500),
+                        ApresenFimLucrativos = ValueOrIlimited.CreateNumber(300),
                         RoyaltShare = 20,
                         ExibirEmissoraRadio = true,
                         ExibirEmissoraTV = false,
-                        CompartilharMp3 = true,
-                        CompartilharWav = false,
-                        CompartilharTrackout = false
+                        ShareMp3 = true,
+                        ShareWav = false,
+                        ShareTrackout = false
 
                     },
-                    new Licenca
+                    new License
                     {
-                        Id = licencaVIPId,
-                        Nome = "VIP",
-                        OwnerId = null,
-                        Categoria = "NaoExclusiva",
-                        Descricao = "Licença avançada com mais benefícios dispóniveis",
-                        PresetLicencaId = defaultPresetId,
-                        PeriodoUso = ValorOuIlimitado.CriarComNumero(3),
-                        Distribuicao = ValorOuIlimitado.CriarComNumero(20000),
-                        StreamingAudio = ValorOuIlimitado.CriarComNumero(50000),
-                        StreamingVideo = ValorOuIlimitado.CriarComNumero(50000),
-                        Video = ValorOuIlimitado.CriarComNumero(1),
-                        ApresenSemFinsLucrativos = ValorOuIlimitado.CriarComNumero(5000),
-                        ApresenFimLucrativos = ValorOuIlimitado.CriarComNumero(500),
+                        Id = licenseVIPId,
+                        Name = "VIP",
+                        ProducerId = null,
+                        Category = "NaoExclusiva",
+                        Description = "Licença avançada com mais benefícios dispóniveis",
+                        DurationUse = ValueOrIlimited.CreateNumber(3),
+                        Distribution = ValueOrIlimited.CreateNumber(20000),
+                        StreamingAudio = ValueOrIlimited.CreateNumber(50000),
+                        StreamingVideo = ValueOrIlimited.CreateNumber(50000),
+                        Video = ValueOrIlimited.CreateNumber(1),
+                        ApresenSemFinsLucrativos = ValueOrIlimited.CreateNumber(5000),
+                        ApresenFimLucrativos = ValueOrIlimited.CreateNumber(500),
                         RoyaltShare = 20,
                         ExibirEmissoraRadio = true,
                         ExibirEmissoraTV = true,
-                        CompartilharMp3 = false,
-                        CompartilharWav = true,
-                        CompartilharTrackout = false
+                        ShareMp3 = false,
+                        ShareWav = true,
+                        ShareTrackout = false
                     },
 
-                    new Licenca
+                    new License
                     {
-                        Id = licencaExclusivaId,
-                        Nome = "Exclusiva",
-                        OwnerId = null,
-                        Categoria = "Exclusiva",
-                        Descricao = "Licença exclusiva para uso total e irrestrito",
-                        PresetLicencaId = defaultPresetId,
-                        PeriodoUso = ValorOuIlimitado.CriarIlimitado(), // Ilimitado
-                        Distribuicao = ValorOuIlimitado.CriarIlimitado(),
-                        StreamingAudio = ValorOuIlimitado.CriarIlimitado(),
-                        StreamingVideo = ValorOuIlimitado.CriarIlimitado(),
-                        Video = ValorOuIlimitado.CriarIlimitado(),
-                        ApresenSemFinsLucrativos = ValorOuIlimitado.CriarIlimitado(),
-                        ApresenFimLucrativos = ValorOuIlimitado.CriarIlimitado(),
+                        Id = licenseExclusiveId,
+                        Name = "Exclusiva",
+                        ProducerId = null,
+                        Category = "Exclusiva",
+                        Description = "Licença exclusiva para uso total e irrestrito",
+                        DurationUse = ValueOrIlimited.CreateIlimited(), // Ilimitado
+                        Distribution = ValueOrIlimited.CreateIlimited(),
+                        StreamingAudio = ValueOrIlimited.CreateIlimited(),
+                        StreamingVideo = ValueOrIlimited.CreateIlimited(),
+                        Video = ValueOrIlimited.CreateIlimited(),
+                        ApresenSemFinsLucrativos = ValueOrIlimited.CreateIlimited(),
+                        ApresenFimLucrativos = ValueOrIlimited.CreateIlimited(),
                         RoyaltShare = 20,
                         ExibirEmissoraRadio = true,
                         ExibirEmissoraTV = true,
-                        CompartilharMp3 = true,
-                        CompartilharWav = true,
-                        CompartilharTrackout = true
+                        ShareMp3 = true,
+                        ShareWav = true,
+                        ShareTrackout = true
                     }
                 );
         }

@@ -3,21 +3,21 @@ namespace BeatNationAPI.Models
 {
     public class LicenseAssignment 
     {
-
+       // Refazer depois esta parte 
         public Guid Id { get; set; }
         public Guid BeatId { get; set; }
         public Beat Beat { get; set; }
         public Guid LicencaId { get; set; }
-        public Licenca Licencas { get; set; }
+        public License Licencas { get; set; }
         public decimal Preco { get; set; }
         public string Nome { get; set; } = string.Empty;
-        public ValorOuIlimitado PeriodoUso { get; set; }
-        public ValorOuIlimitado Distribuicao { get; set; }
-        public ValorOuIlimitado StreamingAudio { get; set; }
-        public ValorOuIlimitado StreamingVideo { get; set; }
-        public ValorOuIlimitado Video { get; set; }
-        public ValorOuIlimitado ApresenSemFinsLucrativos { get; set; }
-        public ValorOuIlimitado ApresenFimLucrativos { get; set; }
+        public ValueOrIlimited PeriodoUso { get; set; }
+        public ValueOrIlimited Distribuicao { get; set; }
+        public ValueOrIlimited StreamingAudio { get; set; }
+        public ValueOrIlimited StreamingVideo { get; set; }
+        public ValueOrIlimited Video { get; set; }
+        public ValueOrIlimited ApresenSemFinsLucrativos { get; set; }
+        public ValueOrIlimited ApresenFimLucrativos { get; set; }
 
         public int RoyaltShare { get; set; }
         public bool ExibirEmissoraRadio { get; set; }

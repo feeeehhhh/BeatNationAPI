@@ -75,27 +75,16 @@ Application/Licencas/Command/Request/
  LicencaDeleteRequest.cs
  LicencaGetRequest.cs
  LicencaUpdateRequest.cs
- PresetCreateRequest.cs
- PresetDeleteRequest.cs
- PresetGetRequest.cs
- PresetUpdateRequest.cs
-Application/Licencas/Command/Response/
- LicencaCreateResponse.cs
- PresetCreateResponse.cs
-Application/Licencas/Command/Validators/
- LicencaCreateValidator.cs
- LicencaUpdateValidator.cs
- PresetCreateValidator.cs
- PresetUpdateValidator.cs
+Application/Licencas/Command/
+ Response/LicencaCreateResponse.cs
+ Validators/
+  LicencaCreateValidator.cs
+  LicencaUpdateValidator.cs
 Application/Licencas/Handlers/
  LicencaCreateHandler.cs
  LicencaDeleteHandler.cs
  LicencaGetHandler.cs
  LicencaUpdateHandler.cs
- PresetDeleteHandler.cs
- PresetGetHandler.cs
- PresetLicencaCreateHandler.cs
- PresetUpdateHandler.cs
 Common/Responses/Response.cs
 Controllers/
  BeatController.cs

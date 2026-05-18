@@ -3,7 +3,7 @@
 
 namespace BeatNationAPI.Models
 {
-    public class ValueOrNumber
+    public class ValueOrIlimited
     {
 
         public bool IsIlimited{ get; set; }
@@ -12,14 +12,14 @@ namespace BeatNationAPI.Models
 
         public override string ToString() => Value;
 
-        public static ValueOrNumber CreateNumber(int number)
+        public static ValueOrIlimited CreateNumber(int number)
         {
-            return new ValueOrNumber { Number = number, IsIlimited = false };
+            return new ValueOrIlimited { Number = number, IsIlimited = false };
         }
 
-        public static ValueOrNumber CreateIlimited()
+        public static ValueOrIlimited CreateIlimited()
         {
-            return new ValueOrNumber { IsIlimited = true };
+            return new ValueOrIlimited { IsIlimited = true };
         }
 
     }
@@ -31,13 +31,13 @@ namespace BeatNationAPI.Models
         public string Category { get; set; } = string.Empty;
         public Guid? ProducerId { get; set; }
 
-        public ValueOrNumber DurationUse { get; set; }
-        public ValueOrNumber Distribution { get; set; }
-        public ValueOrNumber StreamingAudio { get; set; }
-        public ValueOrNumber StreamingVideo { get; set; }
-        public ValueOrNumber Video { get; set; }
-        public ValueOrNumber ApresenSemFinsLucrativos { get; set; }
-        public ValueOrNumber ApresenFimLucrativos { get; set; }
+        public ValueOrIlimited DurationUse { get; set; }
+        public ValueOrIlimited Distribution { get; set; }
+        public ValueOrIlimited StreamingAudio { get; set; }
+        public ValueOrIlimited StreamingVideo { get; set; }
+        public ValueOrIlimited Video { get; set; }
+        public ValueOrIlimited ApresenSemFinsLucrativos { get; set; }
+        public ValueOrIlimited ApresenFimLucrativos { get; set; }
         public decimal Price { get; set; }
         public int RoyaltShare { get; set; }
         public bool ExibirEmissoraRadio { get; set; }
