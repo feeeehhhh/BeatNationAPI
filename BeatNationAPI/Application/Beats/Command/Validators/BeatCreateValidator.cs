@@ -7,7 +7,7 @@ namespace BeatNationAPI.Application.Beats.Command.Validators
     {
         public BeatCreateValidator()
         {
-            RuleFor(x => x.Nome) // obrigatorio
+            RuleFor(x => x.Name) // obrigatorio
             .NotEmpty().WithMessage("O nome do beat é obrigatório!") 
             .MinimumLength(10).WithMessage("O nome deve ter no mínimo 10 caracteres!")
             .MaximumLength(150).WithMessage("O Nome deve ter no máximo 150 caracteres!")
@@ -21,7 +21,7 @@ namespace BeatNationAPI.Application.Beats.Command.Validators
 
 
 
-            RuleFor(x => x.Genero) // obrigatorio
+            RuleFor(x => x.Genre) // obrigatorio
             .NotEmpty().WithMessage("É obrigatório definir um tipo de gênero!")
             .MaximumLength(150)
              .Matches("^[A-Za-zÀ-ÿ0-9 ,.()-]+$").WithMessage("O campo deve conter apenas letras e números.");
@@ -31,7 +31,7 @@ namespace BeatNationAPI.Application.Beats.Command.Validators
                 .MinimumLength(12).WithMessage("O código ISRC deve ter  12 caracteres!")
                  .Matches("^[A-Za-zÀ-ÿ0-9 ,.()-]+$").WithMessage("O campo deve conter apenas letras e números.");
 
-            RuleFor(x => x.Escala)// opcional
+            RuleFor(x => x.Scale)// opcional
                 .MinimumLength(1).WithMessage("A escala deve ter pelo menos 1 caractere")
                 .MaximumLength(20).WithMessage("A escala deve ter no máximo 20 caracteres")
                  .Matches("^[A-Za-zÀ-ÿ0-9 ,.()-]+$").WithMessage("O campo deve conter apenas letras e números.");
@@ -48,7 +48,7 @@ namespace BeatNationAPI.Application.Beats.Command.Validators
             .NotEmpty()
             .MaximumLength(300);
 
-            RuleFor(x => x.UrlCapa)
+            RuleFor(x => x.UrlCover)
             .NotEmpty()
             .MaximumLength(300);
 

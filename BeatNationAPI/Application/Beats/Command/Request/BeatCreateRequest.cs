@@ -6,48 +6,38 @@ namespace BeatNationAPI.Application.Beats.Command.Request
 {
     public class BeatCreateRequest : IRequest<BeatCreateResponse>
     {
-        public Guid OwnerId { get; set; }  // ID pegado via token
-        public string Nome { get; set; } = string.Empty;
+        public Guid Id { get; set; }
+        public Guid ProducerId { get; set; }  // ID pegado via token
+        public string Name { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
-        public string Genero { get; set; } = string.Empty;
+        public string Genre { get; set; } = string.Empty;
         public int? Bpm { get; set; }
         public string ISRC { get; set; } = string.Empty;
-        public string Escala { get; set; } = string.Empty;
-        public string Tom { get; set; } = string.Empty;
+        public string Scale { get; set; } = string.Empty;
+        public string Tone { get; set; } = string.Empty;
         public string UrlMp3 { get; set; } = string.Empty;
         public string UrlWav { get; set; } = string.Empty;
         public string UrlTrackout { get; set; } = string.Empty;
-        public string UrlCapa { get; set; } = string.Empty;
+        public string UrlCover { get; set; } = string.Empty;
 
-        public List<BeatLicencaCreateRequest> BeatLicencas { get; set; } = new();
 
         public static implicit operator Beat(BeatCreateRequest b)
         {
             return new Beat
             {
-                OwnerId = b.OwnerId,
-                Nome = b.Nome,
+                Id = b.Id,
+                ProducerId = b.ProducerId,
+                Name = b.Name,
                 Tags = b.Tags,
-                Genero = b.Genero,
+                Genre = b.Genre,
                 Bpm = b.Bpm,
                 ISRC = b.ISRC,
-                Escala = b.Escala,
-                Tom = b.Tom,
+                Scale = b.Scale,
+                Tone = b.Tone,
                 UrlMp3 = b.UrlMp3,
                 UrlWav = b.UrlWav,
                 UrlTrackout = b.UrlTrackout,
-                UrlCapa = b.UrlCapa,
-                BeatLicencas = b.BeatLicencas?
-                .Select(l => new BeatLicencas
-                {
-
-                    LicencaId = l.LicencaId,
-                    BeatId = l.BeatId,
-                    Preco = l.Preco
-                })
-                .ToList()
-
-
+                UrlCover = b.UrlCover,
             };
         }
 
