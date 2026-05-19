@@ -1,4 +1,4 @@
-using BeatNationAPI.Application.Licencas.Command.Validators;
+//using BeatNationAPI.Application.License.Command.Validators;
 using BeatNationAPI.Data;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -157,7 +157,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddValidatorsFromAssembly(typeof(PresetCreateValidator).Assembly);
+
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

@@ -57,11 +57,9 @@ Application/Beats/Command/Request/
  BeatCreateRequest.cs
  BeatDeleteRequest.cs
  BeatGetRequest.cs
- BeatLicencaCreateRequest.cs
  CreateUploadRequest.cs
 Application/Beats/Command/Response/
  BeatCreateResponse.cs
- BeatLicencaResponse.cs
  CreateUploadResponse.cs
 Application/Beats/
  Command/Validators/BeatCreateValidator.cs
@@ -113,7 +111,6 @@ Models/
  LicenseAssignment.cs
  Order.cs
  OrderItems.cs
- PresetLicenca.cs
  Producer.cs
  User.cs
 obj/Debug/net9.0/

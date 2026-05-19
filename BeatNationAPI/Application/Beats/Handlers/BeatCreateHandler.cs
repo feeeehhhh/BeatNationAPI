@@ -27,11 +27,11 @@ namespace BeatNationAPI.Application.Handlers
 
             // Verifica se o beat já existe
             var isAlready = await _context.Beats
-            .FirstOrDefaultAsync(b => b.Nome == request.Nome
+            .FirstOrDefaultAsync(b => b.Name == request.Name
                                     || b.ISRC == request.ISRC);
             if (isAlready != null)
             {
-                if (isAlready.Nome == request.Nome)
+                if (isAlready.Name == request.Name)
                 {
                     throw new InvalidOperationException("Já existe um Beat cadastrado com esse nome !");
                 }
@@ -56,73 +56,23 @@ namespace BeatNationAPI.Application.Handlers
             var beat = new Beat
             {
                 Id = Guid.NewGuid(),
-                OwnerId = request.OwnerId,
-                Nome = request.Nome,
+                ProducerId = request.ProducerId,
+                Name = request.Name,
                 Tags = request.Tags,
-                Genero = request.Genero,
+                Genre = request.Genre,
                 Bpm = request.Bpm,
                 ISRC = request.ISRC,
-                Escala = request.Escala,
-                Tom = request.Tom,
+                Scale = request.Scale,
+                Tone = request.Tone,
                 UrlMp3 = request.UrlMp3,
                 UrlWav = request.UrlWav,
                 UrlTrackout = request.UrlTrackout,
-                UrlCapa = request.UrlCapa,
-                CriadoEm = DateTime.UtcNow,
-                AtualizadoEm = DateTime.UtcNow,
+                UrlCover = request.UrlCover,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
 
             };
-
-
-            // --- Cria as licenças relacionadas ---
-            var beatLicencas = new List<BeatLicencas>();
-
-            if (request.BeatLicencas != null && request.BeatLicencas.Any())
-            {
-                foreach (var licencaReq in request.BeatLicencas)
-                {
-                    var licenca = await _context.Licencas
-                        .FirstOrDefaultAsync(l => l.Id == licencaReq.LicencaId, cancellationToken);
-
-                    if (licenca == null)
-                    {
-                        throw new InvalidOperationException("Licença selecionada não existe, tente novamente mais tarde");
-                    }
-
-                    var beatLicenca = new BeatLicencas
-                    {
-                        Id = Guid.NewGuid(),
-                        BeatId = beat.Id,
-                        LicencaId = licenca.Id,
-                        Preco = licenca.Preco,
-
-                        //copia as configurações
-                        PeriodoUso = licenca.PeriodoUso,
-                        Distribuicao = licenca.Distribuicao,
-                        StreamingAudio = licenca.StreamingAudio,
-                        StreamingVideo = licenca.StreamingVideo,
-                        Video = licenca.Video,
-                        ApresenSemFinsLucrativos = licenca.ApresenSemFinsLucrativos,
-                        ApresenFimLucrativos = licenca.ApresenFimLucrativos,
-                        RoyaltShare = licenca.RoyaltShare,
-                        ExibirEmissoraRadio = licenca.ExibirEmissoraRadio,
-                        ExibirEmissoraTV = licenca.ExibirEmissoraTV
-
-
-                    };
-
-                    beatLicencas.Add(beatLicenca);
-                }
-            }
-            beat.BeatLicencas = beatLicencas;
-            // var beatColabs = request.Colaboradores.Select(c => new BeatColab
-            // {
-            //     BeatId = beat.Id, // <-- aqui é o Id do beat que acabou de ser salvo
-            //     Participacao = c.Participacao
-            // }).ToList();
-
-            // await _context.BeatColabs.AddRangeAsync(beatColabs);
-            await _context.BeatLicencas.AddRangeAsync(beatLicencas);
+            
             await _context.AddAsync(beat);
             await _context.SaveChangesAsync();
 

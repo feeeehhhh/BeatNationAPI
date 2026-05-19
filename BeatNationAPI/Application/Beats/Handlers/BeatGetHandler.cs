@@ -17,8 +17,6 @@ namespace BeatNationAPI.Application.Beats.Handlers
         public async Task<List<BeatCreateResponse>> Handle(BeatGetRequest request, CancellationToken cancellationToken)
         {
             var beats = await _context.Beats
-                .Include(p => p.Colaboradores)
-                .Include(p => p.BeatLicencas)
                 .ToListAsync(cancellationToken);
 
             return beats
