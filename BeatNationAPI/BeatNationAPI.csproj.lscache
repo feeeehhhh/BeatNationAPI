@@ -104,6 +104,8 @@ Migrations/
  20251219000720_Compartilhamento_de_arquivos_por_licencav2.Designer.cs
  20260110200005_Compartilhamento_de_arquivos_por_licencav3.cs
  20260110200005_Compartilhamento_de_arquivos_por_licencav3.Designer.cs
+ 20260519000648_RebuildV1.cs
+ 20260519000648_RebuildV1.Designer.cs
  AppDbContextModelSnapshot.cs
 Models/
  Beat.cs

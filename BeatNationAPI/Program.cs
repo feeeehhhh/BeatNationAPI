@@ -1,28 +1,24 @@
 //using BeatNationAPI.Application.License.Command.Validators;
+using DotNetEnv;
 using BeatNationAPI.Data;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 using System.Text;
 
 
-
-
+Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 // Conecx�o com o banco de dados
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:SQL"]));
+var ConnectSQL = Environment.GetEnvironmentVariable("CONNECT_SQL");
 
-var connectionString = builder.Configuration["ConnectionStrings:SQL"];
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(ConnectSQL));
+;
 var options = new DbContextOptionsBuilder<AppDbContext>()
-    .UseSqlServer(connectionString)
+    .UseSqlServer(ConnectSQL)
     .Options;
 
 var retryCount = 15; // mais tentativas

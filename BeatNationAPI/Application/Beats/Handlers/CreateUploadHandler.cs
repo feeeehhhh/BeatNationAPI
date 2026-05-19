@@ -3,6 +3,7 @@ using BeatNationAPI.Application.Beats.Command.Request;
 using BeatNationAPI.Application.Beats.Command.Response;
 using BeatNationAPI.Common.Responses;
 using MediatR;
+using NPOI.OpenXmlFormats.Shared;
 
 namespace BeatNationAPI.Application.Beats.Handlers
 {
@@ -12,7 +13,7 @@ namespace BeatNationAPI.Application.Beats.Handlers
         public CreateUploadHandler(IConfiguration config)
         {
             _config = config;
-        }
+        } 
         public Task<Response<CreateUploadResponse>> Handle(CreateUploadRequest request, CancellationToken cancellationToken)
         {
             var accountId = _config["Cloudflare:AccountId"];
