@@ -1,25 +1,24 @@
 ﻿using BeatNationAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 
 namespace BeatNationAPI.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
 
         // DbSets representam suas tabelas
         public DbSet<Beat> Beats { get; set; }
         // public DbSet<BeatLicencas> BeatLicencas { get; set; }
         public DbSet<License> Licenses { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         // Configurações extras (opcional)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // base.OnModelCreating(modelBuilder);
+             base.OnModelCreating(modelBuilder);
             // // Exemplo: relação 1:N Beat -> BeatColab
             // modelBuilder.Entity<BeatColab>()
             //         .HasOne(c => c.Beat)
