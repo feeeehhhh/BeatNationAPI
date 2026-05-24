@@ -6,12 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using BeatNationAPI.Models;
+using Microsoft.AspNetCore.Identity;
+using BeatNationAPI.Infrastructure.Services;
 
 
 Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
-// Conecx�o com o banco de dados
+// Conecxão com o banco de dados
 var ConnectSQL = Environment.GetEnvironmentVariable("CONNECT_SQL");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -44,12 +47,14 @@ if (retryCount == 0)
     throw new Exception("N�o foi poss�vel conectar ao SQL Server ap�s v�rias tentativas.");
 }
 
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.WriteIndented = true; // deixa o JSON legível
         options.JsonSerializerOptions.MaxDepth = 32;        // aumenta profundidade para testar
     });
+
 
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); });
 
@@ -75,8 +80,11 @@ builder.Configuration["Cloudflare:SecretAccessKey"] = Environment.GetEnvironment
 builder.Configuration["Cloudflare:Bucket"] = Environment.GetEnvironmentVariable("CLOUDFLARE_BUCKET");
 builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVariable("CLOUDFLARE_PUBLICDOMAIN");
 
-
-
+// Configuração do Identity
+builder.Services
+    .AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 // Configura CORS para permitir requisições do frontend
 builder.Services.AddCors(options =>
@@ -87,8 +95,8 @@ builder.Services.AddCors(options =>
             policy
                 .WithOrigins("http://localhost:3000") // origem do frontend
                 .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials(); // só se estiver usando cookies/autenticação
+                .AllowAnyMethod();
+
         });
 });
 
@@ -156,6 +164,13 @@ builder.Services.AddSwaggerGen(c =>
 
 
 var app = builder.Build();
+// Seed do banco de dados
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DbSeeder.SeedAsync(services);
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
