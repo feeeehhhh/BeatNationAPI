@@ -124,14 +124,12 @@ namespace BeatNationAPI.Infrastructure.Services
             var newRefreshToken = new RefreshToken
             {
                 UserId = user.Id,
-                Token = GenerateRefreshTokenSecurit(),
+                Token = GenerateRefreshTokenSecurity(),
                 ExpiresAt = DateTime.UtcNow.AddDays(
                     int.Parse(_configuration["Jwt:RefreshTokenDays"] ?? "7")
                 ),
                 Revoked = false
             };
-
-            _context.RefreshTokens.Add(newRefreshToken);
             await _context.SaveChangesAsync();
 
             return await GenerateToken(user);

@@ -1,4 +1,5 @@
 ﻿using BeatNationAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeatNationAPI.Data
 {
-    public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(options)
+    public class AppDbContext(DbContextOptions options) : IdentityDbContext<User, IdentityRole<Guid>, Guid>(options)
     {
 
         // DbSets representam suas tabelas
