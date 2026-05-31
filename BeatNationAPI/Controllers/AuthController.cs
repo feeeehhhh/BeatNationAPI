@@ -18,7 +18,7 @@ namespace BeatNationAPI.Controllers
 
         [HttpPost("login")]
         public async Task<ActionResult<TokenResponseDto>> Login(
-            [FromBody] LoginRequest command
+            [FromBody] LoginUserRequest command
         )
         {
             var result = await _mediator.Send(command);
