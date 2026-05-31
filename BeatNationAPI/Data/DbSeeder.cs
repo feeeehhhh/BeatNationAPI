@@ -8,14 +8,14 @@ namespace BeatNationAPI.Data
     {
         public static async Task SeedAsync(IServiceProvider serviceProvider)
         {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
             await SeedRoles(roleManager);
             await SeedAdminUser(userManager);
         }
 
-        public static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
+        public static async Task SeedRoles(RoleManager<IdentityRole<Guid>> roleManager)
         {
             string[] roles = { "User", "Admin", "Producer" };
 
@@ -23,7 +23,7 @@ namespace BeatNationAPI.Data
             {
                 if (!await roleManager.RoleExistsAsync(role))
                 {
-                    await roleManager.CreateAsync(new IdentityRole(role));
+                    await roleManager.CreateAsync(new IdentityRole<Guid>(role));
                 }
             }
         }

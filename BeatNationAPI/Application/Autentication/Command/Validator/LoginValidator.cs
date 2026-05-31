@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 
 namespace BeatNationAPI.Application.Autentication.Command.Validator
 {
-    public class LoginValidator : AbstractValidator<LoginRequestDto>
+    public class LoginValidator : AbstractValidator<LoginUserRequest>
     {
        public LoginValidator()
         {

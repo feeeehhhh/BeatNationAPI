@@ -9,8 +9,8 @@ namespace BeatNationAPI.Models
         public Beat Beat { get; set; }
         public Guid LicencaId { get; set; }
         public License Licencas { get; set; }
-        public decimal Preco { get; set; }
-        public string Nome { get; set; } = string.Empty;
+        public decimal Price { get; set; }
+        public string Name { get; set; } = string.Empty;
         public ValueOrIlimited PeriodoUso { get; set; }
         public ValueOrIlimited Distribuicao { get; set; }
         public ValueOrIlimited StreamingAudio { get; set; }

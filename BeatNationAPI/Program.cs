@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using BeatNationAPI.Models;
 using Microsoft.AspNetCore.Identity;
+using BeatNationAPI.Infrastructure.Services;
 
 
 
@@ -17,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Conecxão com o banco de dados
 var ConnectSQL = Environment.GetEnvironmentVariable("CONNECT_SQL");
 
+Console.WriteLine($"CONNECT_SQL: {ConnectSQL}");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(ConnectSQL));
 ;
@@ -56,7 +58,10 @@ builder.Services.AddControllers()
     });
 
 
-builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); });
+builder.Services.AddMediatR(cfg => { 
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); 
+    
+    });
 
 builder.Services.AddOpenApi();
 
@@ -82,7 +87,7 @@ builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVar
 
 // Configuração do Identity
 builder.Services
-    .AddIdentity<User, IdentityRole>()
+    .AddIdentity<User, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
@@ -162,8 +167,10 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
+
 // Seed do banco de dados
 using (var scope = app.Services.CreateScope())
 {

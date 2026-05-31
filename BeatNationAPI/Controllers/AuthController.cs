@@ -30,7 +30,7 @@ namespace BeatNationAPI.Controllers
 
         [HttpPost("register")]
         public async Task<ActionResult<RegisterUserResponse>> Register(
-        [FromBody] RegisterRequest command
+        [FromBody] RegisterUserRequest command
         )
         {
             var result = await _mediator.Send(command);
