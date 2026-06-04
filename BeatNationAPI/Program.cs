@@ -87,7 +87,18 @@ builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVar
 
 // Configuração do Identity
 builder.Services
-    .AddIdentity<User, IdentityRole<Guid>>()
+    .AddIdentity<User, IdentityRole<Guid>>(opitions =>
+    {
+        opitions.Password.RequireDigit = true ;
+        opitions.Password.RequireLowercase = true;
+        opitions.Password.RequireNonAlphanumeric = true;
+        opitions.Password.RequireUppercase = true;
+        opitions.Password.RequiredLength = 6;
+
+        opitions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+        opitions.Lockout.MaxFailedAccessAttempts = 5;
+        opitions.Lockout.AllowedForNewUsers = true;
+    })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
