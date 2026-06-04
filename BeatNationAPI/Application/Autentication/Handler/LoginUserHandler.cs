@@ -48,10 +48,14 @@ namespace BeatNationAPI.Application.Autentication.Handler
                     request.Password,
                     lockoutOnFailure: true // bloqueia o usuário após várias tentativas falhas de login
                      );
-                if (!result.Succeeded)
+                if (result.IsLockedOut)
+                {
+                    throw new InvalidOperationException("Usuário bloqueado devido a várias tentativas falhas de login. Tente novamente mais tarde.");
+                } else if (result.IsLockedOut)
                 {
                     throw new InvalidOperationException("Senha incorreta");
                 }
+
 
                 // Caso o login seja bem-sucedido, gerar o token JWT
                 var accessToken = await _tokenService.GenerateToken(user);

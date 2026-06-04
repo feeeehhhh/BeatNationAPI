@@ -95,7 +95,7 @@ builder.Services
         opitions.Password.RequireUppercase = true;
         opitions.Password.RequiredLength = 6;
 
-        opitions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+        opitions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(20);
         opitions.Lockout.MaxFailedAccessAttempts = 5;
         opitions.Lockout.AllowedForNewUsers = true;
     })
