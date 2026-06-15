@@ -9,6 +9,9 @@ using System.Text;
 using BeatNationAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using BeatNationAPI.Infrastructure.Services;
+using BeatNationAPI.Infrastructure.Configurations;
+using Resend;
+using BeatNationAPI.Interface;
 
 
 
@@ -58,10 +61,11 @@ builder.Services.AddControllers()
     });
 
 
-builder.Services.AddMediatR(cfg => { 
-    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); 
-    
-    });
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+
+});
 
 builder.Services.AddOpenApi();
 
@@ -89,7 +93,7 @@ builder.Configuration["Cloudflare:PublicDomain"] = Environment.GetEnvironmentVar
 builder.Services
     .AddIdentity<User, IdentityRole<Guid>>(opitions =>
     {
-        opitions.Password.RequireDigit = true ;
+        opitions.Password.RequireDigit = true;
         opitions.Password.RequireLowercase = true;
         opitions.Password.RequireNonAlphanumeric = true;
         opitions.Password.RequireUppercase = true;
@@ -176,7 +180,28 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+// Resend Email Service
+builder.Services.Configure<ResendOptions>(
+    builder.Configuration.GetSection("Resend")
+);
+builder.Services.AddOptions();
 
+builder.Services.AddHttpClient<ResendClient>();
+
+var resendAPIKey = Environment.GetEnvironmentVariable("KEY_RESENDEMAIL");
+var resendFrom = Environment.GetEnvironmentVariable("FROM_EMAIL");
+builder.Services.Configure<ResendClientOptions>(o =>
+{
+    o.ApiToken = resendAPIKey;
+});
+builder.Services.Configure<ResendOptions>(options =>
+{
+    options.FromEmail = resendFrom!;
+});
+
+builder.Services.AddTransient<IResend, ResendClient>();
+
+builder.Services.AddScoped<IEmailService, ResendEmailService>();
 
 builder.Services.AddScoped<TokenService>();
 

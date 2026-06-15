@@ -3,7 +3,7 @@ namespace BeatNationAPI.Controllers
     using BeatNationAPI.Application.Autentication.Command.Request;
     using BeatNationAPI.Application.Autentication.Command.Response;
     using MediatR;
-    using Microsoft.AspNetCore.Identity.Data;
+    using BeatNationAPI.Application.Autentication.Command.Request;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
@@ -80,6 +80,15 @@ namespace BeatNationAPI.Controllers
             var result = await _mediator.Send(request);
 
             return Ok(result);
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(
+        ForgotPasswordRequest command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
         }
     }
 }
