@@ -90,5 +90,13 @@ namespace BeatNationAPI.Controllers
 
             return Ok();
         }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(
+        ResetPasswordRequest command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }
