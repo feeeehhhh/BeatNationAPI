@@ -98,5 +98,13 @@ namespace BeatNationAPI.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [HttpPost("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(
+            ConfirmEmailRequest command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }

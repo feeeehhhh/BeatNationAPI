@@ -21,9 +21,9 @@ namespace BeatNationAPI.Application.Autentication.Handler
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             Console.WriteLine($"Usuário encontrado: {user != null}");
-            if (user == null ) // Verifica se o email está comfirmado || !(await _userManager.IsEmailConfirmedAsync(user))
+            if (user == null || (await _userManager.IsEmailConfirmedAsync(user)) == false ) 
             {
-                return;
+                throw new InvalidOperationException("Email não confirmado ou usuário não encontrado.");
             }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
