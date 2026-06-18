@@ -33,6 +33,15 @@ namespace BeatNationAPI.Application.Autentication.Handler
                 Email = request.Email,
 
             };
+
+            if (await _userManager.Users.AnyAsync(u => u.Email == request.Email))
+            {
+                throw new InvalidOperationException("Email já cadastrado");
+            }else if (await _userManager.Users.AnyAsync(u => u.UserName == request.UserName))
+            {
+                throw new InvalidOperationException("Username já cadastrado");
+            }
+
             // Cria o usuario no banco e sata a passwordHash
             var result = await _userManager.CreateAsync(user, request.Password);
             if (!result.Succeeded)
