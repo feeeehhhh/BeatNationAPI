@@ -48,7 +48,12 @@ namespace BeatNationAPI.Application.Autentication.Handler
                     request.Password,
                     lockoutOnFailure: true // bloqueia o usuário após várias tentativas falhas de login
                      );
-                if (result.IsLockedOut)
+                var IsConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+                if (IsConfirmed == false)
+                {
+                    throw new InvalidOperationException("Confirmação de email pendente. Verifique seu email para ativar a conta.");
+                }
+                else if (result.IsLockedOut && user.LockoutEnd > DateTime.UtcNow)
                 {
                     throw new InvalidOperationException("Usuário bloqueado devido a várias tentativas falhas de login. Tente novamente mais tarde.");
                 } else if (result.IsLockedOut)
