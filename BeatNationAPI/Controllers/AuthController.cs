@@ -34,7 +34,7 @@ namespace BeatNationAPI.Controllers
         )
         {
             var result = await _mediator.Send(command);
-            return Created("", result);
+            return Created("Usuário registrado com sucesso. Verifique seu email para ativar a conta.", result);
         }
 
         [HttpPost("refresh")]

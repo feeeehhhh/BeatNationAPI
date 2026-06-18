@@ -36,13 +36,13 @@ namespace BeatNationAPI.Application.Autentication.Handler
 
             if (await _userManager.Users.AnyAsync(u => u.Email == request.Email))
             {
-                throw new InvalidOperationException("Email já cadastrado");
+                throw new InvalidOperationException("Email já está sendo utilizado por outro usuário");
             }else if (await _userManager.Users.AnyAsync(u => u.UserName == request.UserName))
             {
-                throw new InvalidOperationException("Username já cadastrado");
+                throw new InvalidOperationException("Username já está sendo utilizado por outro usuário");
             }
 
-            // Cria o usuario no banco e sata a passwordHash
+            // Cria o usuario no banco e seta a passwordHash
             var result = await _userManager.CreateAsync(user, request.Password);
             if (!result.Succeeded)
             {
@@ -59,6 +59,7 @@ namespace BeatNationAPI.Application.Autentication.Handler
                 throw new InvalidOperationException(errors);
             }
 
+            // Gera um token de confirmação 
             var tokenConfirmation = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = $"https://localhost:3000/confirm-email?email={request.Email}&token={tokenConfirmation}";
 
