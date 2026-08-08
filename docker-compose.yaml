@@ -1,0 +1,24 @@
+
+services:
+
+  db:
+    container_name: DBBeatnation
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD}
+
+  beatapi:
+    build:
+      context: ./BeatNationAPI
+      dockerfile: Dockerfile
+    container_name: beatapi
+    environment:
+      CONNECT_SQL: ${CONNECT_SQL}
+      PRIVATE_KEY: ${PRIVATE_KEY}
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "5000:8080"
+    restart: always

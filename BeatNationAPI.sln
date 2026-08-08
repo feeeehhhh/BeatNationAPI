@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeatNationAPI", "BeatNationAPI\BeatNationAPI.csproj", "{2FEF5AF2-C1FF-49F9-9A06-5D9B83A0F575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeatNationAPI", "BeatNationAPI\src.csproj", "{2FEF5AF2-C1FF-49F9-9A06-5D9B83A0F575}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
