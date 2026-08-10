@@ -15,9 +15,9 @@ namespace src.features.Autentication.Command.Request
         public string? UserName { get; set; }
         
 
-         public static implicit operator src.Models.User(RegisterUserRequest registerRequestDto)
+         public static implicit operator src.domain.modelsUser(RegisterUserRequest registerRequestDto)
         {
-            return new src.Models.User
+            return new src.domain.modelsUser
             {
                 Email = registerRequestDto.Email,
                 Name = registerRequestDto.Name,

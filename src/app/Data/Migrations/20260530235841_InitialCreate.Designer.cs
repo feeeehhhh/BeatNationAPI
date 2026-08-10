@@ -25,7 +25,7 @@ namespace src.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("src.Models.Beat", b =>
+            modelBuilder.Entity("src.domain.modelsBeat", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace src.Migrations
                     b.ToTable("Beats");
                 });
 
-            modelBuilder.Entity("src.Models.License", b =>
+            modelBuilder.Entity("src.domain.modelsLicense", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,7 +240,7 @@ namespace src.Migrations
                         });
                 });
 
-            modelBuilder.Entity("src.Models.LicenseAssignment", b =>
+            modelBuilder.Entity("src.domain.modelsLicenseAssignment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -320,7 +320,7 @@ namespace src.Migrations
                     b.ToTable("LicenseAssignment");
                 });
 
-            modelBuilder.Entity("src.Models.RefreshToken", b =>
+            modelBuilder.Entity("src.domain.modelsRefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -345,7 +345,7 @@ namespace src.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("src.Models.User", b =>
+            modelBuilder.Entity("src.domain.modelsUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -546,15 +546,15 @@ namespace src.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("src.Models.LicenseAssignment", b =>
+            modelBuilder.Entity("src.domain.modelsLicenseAssignment", b =>
                 {
-                    b.HasOne("src.Models.Beat", "Beat")
+                    b.HasOne("src.domain.modelsBeat", "Beat")
                         .WithMany()
                         .HasForeignKey("BeatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("src.Models.License", "Licencas")
+                    b.HasOne("src.domain.modelsLicense", "Licencas")
                         .WithMany()
                         .HasForeignKey("LicencasId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -565,9 +565,9 @@ namespace src.Migrations
                     b.Navigation("Licencas");
                 });
 
-            modelBuilder.Entity("src.Models.RefreshToken", b =>
+            modelBuilder.Entity("src.domain.modelsRefreshToken", b =>
                 {
-                    b.HasOne("src.Models.User", "User")
+                    b.HasOne("src.domain.modelsUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -587,7 +587,7 @@ namespace src.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("src.Models.User", null)
+                    b.HasOne("src.domain.modelsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -596,7 +596,7 @@ namespace src.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("src.Models.User", null)
+                    b.HasOne("src.domain.modelsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -611,7 +611,7 @@ namespace src.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("src.Models.User", null)
+                    b.HasOne("src.domain.modelsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -620,7 +620,7 @@ namespace src.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("src.Models.User", null)
+                    b.HasOne("src.domain.modelsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
