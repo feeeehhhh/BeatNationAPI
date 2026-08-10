@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
-namespace src.Controllers
+namespace src.api.controller
 {
     [Route("api/beats")]
     [ApiController]

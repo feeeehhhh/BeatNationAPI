@@ -8,7 +8,7 @@
 // using Microsoft.AspNetCore.Authorization;
 // using Microsoft.AspNetCore.Mvc;
 // using Microsoft.EntityFrameworkCore;
-// namespace src.Controllers
+// namespace src.api.controller
 // {
 //     [Authorize(Roles = "Admin,Produtor")]
 //     [Route("api/licencas")]

@@ -1,4 +1,4 @@
-namespace src.Controllers
+namespace src.api.controller
 {
     using src.features.Autentication.Command.Request;
     using src.features.Autentication.Command.Response;
