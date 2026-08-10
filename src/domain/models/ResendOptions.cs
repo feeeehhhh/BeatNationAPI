@@ -1,4 +1,4 @@
-namespace src.app.Configurations
+namespace src.infra.Configurations
 {
     public class ResendOptions
     {

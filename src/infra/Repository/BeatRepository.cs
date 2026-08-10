@@ -1,9 +1,9 @@
-using src.Data;
+using src.infra.data;
 using src.features.Interface.Beats.Command;
 using src.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace src.app.Repository
+namespace src.infra.Repository
 {
 
     public class BeatRepository : IBeatRepository

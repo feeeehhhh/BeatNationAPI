@@ -1,6 +1,6 @@
 // using src.features.Command.Licencas.Request;
 // using src.features.Command.Licencas.Response;
-// using src.Data;
+// using src.infra.data;
 // using MediatR;
 // using Microsoft.EntityFrameworkCore;
 

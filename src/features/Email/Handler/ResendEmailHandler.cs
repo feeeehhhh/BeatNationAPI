@@ -1,4 +1,4 @@
-using src.app.Configurations;
+using src.infra.Configurations;
 using src.features.Interface.Email.Command;
 using Microsoft.Extensions.Options;
 using Resend;

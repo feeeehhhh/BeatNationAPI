@@ -3,7 +3,7 @@
 // using src.features.Command.Licencas.Response;
 // using src.features.Licencas.Command.Request;
 // using src.features.Licencas.Command.Response;
-// using src.Data;
+// using src.infra.data;
 // using MediatR;
 // using Microsoft.AspNetCore.Authorization;
 // using Microsoft.AspNetCore.Mvc;

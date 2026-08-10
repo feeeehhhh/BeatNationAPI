@@ -1,6 +1,6 @@
 //using src.features.License.Command.Validators;
 using DotNetEnv;
-using src.Data;
+using src.infra.data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -8,8 +8,8 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using src.Models;
 using Microsoft.AspNetCore.Identity;
-using src.app.Repository;
-using src.app.Configurations;
+using src.infra.Repository;
+using src.infra.Configurations;
 using Resend;
 using src.features.Interface.Beats.Command;
 using src.features.Interface.Email.Command;

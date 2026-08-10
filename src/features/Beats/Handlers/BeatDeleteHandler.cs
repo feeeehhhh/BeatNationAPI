@@ -1,5 +1,5 @@
 using src.features.Beats.Command.Request;
-using src.Data;
+using src.infra.data;
 using MediatR;
 
 namespace src.features.Beats.Handlers

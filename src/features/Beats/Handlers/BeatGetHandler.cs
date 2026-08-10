@@ -1,6 +1,6 @@
 using src.features.Beats.Command.Request;
 using src.features.Beats.Command.Response;
-using src.Data;
+using src.infra.data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

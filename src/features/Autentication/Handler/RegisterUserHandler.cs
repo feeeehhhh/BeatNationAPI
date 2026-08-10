@@ -1,6 +1,6 @@
 using src.features.Autentication.Command.Request;
 using src.features.Autentication.Command.Response;
-using src.Data;
+using src.infra.data;
 using src.features.Interface.Email.Command;
 using src.Models;
 using MediatR;
