@@ -1,4 +1,4 @@
-//using src.features.License.Command.Validators;
+//using src.application.License.Command.Validators;
 using DotNetEnv;
 using src.infra.data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Identity;
 using src.infra.Repository;
 using src.infra.Configurations;
 using Resend;
-using src.features.Interface.Beats.Command;
-using src.features.Interface.Email.Command;
-using src.features.Email.Handler;
-using src.features.Autentication.Handler;
+using src.application.Interface.Beats.Command;
+using src.application.Interface.Email.Command;
+using src.application.Email.Handler;
+using src.application.Autentication.Handler;
 
 Env.Load();
 var builder = WebApplication.CreateBuilder(args);

@@ -1,5 +1,5 @@
 using src.infra.data;
-using src.features.Interface.Beats.Command;
+using src.application.Interface.Beats.Command;
 using src.domain.models;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,8 +1,8 @@
 
-// using src.features.Command.Licencas.Request;
-// using src.features.Command.Licencas.Response;
-// using src.features.Licencas.Command.Request;
-// using src.features.Licencas.Command.Response;
+// using src.application.Command.Licencas.Request;
+// using src.application.Command.Licencas.Response;
+// using src.application.Licencas.Command.Request;
+// using src.application.Licencas.Command.Response;
 // using src.infra.data;
 // using MediatR;
 // using Microsoft.AspNetCore.Authorization;

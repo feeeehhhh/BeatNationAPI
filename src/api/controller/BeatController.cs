@@ -1,5 +1,5 @@
-﻿using src.features.Beats.Command.Request;
-using src.features.Beats.Command.Response;
+﻿using src.application.Beats.Command.Request;
+using src.application.Beats.Command.Response;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

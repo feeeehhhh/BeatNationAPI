@@ -1,9 +1,9 @@
 namespace src.api.controller
 {
-    using src.features.Autentication.Command.Request;
-    using src.features.Autentication.Command.Response;
+    using src.application.Autentication.Command.Request;
+    using src.application.Autentication.Command.Response;
     using MediatR;
-    using src.features.Autentication.Command.Request;
+    using src.application.Autentication.Command.Request;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
