@@ -12,13 +12,18 @@ services:
 
   beatapi:
     build:
-      context: ./BeatNationAPI
+      context: ./src
       dockerfile: Dockerfile
     container_name: beatapi
     environment:
       CONNECT_SQL: ${CONNECT_SQL}
       PRIVATE_KEY: ${PRIVATE_KEY}
       ASPNETCORE_ENVIRONMENT: Development
+    volumes:
+      - uploads:/mnt/Uploads
     ports:
       - "5000:8080"
     restart: always
+
+volumes:
+  uploads:
