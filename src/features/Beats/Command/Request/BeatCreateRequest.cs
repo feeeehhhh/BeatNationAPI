@@ -1,5 +1,5 @@
 using src.features.Beats.Command.Response;
-using src.Models;
+using src.domain.models;
 using MediatR;
 
 namespace src.features.Beats.Command.Request

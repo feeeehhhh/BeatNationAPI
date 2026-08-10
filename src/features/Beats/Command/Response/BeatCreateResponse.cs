@@ -1,5 +1,5 @@
 using src.features.Beats.Command.Request;
-using src.Models;
+using src.domain.models;
 
 namespace src.features.Beats.Command.Response
 {

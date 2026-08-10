@@ -1,8 +1,8 @@
 
-using src.Models;
+using src.domain.models;
 using Microsoft.AspNetCore.Identity;
 
-namespace src.Data
+namespace src.infra.data
 {
     public class DbSeeder
     {

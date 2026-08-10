@@ -1,6 +1,6 @@
 using src.infra.data;
 using src.features.Interface.Beats.Command;
-using src.Models;
+using src.domain.models;
 using Microsoft.EntityFrameworkCore;
 
 namespace src.infra.Repository

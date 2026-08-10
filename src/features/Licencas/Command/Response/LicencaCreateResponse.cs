@@ -1,5 +1,5 @@
 
-// using src.Models;
+// using src.domain.models;
 
 // namespace src.features.Command.Licencas.Response
 // {

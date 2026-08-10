@@ -2,7 +2,7 @@
 // using src.features.Command.Licencas.Response;
 // using src.features.Licencas.Command.Request;
 // using src.Common.Responses;
-// using src.Models;
+// using src.domain.models;
 // using MediatR;
 
 // namespace src.features.Licencas.Command.Request

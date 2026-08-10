@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace src.Data
+namespace src.infra.data
 {
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {

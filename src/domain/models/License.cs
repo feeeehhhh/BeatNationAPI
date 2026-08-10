@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace src.Models
+namespace src.domain.models
 {
     public class ValueOrIlimited
     {

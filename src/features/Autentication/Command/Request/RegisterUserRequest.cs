@@ -1,5 +1,5 @@
 using src.features.Autentication.Command.Response;
-using src.Models;
+using src.domain.models;
 using MediatR;
 
 namespace src.features.Autentication.Command.Request
@@ -15,9 +15,9 @@ namespace src.features.Autentication.Command.Request
         public string? UserName { get; set; }
         
 
-         public static implicit operator src.domain.modelsUser(RegisterUserRequest registerRequestDto)
+         public static implicit operator src.domain.models.User(RegisterUserRequest registerRequestDto)
         {
-            return new src.domain.modelsUser
+            return new src.domain.models.User
             {
                 Email = registerRequestDto.Email,
                 Name = registerRequestDto.Name,

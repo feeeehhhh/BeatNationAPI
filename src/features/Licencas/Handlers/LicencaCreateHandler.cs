@@ -3,7 +3,7 @@
 // using src.features.Licencas.Command.Request;
 // using src.Common.Responses;
 // using src.infra.data;
-// using src.Models;
+// using src.domain.models;
 // using FluentValidation;
 // using MediatR;
 

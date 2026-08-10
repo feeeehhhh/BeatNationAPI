@@ -3,7 +3,7 @@ using src.features.Beats.Command.Request;
 using src.features.Beats.Command.Response;
 using src.infra.data;
 using src.features.Interface.Beats.Command;
-using src.Models;
+using src.domain.models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging;

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using src.Models;
+using src.domain.models;
 using Microsoft.AspNetCore.Identity;
 using src.infra.Repository;
 using src.infra.Configurations;

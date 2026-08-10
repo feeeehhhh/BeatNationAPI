@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace src.Models
+namespace src.domain.models
 {
     public class User : IdentityUser<Guid>
     {

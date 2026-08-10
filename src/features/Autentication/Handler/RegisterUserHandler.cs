@@ -2,7 +2,7 @@ using src.features.Autentication.Command.Request;
 using src.features.Autentication.Command.Response;
 using src.infra.data;
 using src.features.Interface.Email.Command;
-using src.Models;
+using src.domain.models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

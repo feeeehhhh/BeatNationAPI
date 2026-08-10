@@ -1,4 +1,4 @@
-using src.Models;
+using src.domain.models;
 
 namespace src.features.Autentication.Command.Response
 {

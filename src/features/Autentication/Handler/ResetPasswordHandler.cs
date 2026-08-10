@@ -1,5 +1,5 @@
 using src.features.Autentication.Command.Request;
-using src.Models;
+using src.domain.models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

@@ -1,6 +1,6 @@
 
 // using src.Common.Responses;
-// using src.Models;
+// using src.domain.models;
 // using MediatR;
 
 // namespace src.features.Licencas.Command.Request
