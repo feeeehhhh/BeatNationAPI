@@ -7,6 +7,8 @@ using src.domain.models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging;
+using src.application.Beats.Command.Validators;
+using src.application.Beats.Handlers;
 
 namespace src.application.Handlers
 {
@@ -40,47 +42,78 @@ namespace src.application.Handlers
             //     throw new UnauthorizedAccessException("Token inválido ou ausente");
             // }
 
-            var uploadsPath = @"D:\BeatNAtion\beats"; // Substituir pelo de baixo após subir prod
-            // var uploadsPath = Path.Combine(
-            //     _environment.ContentRootPath,
-            //     "uploads",
-            //     "beats");
+            var uploadsPath = @"/mnt/Uploads"; // Substituir pelo de baixo após subir prod
+                                               // var uploadsPath = Path.Combine(
+                                               //     _environment.ContentRootPath,
+                                               //     "uploads",
+                                               //     "beats");
+                                               //Validações de arquivos
+                                               // Pelo menos um arquivo deve ser enviado
 
-            if(request.FileMp3 != null)
+            // Validações de arquivos
+            if (request.FileMp3 == null &&
+                request.FileWav == null &&
+                request.FileTrackout == null &&
+                request.FileCover == null)
             {
-                mp3FileName =  $"{Guid.NewGuid()}{Path.GetExtension(request.FileMp3.FileName)}";
+                throw new ArgumentException(
+                    "É necessário enviar pelo menos um arquivo."
+                );
+            }
+
+            if (request.FileMp3 != null)
+            {
+                if (!FileValidator.validateFileExtension(request.FileMp3, [".mp3"]))
+                {
+                    throw new ArgumentException(
+                        "O arquivo MP3 não é válido."
+                    );
+                }
+                mp3FileName = $"{Guid.NewGuid()}{Path.GetExtension(request.FileMp3.FileName)}";
                 var mp3Path = Path.Combine(uploadsPath, mp3FileName);
-
                 await using (var stream = new FileStream(mp3Path, FileMode.Create))
-                await request.FileMp3.CopyToAsync(stream, cancellationToken);
+                    await request.FileMp3.CopyToAsync(stream, cancellationToken);
             }
-           
-           if(request.FileWav != null)
+
+            if (request.FileWav != null)
             {
-                wavFileName =  $"{Guid.NewGuid()}{Path.GetExtension(request.FileWav.FileName)}";
+                if (!FileValidator.validateFileExtension(request.FileWav, [".wav"]))
+                {
+                    throw new ArgumentException(
+                        "O arquivo WAV não é válido."
+                    );
+                }
+                wavFileName = $"{Guid.NewGuid()}{Path.GetExtension(request.FileWav.FileName)}";
                 var wavPath = Path.Combine(uploadsPath, wavFileName);
-
                 await using (var stream = new FileStream(wavPath, FileMode.Create))
-                await request.FileWav.CopyToAsync(stream, cancellationToken);
+                    await request.FileWav.CopyToAsync(stream, cancellationToken);
             }
 
-            if(request.FileTrackout != null)
+            if (request.FileTrackout != null)
             {
-                trackoutFileName =  $"{Guid.NewGuid()}{Path.GetExtension(request.FileTrackout.FileName)}";
+                if (!FileValidator.validateFileExtension(request.FileTrackout, [".zip", ".rar"]))
+                {
+                    throw new ArgumentException("O arquivo Trackout não é válido. Certifique-se de que o arquivo tenha a extensão .zip ou .rar.");
+                }
+                trackoutFileName = $"{Guid.NewGuid()}{Path.GetExtension(request.FileTrackout.FileName)}";
                 var trackoutPath = Path.Combine(uploadsPath, trackoutFileName);
-
                 await using (var stream = new FileStream(trackoutPath, FileMode.Create))
-                await request.FileTrackout.CopyToAsync(stream, cancellationToken);
+                    await request.FileTrackout.CopyToAsync(stream, cancellationToken);
             }
 
-            if(request.FileCover != null)
+            if (request.FileCover != null)
             {
-                coverFileName =  $"{Guid.NewGuid()}{Path.GetExtension(request.FileCover.FileName)}";
+                if (!FileValidator.validateFileExtension(request.FileCover, [".jpg", ".png"]))
+                {
+                    throw new ArgumentException("O arquivo de capa não é válido. Certifique-se de que o arquivo tenha a extensão .jpg ou .png.");
+                }
+                coverFileName = $"{Guid.NewGuid()}{Path.GetExtension(request.FileCover.FileName)}";
                 var coverPath = Path.Combine(uploadsPath, coverFileName);
-
                 await using (var stream = new FileStream(coverPath, FileMode.Create))
-                await request.FileCover.CopyToAsync(stream, cancellationToken);
+                    await request.FileCover.CopyToAsync(stream, cancellationToken);
             }
+
+
 
             var beat = new Beat
             {

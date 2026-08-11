@@ -23,6 +23,8 @@ namespace src.application.Beats.Handlers
             _context.Beats.Remove(beat);
             _context.SaveChangesAsync(cancellationToken);
 
+            //TODO: Implementar a exclusão arquivos armazenados no docker
+
             return Task.FromResult(beat.Id);
         }
 

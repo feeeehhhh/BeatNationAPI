@@ -15,12 +15,23 @@ namespace src.api.controller
         [HttpPost]
         [Route("beatcreate")]
         [Consumes("multipart/form-data")]
-        public async Task<BeatCreateResponse> BeatCreate(
+        public async Task<IActionResult> BeatCreate(
         [FromServices] IMediator mediator,
         [FromForm] BeatCreateRequest command)
         {
-            
-            return await mediator.Send(command);
+            try
+            {
+                var response = await mediator.Send(command);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new
+                {
+                    message = ex.Message
+                });
+            }
+
         }
 
 
