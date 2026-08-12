@@ -1,8 +1,13 @@
+using Microsoft.Data.SqlClient;
 
-    public class testeSemgrep{
-        public void teste(){
-            var a = "teste";
-            var b = "teste";
-            var c = a + b;
-        }
+public class SemgrepTest
+{
+    public void Test(string userId)
+    {
+        var connection = new SqlConnection("Server=localhost;Database=Test;");
+        var command = new SqlCommand(
+            "SELECT * FROM Users WHERE Id = " + userId,
+            connection
+        );
     }
+}
