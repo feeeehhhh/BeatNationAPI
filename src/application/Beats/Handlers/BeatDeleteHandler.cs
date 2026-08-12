@@ -13,22 +13,44 @@ namespace src.application.Beats.Handlers
             _context = context;
         }
 
-        public Task Handle(BeatDeleteRequest request, CancellationToken cancellationToken)
+        public async Task Handle(BeatDeleteRequest request, CancellationToken cancellationToken)
         {
-            var beat = _context.Beats.Find(request.Id);
+
+            var beat = await _context.Beats.FindAsync(
+                   new object[] { request.Id },
+                   cancellationToken
+               );
+
             if (beat == null)
             {
                 throw new Exception("Não foi possível deletar o beat");
             }
+
+            var uploadsPath = "/mnt/uploads";
+
+            DeleteFile(uploadsPath, beat.UrlMp3);
+            DeleteFile(uploadsPath, beat.UrlWav);
+            DeleteFile(uploadsPath, beat.UrlTrackout);
+            DeleteFile(uploadsPath, beat.UrlCover);
+
             _context.Beats.Remove(beat);
-            _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        private static void DeleteFile(string uploadsPath, string? fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return;
+            }
 
-            //TODO: Implementar a exclusão arquivos armazenados no docker
+            var filePath = Path.Combine(uploadsPath, fileName);
 
-            return Task.FromResult(beat.Id);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
 
-        
     }
 
 }
