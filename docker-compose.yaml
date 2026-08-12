@@ -20,7 +20,7 @@ services:
       PRIVATE_KEY: ${PRIVATE_KEY}
       ASPNETCORE_ENVIRONMENT: Development
     volumes:
-      - uploads:/mnt/Uploads
+      - uploads:/mnt/uploads
     ports:
       - "5000:8080"
     restart: always

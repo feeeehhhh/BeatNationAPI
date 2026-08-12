@@ -42,7 +42,7 @@ namespace src.application.Handlers
             //     throw new UnauthorizedAccessException("Token inválido ou ausente");
             // }
 
-            var uploadsPath = @"/mnt/Uploads"; // Substituir pelo de baixo após subir prod
+            var uploadsPath = @"/mnt/uploads"; // Substituir pelo de baixo após subir prod
                                                // var uploadsPath = Path.Combine(
                                                //     _environment.ContentRootPath,
                                                //     "uploads",
@@ -126,10 +126,10 @@ namespace src.application.Handlers
                 ISRC = request.ISRC,
                 Scale = request.Scale,
                 Tone = request.Tone,
-                UrlMp3 = mp3FileName != null ? $"uploads/beats/{mp3FileName}" : null,
-                UrlWav = wavFileName != null ? $"uploads/beats/{wavFileName}" : null,
-                UrlTrackout = trackoutFileName != null ? $"uploads/beats/{trackoutFileName}" : null,
-                UrlCover = coverFileName != null ? $"uploads/beats/{coverFileName}" : null,
+                UrlMp3 = mp3FileName ,
+                UrlWav = wavFileName,
+                UrlTrackout = trackoutFileName ,
+                UrlCover = coverFileName ,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
 
