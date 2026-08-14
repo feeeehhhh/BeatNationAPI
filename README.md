@@ -32,11 +32,10 @@ Além do desenvolvimento backend, o projeto possui como objetivo estudar conceit
 
 A documentação técnica do projeto está organizada separadamente:
 
-- [Arquitetura da aplicação](docs/architecture.md)
+- [Arquitetura da aplicação](docs/1. Estrutura da aplicação.md)
 - [Estrutura do banco de dados](docs/database.md)
-- [Autenticação e autorização](docs/authentication.md)
+- [Autenticação e autorização](docs/"2. Autenticação e Autorização".md)
 - [Documentação da API](docs/api.md)
-- [Segurança e vulnerabilidades exploradas](docs/security.md)
 
 ---
 
