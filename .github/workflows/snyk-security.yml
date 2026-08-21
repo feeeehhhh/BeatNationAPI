@@ -35,9 +35,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Snyk CLI to check for security issues
-        # Snyk can be used to break the build when it detects security issues.
-        # In this case we want to upload the SAST issues to GitHub Code Scanning
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+        
+      - name: Snyk SCA
+        run: snyk test --file=src/src.csproj
+        env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Configurar .NET
         uses: actions/setup-dotnet@v4
