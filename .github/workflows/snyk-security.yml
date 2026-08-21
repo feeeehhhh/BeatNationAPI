@@ -36,29 +36,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Snyk CLI to check for security issues
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
-        
-      - name: Snyk SCA
-        run: snyk test --file=src/src.csproj
-        env:
-            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Configurar .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
+          
+      - name: Snyk SCA
+        run: snyk test --file=src/src.csproj
 
         env:
           # This is where you will need to introduce the Snyk API token created with your Snyk account
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Instalar Snyk
-        uses: snyk/actions/setup@master
         
-        # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
-      - name: Snyk Open Source monitor
-        run: snyk monitor --all-projects
-
-
         # Build the docker image for testing
       - name: Build a Docker image
         run: docker-compose build.
